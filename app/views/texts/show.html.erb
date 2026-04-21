@@ -13,6 +13,12 @@
         <p>Aucun contenu disponible</p>
       <% end %>
       <p><%= @text.translated_content %></p>
+      <% if @text.formatted_content.present? %>
+        <div class="mt-3">
+          <h5>Texte reformaté pour la dyslexie</h5>
+          <%=  simple_format(@text.formatted_content) %>
+        </div>
+      <% end %>
     </div>
   </div>
   <%= link_to "Retour", texts_path %>

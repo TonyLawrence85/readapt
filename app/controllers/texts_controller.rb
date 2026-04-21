@@ -27,12 +27,22 @@ class TextsController < ApplicationController
     end
 
     if @text.save
+      setting = current_user.setting
+      chat = RubyLLM.chat(model: "gpt-4o-mini")
+
+        if @text.document.attached?
+          response = chat.ask(build_prompt(setting))
+        else
+          response = chat.ask("#{build_prompt(setting)}\n\nTexte à reformater :\n#{@text.content}")
+        end
+
+      @text.update(formatted_content: response.content)
       redirect_to text_path(@text), notice: "Texte créé avec succès"
     else
       if params[:text][:source] == "import"
         render :new_import, status: :unprocessable_entity
       else
-      render :new, status: :unprocessable_entity
+        render :new, status: :unprocessable_entity
       end
     end
   end
@@ -57,5 +67,16 @@ class TextsController < ApplicationController
 
   def set_text
     @text = Text.find(params[:id])
+  end
+
+  def build_prompt(setting)
+    "Tu es un assistant spécialisé pour les personnes dyslexiques. " \
+    "Reformate le texte pour le rendre  plus accessible. " \
+    "Police souhaitée : #{setting&.font || 'OpenDyslexic'}. " \
+    "Espacement : #{setting&.letter_spacing || 'normal'}. " \
+    "Règles : coupe les phrases longues en phrases courtes, " \
+    "ajoute un saut de ligne entre chaque phrase, " \
+    "garde le sens original intact. " \
+    "Retourne uniquement le texte reformaté, sasn commentaire."
   end
 end
