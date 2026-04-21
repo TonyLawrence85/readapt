@@ -1,4 +1,5 @@
 class Text < ApplicationRecord
   belongs_to :user
-  validates :content, presence: true
+  validates :title, presence: true
+  has_one_attached :document
 end

@@ -2,6 +2,7 @@
   <%= simple_form_for @text, url: texts_path do |f| %>
     <%= f.input :title %>
     <%= f.input :document, as: :file %>
+    <%= f.hidden_field :source, value: "import" %>
     <%= f.button :submit, "Importer", class: "btn btn-success"%>
   <% end %>
 </div>

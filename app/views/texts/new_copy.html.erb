@@ -2,6 +2,7 @@
   <%= simple_form_for @text, url: texts_path do |f| %>
     <%= f.input :title %>
     <%= f.input :content %>
+    <%= f.hidden_field :source, value: "copy" %>
     <%= f.button :submit, "Créer", class: "btn btn-success"%>
   <% end %>
 </div>

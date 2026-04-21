@@ -5,7 +5,13 @@
 <div class="container">
   <div class="card d-flex">
     <div class="card-body justify-content-between align-items-center">
-      <p><%= @text.content %></p>
+      <% if @text.content.present? %>
+        <p><%= @text.content %></p>
+      <% elsif @text.document.attached? %>
+        <p>Fichier importé : <%= @text.document.filename %></p>
+      <% else %>
+        <p>Aucun contenu disponible</p>
+      <% end %>
       <p><%= @text.translated_content %></p>
     </div>
   </div>
