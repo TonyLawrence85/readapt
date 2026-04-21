@@ -1,0 +1,21 @@
+<h1 class="text-center">Mes textes</h1>
+  <div class="container">
+    <ul>
+      <% @texts.each do |text| %>
+        <li>
+          <%= link_to toggle_favourite_text_path(text), data: { turbo_method: :patch } do %>
+            <% if text.favourite %>
+              <i class="fa-solid fa-star"></i>
+            <% else %>
+              <i class="fa-regular fa-star"></i>
+            <% end %>
+          <% end %>
+          <%= link_to text.title, text_path(text) %>
+          <%= link_to text_path(text), data: { turbo_method: :delete } do %>
+            <i class="fa-solid fa-trash-can"></i>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+    <%= link_to "Ajouter un texte", new_text_path %>
+  </div>
