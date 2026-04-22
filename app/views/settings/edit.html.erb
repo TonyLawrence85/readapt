@@ -1,0 +1,51 @@
+<div class="container my-3">
+  <%= simple_form_for @setting do |f| %>
+
+    <%= f.input :font, input_html: { id: "font-input" } %>
+    <%= f.input :syllable_color, input_html: { id: "color-input" } %>
+    <%= f.input :letter_spacing, input_html: { id: "spacing-input" } %>
+
+    <%= f.button :submit %>
+
+  <% end %>
+
+  <br>
+
+  <h2 id="preview-text"
+      style="
+        font-family: <%= @setting.font %>;
+        letter-spacing: <%= @setting.letter_spacing %>;
+        color: <%= @setting.syllable_color %>;
+      ">
+    Reading is easy with Readapt
+  </h2>
+
+  <div class="links">
+    <%= link_to "Mes textes", texts_path, class: "btn-readapt" %>
+    <%= link_to "Ajouter un texte", new_text_path, class: "btn-readapt" %>
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const preview = document.getElementById("preview-text")
+
+  const fontInput = document.getElementById("font-input")
+  const colorInput = document.getElementById("color-input")
+  const spacingInput = document.getElementById("spacing-input")
+
+  fontInput.addEventListener("input", (e) => {
+    preview.style.fontFamily = e.target.value
+  })
+
+  colorInput.addEventListener("input", (e) => {
+    preview.style.color = e.target.value
+  })
+
+  spacingInput.addEventListener("input", (e) => {
+    preview.style.letterSpacing = e.target.value
+  })
+
+})
+</script>

@@ -8,8 +8,6 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 puts "Cleaning the database"
-Setting.destroy_all
-Text.destroy_all
 User.destroy_all
 
 puts "Creating users"
@@ -27,3 +25,12 @@ Text.create!(
 )
 
 puts "Seeding completed"
+
+user = User.first
+
+Setting.create!(
+  font: "Arial",
+  syllable_color: "red",
+  letter_spacing: "2px",
+  user: user
+)
