@@ -1,35 +1,57 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="devise-page">
+  <div class="container d-flex flex-column align-items-center py-4">
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= f.error_notification %>
+    <h2 class="mb-4">Edit profile</h2>
 
-  <div class="form-inputs">
-    <%= f.input :email, required: true, autofocus: true %>
+    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= f.error_notification %>
 
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+      <div class="form-inputs">
+        <%= f.input :email,
+                    required: true,
+                    autofocus: true,
+                    label: "Email" %>
+
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <p class="devise-info-text">
+            Currently waiting confirmation for: <%= resource.unconfirmed_email %>
+          </p>
+        <% end %>
+
+        <%= f.input :password,
+                    required: false,
+                    label: "New password",
+                    hint: "Leave blank if you don't want to change it",
+                    input_html: { autocomplete: "new-password" } %>
+
+        <%= f.input :password_confirmation,
+                    required: false,
+                    label: "Confirm new password",
+                    input_html: { autocomplete: "new-password" } %>
+
+        <%= f.input :current_password,
+                    required: true,
+                    label: "Current password",
+                    hint: "We need your current password to confirm your changes",
+                    input_html: { autocomplete: "current-password" } %>
+      </div>
+
+      <div class="d-flex flex-column align-items-center gap-3 w-100">
+        <div class="form-actions">
+          <%= f.button :submit, "Update", class: "btn-readapt-primary" %>
+        </div>
+      </div>
     <% end %>
 
-    <%= f.input :password,
-                hint: "leave it blank if you don't want to change it",
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :current_password,
-                hint: "we need your current password to confirm your changes",
-                required: true,
-                input_html: { autocomplete: "current-password" } %>
+    <div class="devise-links d-flex flex-column align-items-center gap-3 w-100 mt-3">
+      <%= link_to "Back", root_path, class: "btn-back-readapt" %>
+
+      <%= button_to "Cancel my account",
+                    registration_path(resource_name),
+                    method: :delete,
+                    data: { turbo_confirm: "Are you sure?" },
+                    class: "btn-delete-account" %>
+    </div>
+
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
-
-<%= link_to "Back", :back %>
+</div>
