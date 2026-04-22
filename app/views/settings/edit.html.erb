@@ -1,22 +1,25 @@
-<%= simple_form_for @setting do |f| %>
+<div class="container my-3">
+  <%= simple_form_for @setting do |f| %>
 
-  <%= f.input :font, input_html: { id: "font-input" } %>
-  <%= f.input :syllable_color, input_html: { id: "color-input" } %>
-  <%= f.input :letter_spacing, input_html: { id: "spacing-input" } %>
+    <%= f.input :font, input_html: { id: "font-input" } %>
+    <%= f.input :syllable_color, input_html: { id: "color-input" } %>
+    <%= f.input :letter_spacing, input_html: { id: "spacing-input" } %>
 
-  <%= f.button :submit %>
+    <%= f.button :submit %>
 
-<% end %>
+  <% end %>
 
-<h2 id="preview-text"
-    style="
-      font-family: <%= @setting.font %>;
-      letter-spacing: <%= @setting.letter_spacing %>;
-      color: <%= @setting.syllable_color %>;
-    ">
-  Reading is easy with Readapt
-</h2>
-
+  <br>
+  
+  <h2 id="preview-text"
+      style="
+        font-family: <%= @setting.font %>;
+        letter-spacing: <%= @setting.letter_spacing %>;
+        color: <%= @setting.syllable_color %>;
+      ">
+    Reading is easy with Readapt
+  </h2>
+</div>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
