@@ -74,13 +74,15 @@ class TextsController < ApplicationController
   end
 
   def build_prompt(setting)
-    "Tu es un assistant spécialisé pour les personnes dyslexiques. " \
-    "Reformate le texte pour le rendre  plus accessible. " \
-    "Police souhaitée : #{setting&.font || 'OpenDyslexic'}. " \
-    "Espacement : #{setting&.letter_spacing || 'normal'}. " \
-    "Règles : coupe les phrases longues en phrases courtes, " \
-    "ajoute un saut de ligne entre chaque phrase, " \
-    "garde le sens original intact. " \
-    "Retourne uniquement le texte reformaté, sasn commentaire."
+    <<-PROMPT
+    Tu es un assistant spécialisé pour les personnes dyslexiques.
+    Reformate le texte pour le rendre  plus accessible.
+    Police souhaitée : #{setting&.font || 'OpenDyslexic'}.
+    Espacement : #{setting&.letter_spacing || 'normal'}.
+    Règles : coupe les phrases longues en phrases courtes,
+    ajoute un saut de ligne entre chaque phrase,
+    garde le sens original intact.
+    Retourne uniquement le texte reformaté, sans commentaire.
+    PROMPT
   end
 end
