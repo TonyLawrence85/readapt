@@ -28,7 +28,7 @@ class TextsController < ApplicationController
 
     if @text.save
       setting = current_user.setting
-      chat = RubyLLM.chat(model: "gpt-4o")
+      chat = RubyLLM.chat(model: "gpt-4o-mini")
 
         if @text.document.attached?
           pdf_content = @text.document.open do |file|
@@ -93,10 +93,11 @@ class TextsController < ApplicationController
 
     FORMAT DE SORTIE (STRICT) :
     - Retourne UNIQUEMENT le texte adapté, sans préambule ni commentaire.
-    - Découpe chaque mot de plus de 2 syllabes en syllabes, séparées par
-      le caractère · (point médian, U+00B7).
-      Exemple : "ordinateur" → "or·di·na·teur"
+    - Découpe chaque mot de plus de 2 syllabes en syllabes
+    - Entoure UNE syllabe sur deux avec des <span class="syl">...</span>
+      Exemple : "oridnateur" -> or<span class="syl">di</span>na<span class="syl">teur</span>
     - Les mots de 1 ou 2 syllabes restent intacts.
+    - Retourne du HTML pur, sans balise <html>, <body> ou <p>.
     Police souhaitée : #{setting&.font || 'OpenDyslexic'}.
     Espacement : #{setting&.letter_spacing || 'normal'}.
 

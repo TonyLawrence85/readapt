@@ -14,16 +14,26 @@
       <% end %>
       <p><%= @text.translated_content %></p>
       <% if @text.formatted_content.present? %>
-        <div class="mt-3" style="
+        <div id="readapt-text" class="mt-3" style="
           font-family: <%= current_user.setting.font || 'OpenDyslexic' %>;
-          color: <%= current_user.setting.syllable_color || 'inherit' %>;
           letter-spacing: <%= current_user.setting.letter_spacing || 'normal' %>;
           ">
           <h5>Texte reformaté pour la dyslexie</h5>
-          <%=  simple_format(@text.formatted_content) %>
+          <%=  @text.formatted_content.html_safe %>
         </div>
       <% end %>
     </div>
   </div>
   <%= link_to "Retour", texts_path %>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const spans = document.querySelectorAll("#readapt-text .syl");
+    const colors = ["#e63946", "#10c44c", "#0f19a8"];
+
+    spans.forEach((span, index) => {
+      span.style.color = colors[index % 3];
+    })
+  })
+</script>
