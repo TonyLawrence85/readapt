@@ -28,7 +28,7 @@ class TextsController < ApplicationController
 
     if @text.save
       setting = current_user.setting
-      chat = RubyLLM.chat(model: "claude-haiku-4-5")
+      chat = RubyLLM.chat(model: "claude-3-5-haiku-20241022")
 
         if @text.document.attached?
           pdf_content = @text.document.open do |file|
