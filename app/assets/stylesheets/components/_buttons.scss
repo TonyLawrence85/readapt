@@ -1,0 +1,16 @@
+.btn-readapt {
+  background: linear-gradient(150deg, #194F7A 40%, #1B9E7A);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: opacity 0.2 ease;
+
+  &:hover {
+    opacity: 0.85;
+    color: white;
+  }
+}

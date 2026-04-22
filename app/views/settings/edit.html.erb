@@ -10,7 +10,7 @@
   <% end %>
 
   <br>
-  
+
   <h2 id="preview-text"
       style="
         font-family: <%= @setting.font %>;
@@ -19,6 +19,11 @@
       ">
     Reading is easy with Readapt
   </h2>
+
+  <div class="links">
+    <%= link_to "Mes textes", texts_path, class: "btn-readapt" %>
+    <%= link_to "Ajouter un texte", new_text_path, class: "btn-readapt" %>
+  </div>
 </div>
 
 <script>
