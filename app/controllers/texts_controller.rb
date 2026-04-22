@@ -31,7 +31,11 @@ class TextsController < ApplicationController
       chat = RubyLLM.chat(model: "gpt-4o-mini")
 
         if @text.document.attached?
-          response = chat.ask(build_prompt(setting))
+          pdf_content = @text.document.open do |file|
+            reader = PDF::Reader.new(file)
+            reader.pages.map(&:text).join("\n")
+          end
+          response = chat.ask("#{build_prompt(setting)}\n\nTexte à reformater :\n#{pdf_content}")
         else
           response = chat.ask("#{build_prompt(setting)}\n\nTexte à reformater :\n#{@text.content}")
         end
