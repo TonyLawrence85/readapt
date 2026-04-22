@@ -1,43 +1,118 @@
 <%= simple_form_for @setting do |f| %>
 
-  <%= f.input :font, input_html: { id: "font-input" } %>
-  <%= f.input :syllable_color, input_html: { id: "color-input" } %>
-  <%= f.input :letter_spacing, input_html: { id: "spacing-input" } %>
+  <%= f.input :font,
+    collection: ["OpenDyslexic", "Arial", "Verdana", "Georgia", "Courier New"],
+    prompt: "Choose a font",
+    input_html: { id: "font-input" }
+  %>
 
-  <%= f.button :submit %>
+  <%= f.input :syllable_palette,
+    collection: [
+      ["Blue / Red / Green", "blue_red_green"],
+      ["Orange / Blue / Purple", "orange_blue_purple"],
+      ["Yellow / Blue / Green", "yellow_blue_green"]
+    ],
+    prompt: "Choose your palette",
+    input_html: { id: "palette-input" }
+  %>
+
+  <%= f.input :syllable_mode,
+    as: :boolean,
+    label: "Enable syllable coloring",
+    input_html: { id: "syllable-mode" }
+  %>
+
+  <%= f.input :letter_spacing,
+    collection: ["0px", "1px", "2px", "3px", "4px", "5px", "6px"],
+    prompt: "Choose spacing",
+    input_html: { id: "spacing-input" }
+  %>
+
+  <%= f.input :font_size,
+    collection: ["14px", "16px", "18px", "20px", "24px"],
+    prompt: "Choose font size",
+    input_html: { id: "size-input" }
+  %>
+
+  <%= f.button :submit, "Save my settings", class: "btn btn-success" %>
 
 <% end %>
+
 
 <h2 id="preview-text"
     style="
       font-family: <%= @setting.font %>;
       letter-spacing: <%= @setting.letter_spacing %>;
-      color: <%= @setting.syllable_color %>;
+      font-size: <%= @setting.font_size %>;
     ">
-  Reading is easy with Readapt
+  Reading with Readapt is easy !
 </h2>
+
+<div id="syllable-preview"></div>
+
+
+<div class="mt-3">
+  <%= link_to "⬅ Back", root_path, class: "btn btn-outline-dark" %>
+</div>
 
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("turbo:load", () => {
 
   const preview = document.getElementById("preview-text")
+  const syllablePreview = document.getElementById("syllable-preview")
 
   const fontInput = document.getElementById("font-input")
-  const colorInput = document.getElementById("color-input")
+  const paletteInput = document.getElementById("palette-input")
   const spacingInput = document.getElementById("spacing-input")
+  const sizeInput = document.getElementById("size-input")
+  const syllableMode = document.getElementById("syllable-mode")
 
-  fontInput.addEventListener("input", (e) => {
+  const palettes = {
+    blue_red_green: ["blue", "red", "green"],
+    orange_blue_purple: ["orange", "blue", "purple"],
+    yellow_blue_green: ["yellow", "blue", "green"]
+  }
+
+  function syllabify(text, colors) {
+    return text.split(" ").map(word => {
+      return (word.match(/.{1,2}/g) || [word])
+        .map((part, i) => {
+          let color = colors[i % colors.length]
+          return `<span style="color:${color}">${part}</span>`
+        }).join("")
+    }).join(" ")
+  }
+
+  function updatePreview() {
+
+    const colors = palettes[paletteInput.value]
+
+    if (syllableMode.checked) {
+      syllablePreview.innerHTML =
+        syllabify("Reading with Readapt is easy !", colors)
+    } else {
+      syllablePreview.innerHTML = "Reading with Readapt is easy !"
+    }
+  }
+
+  fontInput.addEventListener("change", (e) => {
     preview.style.fontFamily = e.target.value
   })
 
-  colorInput.addEventListener("input", (e) => {
-    preview.style.color = e.target.value
-  })
+  paletteInput.addEventListener("change", updatePreview)
 
-  spacingInput.addEventListener("input", (e) => {
+  spacingInput.addEventListener("change", (e) => {
     preview.style.letterSpacing = e.target.value
   })
+
+  sizeInput.addEventListener("change", (e) => {
+    preview.style.fontSize = e.target.value
+  })
+
+  syllableMode.addEventListener("change", updatePreview)
+
+  updatePreview()
 
 })
 </script>
