@@ -3,6 +3,7 @@
     <%= f.input :title %>
     <%= f.input :content %>
     <%= f.hidden_field :source, value: "copy" %>
-    <%= f.button :submit, "Créer", class: "btn btn-success"%>
+    <%= f.button :submit, "Créer", class: "btn-readapt"%>
+    <%= link_to "Mes textes", texts_path, class: "btn-readapt" %>
   <% end %>
 </div>

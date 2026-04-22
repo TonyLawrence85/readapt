@@ -17,5 +17,6 @@
         </li>
       <% end %>
     </ul>
-    <%= link_to "Ajouter un texte", new_text_path %>
+    <%= link_to "Ajouter un texte", new_text_path, class: "btn-readapt"%>
+    <%= link_to "Mes paramètres", edit_setting_path(current_user.setting), class: "btn-readapt" %>
   </div>

@@ -28,7 +28,7 @@ class TextsController < ApplicationController
 
     if @text.save
       setting = current_user.setting
-      chat = RubyLLM.chat(model: "gpt-4o-mini")
+      chat = RubyLLM.chat(model: "gpt-4o")
 
         if @text.document.attached?
           pdf_content = @text.document.open do |file|
@@ -75,14 +75,31 @@ class TextsController < ApplicationController
 
   def build_prompt(setting)
     <<-PROMPT
-    Tu es un assistant spécialisé pour les personnes dyslexiques.
-    Reformate le texte pour le rendre  plus accessible.
+    Tu es un assistant spécialisé dans l'adaptation de textes pour les
+    personnes dyslexiques. Ta tâche : transformer le texte fourni en une
+    version plus lisible, SANS en modifier le sens ni ajouter d'information.
+
+    RÈGLES DE RÉÉCRITURE :
+    1. Phrases courtes : 15 mots maximum. Si une phrase est plus longue,
+      coupe-la en plusieurs phrases simples.
+    2. Une idée = une phrase. Évite les subordonnées imbriquées.
+    3. Remplace les mots rares ou complexes par des synonymes courants,
+      SAUF s'il s'agit d'un terme technique essentiel (dans ce cas, garde-le).
+    4. Préfère la voix active à la voix passive.
+    5. Évite les doubles négations.
+    6. Conserve strictement les noms propres, chiffres, dates et citations.
+    7. Aère le texte : un saut de ligne entre chaque phrase, un saut de
+      ligne double entre les paragraphes logiques.
+
+    FORMAT DE SORTIE (STRICT) :
+    - Retourne UNIQUEMENT le texte adapté, sans préambule ni commentaire.
+    - Découpe chaque mot de plus de 2 syllabes en syllabes, séparées par
+      le caractère · (point médian, U+00B7).
+      Exemple : "ordinateur" → "or·di·na·teur"
+    - Les mots de 1 ou 2 syllabes restent intacts.
     Police souhaitée : #{setting&.font || 'OpenDyslexic'}.
     Espacement : #{setting&.letter_spacing || 'normal'}.
-    Règles : coupe les phrases longues en phrases courtes,
-    ajoute un saut de ligne entre chaque phrase,
-    garde le sens original intact.
-    Retourne uniquement le texte reformaté, sans commentaire.
+
     PROMPT
   end
 end
