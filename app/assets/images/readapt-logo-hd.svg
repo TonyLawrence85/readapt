@@ -1,0 +1,69 @@
+<svg width="400" height="100" viewBox="0 0 400 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradient pour la page -->
+    <linearGradient id="pageGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2bbfa8"/>
+      <stop offset="100%" stop-color="#1a7a6e"/>
+    </linearGradient>
+    <!-- Gradient pour le signet vert -->
+    <linearGradient id="bookmarkGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#22c97a"/>
+      <stop offset="100%" stop-color="#1a9e7a"/>
+    </linearGradient>
+    <!-- Gradient bleu marine pour la page principale -->
+    <linearGradient id="bluePageGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e6fa8"/>
+      <stop offset="100%" stop-color="#1a4f7a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ══════════════════════════
+       ICÔNE LOGO
+  ══════════════════════════ -->
+
+  <!-- Lignes de mouvement (gauche) -->
+  <line x1="4"  y1="32" x2="22" y2="32" stroke="#2bbfa8" stroke-width="4" stroke-linecap="round" opacity="0.9"/>
+  <line x1="8"  y1="44" x2="22" y2="44" stroke="#2bbfa8" stroke-width="3.5" stroke-linecap="round" opacity="0.65"/>
+  <line x1="4"  y1="56" x2="22" y2="56" stroke="#2bbfa8" stroke-width="3" stroke-linecap="round" opacity="0.4"/>
+
+  <!-- Page bleue principale (document) -->
+  <rect x="22" y="18" width="42" height="54" rx="7" fill="url(#bluePageGrad)"/>
+
+  <!-- Lignes de texte sur la page bleue -->
+  <line x1="31" y1="33" x2="55" y2="33" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+  <line x1="31" y1="43" x2="55" y2="43" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+  <line x1="31" y1="53" x2="47" y2="53" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+
+  <!-- Signet vert (coin haut-droit, se superpose à la page) -->
+  <!-- Forme : rectangle avec pointe en bas (signet) -->
+  <path d="M50 14 L72 14 L72 52 L61 43 L50 52 Z" fill="url(#bookmarkGrad)"/>
+
+  <!-- Légère ombre/reflet sur le signet pour le relief -->
+  <path d="M50 14 L72 14 L72 18 L50 18 Z" fill="white" opacity="0.15"/>
+
+  <!-- ══════════════════════════
+       WORDMARK
+  ══════════════════════════ -->
+
+  <!-- "Read" en bleu marine -->
+  <text
+    x="88"
+    y="65"
+    font-family="'Georgia', 'Times New Roman', serif"
+    font-weight="700"
+    font-size="46"
+    fill="#1a4f7a"
+    letter-spacing="-1"
+  >Read</text>
+
+  <!-- "apt" en vert émeraude -->
+  <text
+    x="222"
+    y="65"
+    font-family="'Georgia', 'Times New Roman', serif"
+    font-weight="700"
+    font-size="46"
+    fill="#1a9e7a"
+    letter-spacing="-1"
+  >apt</text>
+</svg>
