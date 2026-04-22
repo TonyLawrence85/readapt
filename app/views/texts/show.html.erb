@@ -1,0 +1,39 @@
+<h1 class="text-center">
+  <%= @text.title %>
+</h1>
+
+<div class="container">
+  <div class="card d-flex">
+    <div class="card-body justify-content-between align-items-center">
+      <% if @text.content.present? %>
+        <p><%= @text.content %></p>
+      <% elsif @text.document.attached? %>
+        <p>Fichier importé : <%= @text.document.filename %></p>
+      <% else %>
+        <p>Aucun contenu disponible</p>
+      <% end %>
+      <p><%= @text.translated_content %></p>
+      <% if @text.formatted_content.present? %>
+        <div id="readapt-text" class="mt-3" style="
+          font-family: <%= current_user.setting.font || 'OpenDyslexic' %>;
+          letter-spacing: <%= current_user.setting.letter_spacing || 'normal' %>;
+          ">
+          <h5>Texte reformaté pour la dyslexie</h5>
+          <%=  @text.formatted_content.html_safe %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <%= link_to "Retour", texts_path %>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const spans = document.querySelectorAll("#readapt-text .syl");
+    const colors = ["#e63946", "#10c44c", "#0f19a8"];
+
+    spans.forEach((span, index) => {
+      span.style.color = colors[index % 3];
+    })
+  })
+</script>

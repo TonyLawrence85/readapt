@@ -10,3 +10,31 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+@import "devices/user";
+@import "components/buttons";
+
+a {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    color: #1B9E7A;
+    text-decoration: none;
+  }
+}
+
+h1, h2, h3 {
+  background: linear-gradient(150deg, #194F7A 30%, #1B9E7A);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.fa-trash-can {
+  color: rgb(192, 22, 22);
+}
+
+.fa-star {
+  color: #1B9E7A;
+}
+

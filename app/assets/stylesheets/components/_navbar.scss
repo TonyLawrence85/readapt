@@ -8,5 +8,53 @@
 }
 
 .navbar-lewagon .navbar-brand img {
-  width: 40px;
+  width: 140px;
+}
+
+/* SLIDE MENU */
+
+.slide-menu-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 280px;
+  height: 100vh;
+  background: #ffffff;
+  box-shadow: 4px 0 15px rgba(0,0,0,0.1);
+  transform: translateX(-100%);        /* caché par défaut */
+  transition: transform 0.3s ease;
+  z-index: 1000;
+  padding: 2rem 1.5rem;
+}
+
+.slide-menu-drawer--open {
+  transform: translateX(0);
+}
+
+.slide-menu-drawer button {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+}
+
+
+.slide-menu-drawer li {
+  margin-top: 1rem;
+  padding: 0.50rem 0;
+  list-style: none;
+}
+
+
+/* OVERLAY */
+
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0; /* Ca remplace top right bottom left */
+  background: rgba(0,0,0, 0.5);
+  z-index: 999;  /* ← ajoute ça */
+}
+
+.overlay--visible {
+  display: block;
 }

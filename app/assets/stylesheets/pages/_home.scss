@@ -1,1 +1,155 @@
-// Specific CSS for your home-page
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;0,900;1,300&family=DM+Sans:wght@300;400;500&display=swap');
+
+  @font-face {
+    font-family: 'OpenDyslexic';
+    src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/ttf/OpenDyslexic-Regular.ttf') format('truetype');
+    font-weight: normal;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --teal-deep: #0d4a4a;
+    --teal-mid: #1a7a6e;
+    --teal-light: #2bbfa8;
+    --teal-glow: #4dd9c4;
+    --cream: #f5f0e8;
+    --amber: #f0a500;
+    --text-dark: #0a2e2e;
+    --text-mid: #2d5c5c;
+    --white: #ffffff;
+  }
+
+  html, body {
+    height: 100%;
+    background: #f5f0e8;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: image-url('readapt-background.svg');
+    background-size: cover;
+    background-position: center top;
+    background-attachment: fixed;
+  }
+
+
+  .transform-card {
+  background: var(--teal-deep);
+  color: white;
+  border-radius: 24px;
+  padding: 24px;
+  margin: 24px 0 32px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(13, 74, 74, 0.2);
+}
+
+.transform-before {
+  text-decoration: line-through;
+  color: white;
+  text-decoration-color: rgba(255, 255, 255, 0.7);
+}
+
+
+.transform-arrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 14px 0 12px;
+}
+
+.transform-arrow-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--teal-glow), transparent);
+}
+
+.transform-arrow-icon {
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, var(--teal-light), var(--teal-glow));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(77, 217, 196, 0.4);
+  animation: bounce-down 1.5s ease-in-out infinite;
+
+  svg {
+    width: 12px;
+    height: 12px;
+    fill: none;
+    stroke: var(--teal-deep);
+    stroke-width: 2.5;
+  }
+}
+
+@keyframes bounce-down {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(3px); }
+}
+
+.transform-after-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--teal-glow);
+  margin-bottom: 8px;
+}
+
+.transform-after {
+  font-family: 'OpenDyslexic', sans-serif;
+  font-size: 14px;
+  color: var(--white);
+  line-height: 1.9;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 480px;
+  padding: 48px 24px;
+}
+
+.card-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.stat-card {
+  flex: 1;
+  background: white;
+  border-radius: 16px;
+  padding: 14px 12px;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+.stat-number {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--teal-deep);
+  line-height: 1;
+  margin-bottom: 4px;
+
+  span {
+    font-size: 14px;
+    color: var(--teal-light);
+  }
+}
+
+.stat-label {
+  font-size: 10px;
+  color: var(--text-mid);
+  line-height: 1.3;
+}
