@@ -17,7 +17,7 @@ user = User.create!(
 )
 
 puts "Creating texts"
-Text.create!(
+Article.create!(
   title: "Mon premier texte",
   content: "Ceci est le contenu du texte",
   favourite: "false",
