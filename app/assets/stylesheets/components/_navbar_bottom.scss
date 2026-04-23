@@ -6,7 +6,7 @@
   position: fixed;
   z-index: 1000;
   background: #ffffff;
-  height: 10vh;
+  height: 5vh;
 }
 
 .navbar-bottom ul {
@@ -15,5 +15,6 @@
 }
 .navbar-bottom li {
   list-style: none;
+  margin-top: 0.5rem;
 
 }
