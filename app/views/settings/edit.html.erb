@@ -1,79 +1,166 @@
 <div class="container my-3">
+
+
+  <div class="mb-3">
+    <label>Langue du texte :</label>
+
+    <div class="language-tags">
+      <% languages = [
+        ["fr", "🇫🇷 Français"],
+        ["en", "🇬🇧 English"],
+        ["es", "🇪🇸 Español"],
+        ["de", "🇩🇪 Deutsch"]
+      ] %>
+
+      <% languages.each do |value, label| %>
+        <div class="tag-item">
+          <input
+            type="radio"
+            name="language"
+            value="<%= value %>"
+            id="lang_<%= value %>"
+            class="tag-selector"
+            <%= "checked" if value == "fr" %>
+          >
+          <label for="lang_<%= value %>"><%= label %></label>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+
   <%= simple_form_for @setting do |f| %>
 
-  <%= f.input :font,
-    collection: ["OpenDyslexic", "Arial", "Verdana", "Georgia", "Courier New"],
-    prompt: "Choose a font",
-    input_html: { id: "font-input" }
-  %>
+   <div class="mb-3">
+      <label>Police</label>
 
-  <%= f.input :syllable_palette,
-    collection: [
-      ["Blue / Red / Green", "blue_red_green"],
-      ["Orange / Blue / Purple", "orange_blue_purple"],
-      ["Yellow / Blue / Green", "yellow_blue_green"]
-    ],
-    prompt: "Choose your palette",
-    input_html: { id: "palette-input" }
-  %>
+      <div class="font-tags">
 
-  <%= f.input :syllable_mode,
-    as: :boolean,
-    label: "Enable syllable coloring",
-    input_html: { id: "syllable-mode" }
-  %>
+        <% fonts = ["OpenDyslexic", "Arial", "Verdana", "Georgia", "Courier New"] %>
 
-  <%= f.input :letter_spacing,
-    collection: ["0px", "1px", "2px", "3px", "4px", "5px", "6px"],
-    prompt: "Choose spacing",
-    input_html: { id: "spacing-input" }
-  %>
+        <% fonts.each do |font| %>
+          <div class="tag-item">
+            <input
+              type="radio"
+              name="setting[font]"
+              value="<%= font %>"
+              id="font_<%= font.parameterize %>"
+              class="tag-selector"
+              <%= "checked" if @setting.font == font %>
+            >
 
-  <%= f.input :font_size,
-    collection: ["14px", "16px", "18px", "20px", "24px"],
-    prompt: "Choose font size",
-    input_html: { id: "size-input" }
-  %>
+            <label for="font_<%= font.parameterize %>"
+                  style="font-family: <%= font %>;">
+              <%= font %>
+            </label>
+          </div>
+        <% end %>
 
-  <%= f.button :submit, "Save my settings", class: "btn btn-success" %>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label>Espacement des lettres</label>
+
+      <input
+        type="range"
+        min="0"
+        max="10"
+        step="1"
+        value="<%= @setting.letter_spacing.to_s.gsub('px','') || 0 %>"
+        id="spacing-input"
+        class="form-range"
+        name="setting[letter_spacing]"
+      >
+
+      <small id="spacing-value">
+        <%= @setting.letter_spacing || "0px" %>
+      </small>
+    </div>
+
+   <div class="mb-3">
+    <label>Taille du texte</label>
+
+    <input
+      type="range"
+      min="12"
+      max="40"
+      step="1"
+      value="<%= @setting.font_size.to_s.gsub('px','') || 16 %>"
+      id="size-input"
+      class="form-range"
+      name="setting[font_size]"
+    >
+
+    <small id="size-value">
+      <%= @setting.font_size || "16px" %>
+    </small>
+  </div>
+
+    <h2 id="preview-text"
+        style="
+          font-family: <%= @setting.font %>;
+          letter-spacing: <%= @setting.letter_spacing %>;
+          font-size: <%= @setting.font_size %>;
+        ">
+      Lire avec Readapt, c'est facile !
+    </h2>
+
+    <hr>
+
+    <%= f.input :syllable_palette,
+      collection: [
+        ["Bleu / Rouge / Vert", "blue_red_green"],
+        ["Orange / Bleu / Violet", "orange_blue_purple"],
+        ["Jaune / Bleu / Vert", "yellow_blue_green"]
+      ],
+      label: "Palette de couleurs",
+      prompt: "Choisir une palette",
+      input_html: { id: "palette-input" }
+    %>
+
+    <%= f.input :syllable_mode,
+      as: :boolean,
+      label: "Activer la coloration des syllabes",
+      input_html: { id: "syllable-mode" }
+    %>
+
+    <!-- 🔥 PREVIEW SYLLABES -->
+    <div id="syllable-preview" class="mb-3"></div>
+
+    <%= f.button :submit, "Enregistrer mes préférences", class: "btn btn-success" %>
 
   <% end %>
 
-
-<h2 id="preview-text"
-    style="
-      font-family: <%= @setting.font %>;
-      letter-spacing: <%= @setting.letter_spacing %>;
-      font-size: <%= @setting.font_size %>;
-    ">
-  Reading with Readapt is easy !
-</h2>
-
-<div id="syllable-preview"></div>
-
-
-<div class="mt-3">
-  <%= link_to "⬅ Back", root_path, class: "btn btn-outline-dark" %>
 </div>
 
-
 <script>
-document.addEventListener("turbo:load", () => {
+      document.addEventListener("turbo:load", () => {
 
   const preview = document.getElementById("preview-text")
   const syllablePreview = document.getElementById("syllable-preview")
 
-  const fontInput = document.getElementById("font-input")
+  const fontInputs = document.querySelectorAll('input[name="setting[font]"]')
   const paletteInput = document.getElementById("palette-input")
   const spacingInput = document.getElementById("spacing-input")
   const sizeInput = document.getElementById("size-input")
   const syllableMode = document.getElementById("syllable-mode")
+  const languageSwitch = document.getElementById("language-switch")
 
   const palettes = {
     blue_red_green: ["blue", "red", "green"],
     orange_blue_purple: ["orange", "blue", "purple"],
     yellow_blue_green: ["yellow", "blue", "green"]
   }
+
+  const texts = {
+    fr: "Lire avec Readapt, c'est facile !",
+    en: "Reading with Readapt is easy!",
+    es: "Leer con Readapt es fácil!",
+    de: "Lesen mit Readapt ist einfach!"
+  }
+
+  let currentText = texts["fr"]
 
   function syllabify(text, colors) {
     return text.split(" ").map(word => {
@@ -86,29 +173,55 @@ document.addEventListener("turbo:load", () => {
   }
 
   function updatePreview() {
-
     const colors = palettes[paletteInput.value]
 
     if (syllableMode.checked) {
-      syllablePreview.innerHTML =
-        syllabify("Reading with Readapt is easy !", colors)
+      syllablePreview.innerHTML = syllabify(currentText, colors)
     } else {
-      syllablePreview.innerHTML = "Reading with Readapt is easy !"
+      syllablePreview.innerHTML = currentText
     }
   }
 
-  fontInput.addEventListener("change", (e) => {
-    preview.style.fontFamily = e.target.value
+
+  const languageInputs = document.querySelectorAll('input[name="language"]')
+
+  languageInputs.forEach(input => {
+    input.addEventListener("change", (e) => {
+      currentText = texts[e.target.value]
+      preview.innerText = currentText
+      updatePreview()
+    })
+  })
+
+  fontInputs.forEach(input => {
+    input.addEventListener("change", (e) => {
+      preview.style.fontFamily = e.target.value
+    })
   })
 
   paletteInput.addEventListener("change", updatePreview)
 
-  spacingInput.addEventListener("change", (e) => {
-    preview.style.letterSpacing = e.target.value
+ spacingInput.addEventListener("input", (e) => {
+    const value = e.target.value + "px"
+
+    preview.style.letterSpacing = value
+
+    // affichage valeur
+    const spacingValue = document.getElementById("spacing-value")
+    if (spacingValue) {
+      spacingValue.innerText = value
+    }
   })
 
-  sizeInput.addEventListener("change", (e) => {
-    preview.style.fontSize = e.target.value
+  sizeInput.addEventListener("input", (e) => {
+    const value = e.target.value + "px"
+
+    preview.style.fontSize = value
+
+    const sizeValue = document.getElementById("size-value")
+    if (sizeValue) {
+      sizeValue.innerText = value
+    }
   })
 
   syllableMode.addEventListener("change", updatePreview)
@@ -116,4 +229,5 @@ document.addEventListener("turbo:load", () => {
   updatePreview()
 
 })
+
 </script>
