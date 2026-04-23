@@ -1,49 +1,48 @@
-class TextsController < ApplicationController
-
+class ArticlesController < ApplicationController
   def index
-    @texts = current_user.texts
+    @articles = current_user.articles
   end
 
   def show
-    set_text
+    set_article
   end
 
   def new_copy
-    @text = Text.new
+    @article = Article.new
   end
 
   def new_import
-    @text = Text.new
+    @article = Article.new
   end
 
   def create
-    @text = Text.new(text_params)
-    @text.user = current_user
+    @article = Article.new(article_params)
+    @article.user = current_user
 
-    if params[:text][:source] == "copy"
-      unless @text.content.present?
+    if params[:article][:source] == "copy"
+      unless @article.content.present?
         render :new_copy, status: :unprocessable_entity and return
       end
     end
 
-    if @text.save
+    if @article.save
       setting = current_user.setting
       chat = RubyLLM.chat(model: "gpt-4o-mini")
 
-        if @text.document.attached?
-          pdf_content = @text.document.open do |file|
+        if @article.document.attached?
+          pdf_content = @article.document.open do |file|
             reader = PDF::Reader.new(file)
             reader.pages.map(&:text).join("\n")
           end
           response = chat.ask("#{build_prompt(setting)}\n\nTexte à reformater :\n#{pdf_content}")
         else
-          response = chat.ask("#{build_prompt(setting)}\n\nTexte à reformater :\n#{@text.content}")
+          response = chat.ask("#{build_prompt(setting)}\n\nTexte à reformater :\n#{@article.content}")
         end
-
-      @text.update(formatted_content: response.content)
-      redirect_to text_path(@text), notice: "Texte créé avec succès"
+        palette = current_user.setting.syllable_palette || "blue_red_green"
+      @article.update(formatted_content: TextFormatter.syllabify(response.content, palette: palette))
+      redirect_to article_path(@article), notice: "Texte créé avec succès"
     else
-      if params[:text][:source] == "import"
+      if params[:article][:source] == "import"
         render :new_import, status: :unprocessable_entity
       else
         render :new, status: :unprocessable_entity
@@ -52,25 +51,25 @@ class TextsController < ApplicationController
   end
 
   def toggle_favourite
-    set_text
-    @text.update(favourite: !@text.favourite)
-    redirect_to texts_path
+    set_article
+    @article.update(favourite: !@article.favourite)
+    redirect_to articles_path
   end
 
   def destroy
-    set_text
-    @text.destroy
-    redirect_to texts_path, notice: "Texte supprimé"
+    set_article
+    @article.destroy
+    redirect_to articles_path, notice: "Texte supprimé"
   end
 
   private
 
-  def text_params
-    params.require(:text).permit(:title, :content, :favourite, :translated_content, :document)
+  def article_params
+    params.require(:article).permit(:title, :content, :favourite, :translated_content, :document)
   end
 
-  def set_text
-    @text = Text.find(params[:id])
+  def set_article
+    @article = Article.find(params[:id])
   end
 
   def build_prompt(setting)
@@ -92,17 +91,11 @@ class TextsController < ApplicationController
       ligne double entre les paragraphes logiques.
 
     FORMAT DE SORTIE (STRICT) :
-    - Chaque phrase doit être dans sa propre balise <p>.
-    - Ne regroupe JAMAIS deux phrases dans le même <p>.
-    - Pas de <br>, uniquement des <p> séparés.
+    - Pas de <p>, uniquement des <br> séparés.
     - Retourne UNIQUEMENT le texte adapté, sans préambule ni commentaire.
-    - Découpe chaque mot de plus de 2 syllabes en syllabes
-    - Entoure UNE syllabe sur deux avec des <span class="syl">...</span>
-      Exemple : "oridnateur" -> or<span class="syl">di</span>na<span class="syl">teur</span>
-    - Les mots de 1 ou 2 syllabes restent intacts.
-    - Retourne du HTML pur, sans balise <html>, <body> ou <p>.
-    Police souhaitée : #{setting&.font || 'OpenDyslexic'}.
-    Espacement : #{setting&.letter_spacing || 'normal'}.
+    - Phrases courtes : 15 mots maximum. Si une phrase est plus longue,
+      coupe-la en plusieurs phrases simples.
+    - Après chaque phrase fait un saut à la ligne.
 
     PROMPT
   end

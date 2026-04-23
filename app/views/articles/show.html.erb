@@ -1,0 +1,29 @@
+<h1 class="text-center">
+  <%= @article.title %>
+</h1>
+
+<div class="container">
+  <div class="card d-flex">
+    <div class="card-body justify-content-between align-items-center">
+      <% if @article.content.present? %>
+        <p><%= @article.content %></p>
+      <% elsif @article.document.attached? %>
+        <p>Fichier importé : <%= @article.document.filename %></p>
+      <% else %>
+        <p>Aucun contenu disponible</p>
+      <% end %>
+      <p><%= @article.translated_content %></p>
+      <% if @article.formatted_content.present? %>
+        <div id="readapt-text" class="mt-3" style="
+          font-family: <%= current_user.setting.font || 'OpenDyslexic' %>;
+          letter-spacing: <%= current_user.setting.letter_spacing || 'normal' %>;
+          ">
+          <h5>Texte reformaté pour la dyslexie</h5>
+          <%= @article.formatted_content.html_safe %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <%= link_to "Retour", articles_path %>
+</div>
+
