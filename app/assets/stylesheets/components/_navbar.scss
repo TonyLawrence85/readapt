@@ -44,7 +44,9 @@
   list-style: none;
 }
 
-
+.app-header {
+  margin: 1rem;
+}
 /* OVERLAY */
 
 .overlay {
@@ -52,7 +54,7 @@
   position: fixed;
   inset: 0; /* Ca remplace top right bottom left */
   background: rgba(0,0,0, 0.5);
-  z-index: 999;  /* ← ajoute ça */
+  z-index: 999;
 }
 
 .overlay--visible {
