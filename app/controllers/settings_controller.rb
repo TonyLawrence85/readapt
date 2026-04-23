@@ -9,7 +9,7 @@ class SettingsController < ApplicationController
     @setting = current_user.setting
 
     if @setting.update(setting_params)
-      redirect_to edit_setting_path
+      redirect_to edit_setting_path(@setting)
     else
       render :edit
     end
@@ -17,18 +17,32 @@ class SettingsController < ApplicationController
 
   def download
     setting = current_user.setting
+    text_record = current_user.texts.first
 
-    text = "Font: #{setting.font}\n"
-    text += "Color: #{setting.syllable_color}\n"
-    text += "Spacing: #{setting.letter_spacing}\n"
-    text += "Font size: #{setting.font_size}\n"
+    # sécurité si aucun texte
+    if text_record.nil?
+      redirect_to edit_setting_path(setting), alert: "No text available"
+      return
+    end
 
-    send_data text, filename: "my_settings.txt"
+    text = text_record.content
+
+    # appliquer les settings
+    adapted_text =
+      if setting.syllable_mode
+        TextFormatter.syllabify(text, palette: setting.syllable_palette)
+      else
+        text
+      end
+
+    send_data adapted_text,
+              filename: "adapted_text.txt",
+              type: "text/plain"
   end
 
   private
 
   def setting_params
-    params.require(:setting).permit(:font, :syllable_color, :letter_spacing, :font_size)
+    params.require(:setting).permit(:font, :syllable_color, :syllable_palette, :letter_spacing, :font_size, :syllable_mode)
   end
 end

@@ -7,6 +7,8 @@
       <p class="hero-sub">Readapt se transforme n'importe quel texte en format OpenDyslexic, pensé pour toi</p>
   </div>
 
+<%= render_with_settings("Bienvenue sur Readapt !") %>
+
   <div class="transform-card">
     <p>AVANT  &rarr;  APRÈS</p>
     <br>
@@ -41,6 +43,41 @@
   <div class="section-title">Importe ton texte</div>
 
   <div class="actions-grid">
+
+    <div class="action-card primary">
+      <div class="action-icon primary-icon">
+        <i class="fa-regular fa-copy"></i>
+      </div>
+      <div class="action-text">
+        <div class="action-title">Colle ton texte</div>
+        <div class="action-desc">Copie-colle directement depuis n'importe où</div>
+      </div>
+      <div class="action-arrow">›</div>
+    </div>
+
+    <div class="action-card">
+      <div class="action-icon amber">
+        <i class="fa-solid fa-qrcode"></i>
+      </div>
+      <div class="action-text">
+        <div class="action-title">Scanne un QR code</div>
+        <div class="action-desc">Capture instantanée depuis ton appareil</div>
+      </div>
+      <div class="action-arrow">›</div>
+    </div>
+
+    <div class="action-card">
+      <div class="action-icon blue">
+        <i class="fa-solid fa-file-arrow-up"></i>
+      </div>
+      <div class="action-text">
+        <div class="action-title">Importe un fichier</div>
+        <div class="action-desc">PDF, Word, ou tout autre document</div>
+      </div>
+      <div class="action-arrow">›</div>
+    </div>
+
+  <div class="actions-grid">
     <div class="action-card primary">
       <h3 class="action-title">Colle ton texte</h3>
       <p class="action-desc">Copie-colle directement depuis n'importe où</p>
@@ -53,4 +90,26 @@
       <h3 class="action-title">Importe ton fichier PDF</h3>
     </div>
   </div>
+
+  <% if user_signed_in? && @recent_articles.any? %>
+    <div class="text-container">
+      <div class="recent-header">
+        <h2 class="section-title" style="margin-bottom:0;">Mes textes récents</h2>
+        <%= link_to "Voir tout →", articles_path, class: "see-all" %>
+      </div>
+      <div class="texts-list">
+        <% @recent_articles.each do |article| %>
+          <%= link_to article_path(article), class: "text-chip" do %>
+            <div class="text-chip-icon">
+              <i class="fa-regular fa-file-lines"></i>
+            </div>
+            <div class="text-chip-content">
+              <div class="text-chip-title"><%= article.title %></div>
+              <div class="text-chip-meta"><%= time_ago_in_words(article.created_at) %></div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 </div>
