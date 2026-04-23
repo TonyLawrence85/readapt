@@ -17,14 +17,14 @@
 
         <ul class="slide-menu-links">
           <li><%= link_to root_path do  %><i class="fa-solid fa-house"></i> Page d'acccueil<% end %></li>
-          <li><%= link_to texts_path do  %><i class="fa-solid fa-book-open"></i> Mes Textes<% end %></li>
-          <li><%= link_to new_text_path do %><i class="fa-solid fa-wand-magic-sparkles">AA</i> Convertir un texte<% end %></li>
+          <li><%= link_to articles_path do  %><i class="fa-solid fa-book-open"></i> Mes Textes<% end %></li>
+          <li><%= link_to new_article_path do %><i class="fa-solid fa-wand-magic-sparkles">AA</i> Convertir un texte<% end %></li>
           <li>A propos </li>
         </ul>
       </nav>
     </div>
 
-    <%= link_to "#", class: "navbar-brand justify-content" do %>
+    <%= link_to root_path , class: "navbar-brand justify-content" do %>
       <%= image_tag "readapt-logo-home.svg" %>
     <% end %>
 
