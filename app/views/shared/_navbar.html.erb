@@ -16,9 +16,9 @@
       </button>
 
         <ul class="slide-menu-links">
-          <li>Mon Profil</li>
-          <li>Mes Textes</li>
-          <li>Convertir un texte</li>
+          <li><%= link_to root_path do  %><i class="fa-solid fa-house"></i> Page d'acccueil<% end %></li>
+          <li><%= link_to texts_path do  %><i class="fa-solid fa-book-open"></i> Mes Textes<% end %></li>
+          <li><%= link_to new_text_path do %><i class="fa-solid fa-wand-magic-sparkles">AA</i> Convertir un texte<% end %></li>
           <li>A propos </li>
         </ul>
       </nav>
