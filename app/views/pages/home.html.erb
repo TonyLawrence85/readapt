@@ -76,4 +76,27 @@
     </div>
 
   </div>
+
+  <% if user_signed_in? && @recent_texts.any? %>
+    <div class="text-container">
+      <div class="recent-header">
+        <h2 class="section-title" style="margin-bottom:0;">Mes textes récents</h2>
+        <%= link_to "Voir tout →", texts_path, class: "see-all" %>
+      </div>
+      <div class="texts-list">
+        <% @recent_texts.each do |text| %>
+          <%= link_to text_path(text), class: "text-chip" do %>
+            <div class="text-chip-icon">
+              <i class="fa-regular fa-file-lines"></i>
+            </div>
+            <div class="text-chip-content">
+              <div class="text-chip-title"><%= text.title %></div>
+              <div class="text-chip-meta"><%= time_ago_in_words(text.created_at) %></div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
 </div>
