@@ -92,6 +92,9 @@ class TextsController < ApplicationController
       ligne double entre les paragraphes logiques.
 
     FORMAT DE SORTIE (STRICT) :
+    - Chaque phrase doit être dans sa propre balise <p>.
+    - Ne regroupe JAMAIS deux phrases dans le même <p>.
+    - Pas de <br>, uniquement des <p> séparés.
     - Retourne UNIQUEMENT le texte adapté, sans préambule ni commentaire.
     - Découpe chaque mot de plus de 2 syllabes en syllabes
     - Entoure UNE syllabe sur deux avec des <span class="syl">...</span>
