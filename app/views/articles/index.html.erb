@@ -2,7 +2,7 @@
   <% @articles.each do |article| %>
     <div class="readapt-card">
       <div class="readapt-card_left">
-        <%= link_to toggle_favourite_text_path(article), data: { turbo_method: :patch } do %>
+        <%= link_to toggle_favourite_article_path(article), data: { turbo_method: :patch } do %>
           <% if article.favourite %>
             <i class="fa-solid fa-star"></i>
           <% else %>
@@ -19,7 +19,7 @@
 
 
   <div class="texts-index_actions">
-    <%= link_to "Ajouter un texte", new_artcile_path, class: "btn-readapt"%>
+    <%= link_to "Ajouter un texte", new_article_path, class: "btn-readapt"%>
     <%= link_to "Mes paramètres", edit_setting_path(current_user.setting), class: "btn-readapt" %>
   </div>
 </div>
