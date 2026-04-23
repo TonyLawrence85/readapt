@@ -1,22 +1,25 @@
-<h1 class="text-center">Mes textes</h1>
-  <div class="container">
-    <ul>
-      <% @articles.each do |article| %>
-        <li>
-          <%= link_to toggle_favourite_article_path(article), data: { turbo_method: :patch } do %>
-            <% if article.favourite %>
-              <i class="fa-solid fa-star"></i>
-            <% else %>
-              <i class="fa-regular fa-star"></i>
-            <% end %>
+<div class="texts-index">
+  <% @articles.each do |article| %>
+    <div class="readapt-card">
+      <div class="readapt-card_left">
+        <%= link_to toggle_favourite_article_path(article), data: { turbo_method: :patch } do %>
+          <% if article.favourite %>
+            <i class="fa-solid fa-star"></i>
+          <% else %>
+            <i class="fa-regular fa-star"></i>
           <% end %>
-          <%= link_to article.title, article_path(article) %>
-          <%= link_to article_path(article), data: { turbo_method: :delete } do %>
-            <i class="fa-solid fa-trash-can"></i>
-          <% end %>
-        </li>
+        <% end %>
+        <%= link_to article.title, article_path(article), class: "readapt-card_title" %>
+      </div>
+      <%= link_to article_path(article), data: { turbo_method: :delete } do %>
+        <i class="fa-solid fa-trash-can"></i>
       <% end %>
-    </ul>
+    </div>
+  <% end %>
+
+
+  <div class="texts-index_actions">
     <%= link_to "Ajouter un texte", new_article_path, class: "btn-readapt"%>
     <%= link_to "Mes paramètres", edit_setting_path(current_user.setting), class: "btn-readapt" %>
   </div>
+</div>
