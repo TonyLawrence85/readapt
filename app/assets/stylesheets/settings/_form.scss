@@ -1,0 +1,70 @@
+
+
+.tag-item {
+  display: inline-block;
+}
+
+.tag-selector {
+  position: absolute;
+  transform: scale(0);
+}
+
+.tag-selector + label {
+  cursor: pointer;
+  display: inline-block;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  padding: 0.3rem 0.8rem;
+  background-color: #ECEAFF;
+  color: #194F7A;
+  border: 1px solid #1B9E7A;
+  margin-right: 0.6rem;
+  margin-bottom: 0.4rem;
+}
+
+/* CONTENEURS FLEX RESPONSIVE */
+.language-tags,
+.font-tags,
+.palette-tags {
+  display: flex;
+  flex-wrap: wrap; /* ✅ autorise retour ligne */
+  gap: 10px;
+  align-items: center;
+}
+
+/* TAG ITEM */
+.tag-item {
+  flex: 0 0 auto;
+}
+
+/* LABEL */
+.tag-selector + label {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  padding: 0.4rem 0.9rem;
+  background-color: #ECEAFF;
+  color: #194F7A;
+  border: 1px solid #1B9E7A;
+  white-space: nowrap; /* 🔥 évite cassure texte */
+  max-width: 100%;
+}
+
+/* ETAT ACTIF */
+.tag-selector:checked + label {
+  background:$main-background;
+  color: white;
+  .color-dot {
+    border: 1px solid white;
+  }
+
+}
+
+/*  UX */
+.tag-selector + label:hover {
+  transform: scale(1.05);
+  transition: 0.2s;
+}

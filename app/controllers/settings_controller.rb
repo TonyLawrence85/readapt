@@ -1,6 +1,10 @@
 class SettingsController < ApplicationController
   before_action :authenticate_user!
 
+  def show
+    @setting = current_user.setting
+  end
+
   def edit
     @setting = current_user.setting
   end
@@ -9,7 +13,7 @@ class SettingsController < ApplicationController
     @setting = current_user.setting
 
     if @setting.update(setting_params)
-      redirect_to edit_setting_path(@setting)
+      redirect_to edit_setting_path(@setting), notice: "Préférences mises à jour ✅"
     else
       render :edit
     end
@@ -21,7 +25,7 @@ class SettingsController < ApplicationController
 
     # sécurité si aucun texte
     if text_record.nil?
-      redirect_to edit_setting_path(setting), alert: "No text available"
+      redirect_to edit_setting_path(setting), alert: "Aucun texte disponible"
       return
     end
 
@@ -43,6 +47,6 @@ class SettingsController < ApplicationController
   private
 
   def setting_params
-    params.require(:setting).permit(:font, :syllable_color, :syllable_palette, :letter_spacing, :font_size, :syllable_mode)
+    params.require(:setting).permit(:font, :syllable_palette, :letter_spacing, :font_size, :syllable_mode)
   end
 end
