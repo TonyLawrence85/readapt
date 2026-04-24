@@ -1,34 +1,5 @@
 <nav class="navbar navbar-light navbar-lewagon container-fluid">
-    <div data-controller="slide-menu">
-      <header class="app-header">
-          <button class="burger-btn" type="button" data-action="click->slide-menu#open">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-      </header>
-      <div class="overlay"
-        data-slide-menu-target="overlay"
-        data-action="click->drawer#close">
-      </div>
-
-      <nav class="slide-menu-drawer" data-slide-menu-target="menu">
-        <button class="burger-btn" type="button" aria-label="Toggle navigation" data-action="click->slide-menu#close">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-        <ul class="slide-menu-links">
-          <li><%= link_to root_path do  %><i class="fa-solid fa-house"></i> Page d'acccueil<% end %></li>
-          <li><%= link_to articles_path do  %><i class="fa-solid fa-book-open"></i> Mes Textes<% end %></li>
-          <li><%= link_to new_article_path do %><i class="fa-solid fa-wand-magic-sparkles">AA</i> Convertir un texte<% end %></li>
-          <li>A propos </li>
-        </ul>
-      </nav>
-    </div>
-
     <%= link_to root_path , class: "navbar-brand justify-content" do %>
       <%= image_tag "readapt-logo-home.svg" %>
     <% end %>
-
-    <%= link_to "#", class: "navbar-brand justify-content" do %>
-      <i class="fa-regular fa-bell"></i>
-    <% end %>
-</div></nav>
+</nav>
