@@ -38,8 +38,10 @@ class ArticlesController < ApplicationController
         else
           response = chat.ask("#{build_prompt(setting)}\n\nTexte à reformater :\n#{@article.content}")
         end
-        palette = current_user.setting.syllable_palette || "blue_red_green"
-      @article.update(formatted_content: TextFormatter.syllabify(response.content, palette: palette))
+      palette = current_user.setting.syllable_palette || "blue_red_green"
+      lines = response.content.split("\n")
+      formatted_lines = lines.map { |line| TextFormatter.syllabify(line, palette: palette) }
+      @article.update(formatted_content: formatted_lines.join("<br>"))
       redirect_to article_path(@article), notice: "Texte créé avec succès"
     else
       if params[:article][:source] == "import"
