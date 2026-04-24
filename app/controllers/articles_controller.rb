@@ -1,6 +1,14 @@
 class ArticlesController < ApplicationController
   def index
-    @articles = current_user.articles
+    @filter = params[:filter] || "all"
+
+    @articles =
+      case @filter
+      when "favourites"
+        current_user.articles.where(favourite: true)
+      else
+        current_user.articles.order(created_at: :desc)
+      end
   end
 
   def show
@@ -38,8 +46,10 @@ class ArticlesController < ApplicationController
         else
           response = chat.ask("#{build_prompt(setting)}\n\nTexte à reformater :\n#{@article.content}")
         end
-        palette = current_user.setting.syllable_palette || "blue_red_green"
-      @article.update(formatted_content: TextFormatter.syllabify(response.content, palette: palette))
+      palette = current_user.setting.syllable_palette || "blue_red_green"
+      lines = response.content.split("\n")
+      formatted_lines = lines.map { |line| TextFormatter.syllabify(line, palette: palette) }
+      @article.update(formatted_content: formatted_lines.join("<br>"))
       redirect_to article_path(@article), notice: "Texte créé avec succès"
     else
       if params[:article][:source] == "import"

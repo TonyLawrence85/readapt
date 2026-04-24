@@ -20,18 +20,63 @@
     --white: #ffffff;
   }
 
-  html, body {
-    height: 100%;
-    background: #f5f0e8;
-    font-family: 'DM Sans', sans-serif;
+  .hero-text {
+    padding: 18px 0 0;
   }
 
-  body {
-    display: flex;
-    flex-direction: column;
+  .hero-badge {
+    display: inline-flex;
     align-items: center;
+    gap: 6px;
+    background: rgba(43, 191, 168, 0.12);
+    border: 1px solid rgba(43, 191, 168, 0.3);
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--teal-mid);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+
+    &::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--teal-light);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
   }
 
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.4; transform: scale(0.7); }
+  }
+
+  .hero-headline {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 34px;
+    line-height: 1.05;
+    color: var(--teal-deep);
+    letter-spacing: -1px;
+    margin-bottom: 10px;
+
+    em {
+      font-style: italic;
+      color: var(--teal-light);
+    }
+  }
+
+  .hero-sub {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-mid);
+    font-weight: 300;
+    margin-bottom: 20px;
+    max-width: 300px;
+  }
 
   .transform-card {
   background: var(--teal-deep);
@@ -175,6 +220,11 @@
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
 
+.action-card.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .action-card.primary {
   background: linear-gradient(135deg, var(--teal-mid), var(--teal-deep));
   color: white;
@@ -202,7 +252,12 @@
 .action-title {
   font-size: 15px;
   font-weight: 500;
-  margin-bottom: 4px;
+  color: var(--teal-deep);
+  margin-bottom: 2px;
+}
+
+.action-card.primary .action-title {
+  color: white;
 }
 
 .action-desc {
