@@ -1,9 +1,11 @@
 <nav class="navbar-bottom">
   <ul>
-    <li><%= link_to root_path do  %><i class="fa-solid fa-house"></i><% end %></li>
-    <li><%= link_to articles_path do  %><i class="fa-solid fa-book-open"></i><% end %></li>
+    <li><%= link_to root_path do %><i class="fa-solid fa-house"></i><% end %></li>
+    <li><%= link_to articles_path do %><i class="fa-solid fa-book-open"></i><% end %></li>
 
     <li><%= link_to  new_article_path do %><i class="fa-solid fa-wand-magic-sparkles">Aa</i><% end %></li>
-    <li><%= link_to setting_path(current_user.setting) do  %><i class="fa-solid fa-gear"></i><% end %></li>
+    <% if current_user %>
+      <li><%= link_to setting_path(current_user.setting) do %><i class="fa-solid fa-gear"></i><% end %></li>
+    <% end %>
   </ul>
 </nav>
