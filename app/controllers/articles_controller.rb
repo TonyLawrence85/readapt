@@ -1,6 +1,14 @@
 class ArticlesController < ApplicationController
   def index
-    @articles = current_user.articles
+    @filter = params[:filter] || "all"
+
+    @articles =
+      case @filter
+      when "favourites"
+        current_user.articles.where(favourite: true)
+      else
+        current_user.articles.order(created_at: :desc)
+      end
   end
 
   def show
