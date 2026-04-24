@@ -83,3 +83,17 @@ h1, h2, h3 {
   gap: 10px;
   flex-wrap: nowrap; /* 🔥 empêche retour à la ligne */
 }
+
+/* MAIN CONTENT */
+
+.flex-main-content {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.main-content {
+  height: 95vh;
+  overflow-y: auto;
+}

@@ -1,4 +1,7 @@
+require_relative "syllabifier"
+
 class TextFormatter
+
   PALETTES = {
     "blue_red_green" => ["blue", "red", "green"],
     "orange_blue_purple" => ["orange", "blue", "purple"],
@@ -9,21 +12,17 @@ class TextFormatter
     PALETTES[palette] || ["blue", "red", "green"]
   end
 
-
   def self.syllabify(text, palette: "blue_red_green")
-  colors = colors_for(palette)
-
-  words = text.split(" ")
-
-  words.map do |word|
-    parts = word.scan(/.{1,2}/)
-
-    parts.map.with_index do |part, i|
-      color = colors[i % colors.length]
-      "<span style='color: #{color}'>#{part}</span>"
-    end.join
-  end.join(" ")
+    i = 0
+    words = text.split(" ")
+    words.map do |word|
+      parts = Syllabifier.split(word)
+      parts.map do |part|
+        classe = "syl-#{i % 3}"
+        i += 1
+        "<span class='#{classe}'>#{part}</span>"
+      end.join
+    end.join(" ")
   end
-
 
 end
