@@ -1,42 +1,13 @@
-<div class="container my-3">
 
-
-  <div class="mb-3">
-    <label>Langue du texte :</label>
-
-    <div class="language-tags">
-      <% languages = [
-        ["fr", "🇫🇷 Français"],
-        ["en", "🇬🇧 English"],
-        ["es", "🇪🇸 Español"],
-        ["de", "🇩🇪 Deutsch"]
-      ] %>
-
-      <% languages.each do |value, label| %>
-        <div class="tag-item">
-          <input
-            type="radio"
-            name="language"
-            value="<%= value %>"
-            id="lang_<%= value %>"
-            class="tag-selector"
-            <%= "checked" if value == "fr" %>
-          >
-          <label for="lang_<%= value %>"><%= label %></label>
-        </div>
-      <% end %>
-
-    </div>
-  </div>
+  <h1>Mes préférences de lecture</h1>
 
   <%= simple_form_for @setting do |f| %>
 
-   <div class="mb-3">
-      <label>Police</label>
-
+    <div class="mb-4 text-center">
+      <label style="font-size: 24px;">✍️</label>
       <div class="font-tags">
 
-        <% fonts = ["OpenDyslexic", "Arial", "Verdana", "Georgia", "Courier New"] %>
+        <% fonts = ["OpenDyslexic", "Arial", "Verdana", "Georgia"] %>
 
         <% fonts.each do |font| %>
           <div class="tag-item">
@@ -59,8 +30,8 @@
       </div>
     </div>
 
-    <div class="mb-3">
-      <label>Espacement des lettres</label>
+    <div class="mb-4 text-center">
+      <label style="font-size: 24px;">↔️</label>
 
       <input
         type="range"
@@ -78,8 +49,8 @@
       </small>
     </div>
 
-   <div class="mb-3">
-    <label>Taille du texte</label>
+   <div class="mb-4 text-center">
+    <label style="font-size: 24px;">🔤</label>
 
     <input
       type="range"
@@ -108,6 +79,7 @@
 
     <hr>
 
+
     <%= f.input :syllable_palette,
       collection: [
         ["Bleu / Rouge / Vert", "blue_red_green"],
@@ -119,20 +91,22 @@
       input_html: { id: "palette-input" }
     %>
 
+
+
     <%= f.input :syllable_mode,
       as: :boolean,
       label: "Activer la coloration des syllabes",
       input_html: { id: "syllable-mode" }
     %>
 
-    <!-- 🔥 PREVIEW SYLLABES -->
     <div id="syllable-preview" class="mb-3"></div>
 
-    <%= f.button :submit, "Enregistrer mes préférences", class: "btn btn-success" %>
+    <%= f.button :submit, "Enregistrer mes préférences", class: "btn btn-readapt" %>
 
   <% end %>
 
 </div>
+
 
 <script>
       document.addEventListener("turbo:load", () => {

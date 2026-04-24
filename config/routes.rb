@@ -23,5 +23,9 @@ Rails.application.routes.draw do
       patch :toggle_favourite
     end
   end
-  resources :settings, only: [:edit, :update]
+  resources :settings, only: [:edit, :update, :show] do
+    member do
+      get :download
+    end
+  end
 end
