@@ -1,0 +1,36 @@
+  <div class="mb-4 text-center">
+      <label><strong>Palette de couleurs</strong></label>
+
+      <% palettes = {
+        "blue_red_green" => ["#1E88E5", "#E53935", "#43A047"],
+        "orange_blue_purple" => ["#FB8C00", "#1E88E5", "#8E24AA"],
+        "yellow_blue_green" => ["#FDD835", "#1E88E5", "#43A047"]
+      } %>
+
+      <div class="palette-tags">
+
+        <% palettes.each do |key, colors| %>
+          <div class="tag-item">
+
+            <input
+              type="radio"
+              name="setting[syllable_palette]"
+              value="<%= key %>"
+              id="palette_<%= key %>"
+              class="tag-selector"
+              <%= "checked" if @setting.syllable_palette == key %>
+            >
+
+            <label for="palette_<%= key %>" class="palette-label">
+
+              <% colors.each do |color| %>
+                <span class="color-dot" style="background-color: <%= color %>;"></span>
+              <% end %>
+
+            </label>
+
+          </div>
+        <% end %>
+
+      </div>
+    </div>

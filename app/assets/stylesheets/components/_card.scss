@@ -8,7 +8,6 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
-  max-width: 700px;
   margin: 0 auto;
   padding: 24px 16px;
 
@@ -28,11 +27,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: transparent;
+  border-radius: 10px;
+  background-color: rgb(252, 248, 248);
   box-shadow: 0 4px 20px rgba(0,0,0,0.15);
   border: none;
-  padding: 16px 20px;
+  padding: 0px 12px;
   transition: box-shadow 0.2 ease;
+  max-width: 95%;
+  margin: auto;
+  margin-bottom: 8px;
 
   &:hover {
     box-shadow: 0 4px 20px rgba(0,0,0,0.15);
@@ -49,4 +52,39 @@
     font-weight: 600;
     text-decoration: none;
   }
+}
+
+.tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+  margin-left: 8px;
+}
+
+.tab {
+  padding: 4px 12px;
+  border-radius: 20px;
+  text-decoration: none;
+  color: #6f7f7d;
+  font-weight: 600;
+}
+
+.tab.active {
+  background: #0b2d4d;
+  color: white;
+}
+
+.readapt-card_content {
+  display: flex;
+  flex-direction: column;
+  p {
+    margin: 2px;
+  }
+}
+
+.title-index {
+  margin-top: 4px;
+  margin-left: 12px;
+  font-weight: 700;
+  font-size: 30px;
 }

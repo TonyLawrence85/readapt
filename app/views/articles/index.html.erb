@@ -1,4 +1,14 @@
-<div class="texts-index">
+<div class="texts-index w-100">
+  <h2 class="title-index">Mes textes :</h2>
+
+  <div class="tabs">
+  <%= link_to "Tous", articles_path(filter: "all"),
+      class: "tab #{'active' if @filter == 'all'}" %>
+
+  <%= link_to "Favoris", articles_path(filter: "favourites"),
+      class: "tab #{'active' if @filter == 'favourites'}" %>
+
+</div>
   <% @articles.each do |article| %>
     <div class="readapt-card">
       <div class="readapt-card_left">
@@ -9,7 +19,10 @@
             <i class="fa-regular fa-star"></i>
           <% end %>
         <% end %>
-        <%= link_to article.title, article_path(article), class: "readapt-card_title" %>
+        <div class="readapt-card_content">
+          <p><%= link_to article.title, article_path(article), class: "readapt-card_title" %></p>
+          <p><%= time_ago_in_words(article.created_at) %></p>
+        </div>
       </div>
       <%= link_to article_path(article), data: { turbo_method: :delete } do %>
         <i class="fa-solid fa-trash-can"></i>
@@ -17,9 +30,4 @@
     </div>
   <% end %>
 
-
-  <div class="texts-index_actions">
-    <%= link_to "Ajouter un texte", new_article_path, class: "btn-readapt"%>
-    <%= link_to "Mes paramètres", edit_setting_path(current_user.setting), class: "btn-readapt" %>
-  </div>
 </div>
