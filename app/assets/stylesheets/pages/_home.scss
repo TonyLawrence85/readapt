@@ -265,7 +265,12 @@
 .action-title {
   font-size: 15px;
   font-weight: 500;
-  margin-bottom: 4px;
+  color: var(--teal-deep);
+  margin-bottom: 2px;
+}
+
+.action-card.primary .action-title {
+  color: white;
 }
 
 .action-desc {
