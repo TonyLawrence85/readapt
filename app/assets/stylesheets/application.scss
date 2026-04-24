@@ -14,7 +14,7 @@
 @import "components/buttons";
 @import "components/card";
 @import "components/navbar_bottom";
-
+@import "components/navbar";
 @import "settings/index";
 
 a {
@@ -59,6 +59,6 @@ h1, h2, h3 {
 /* ---- */
 
 body {
-  background: #f5f0e8;
+  background-color: $background;
   font-family: 'DM Sans', sans-serif;
 }
