@@ -11,3 +11,40 @@
   list-style: none;
   margin-top: 0.5rem;
 }
+
+i {
+  color: grey;
+  padding: 10px;
+}
+
+.fa-house {
+  .pages.home & {
+    color: black;
+    border-bottom: 2px solid black;
+    border-bottom: 2px solid black;
+
+  }
+}
+
+.fa-book-open {
+  .articles.index & {
+    color: black;
+    border-bottom: 2px solid black;
+    border-bottom: 2px solid black;
+  }
+}
+
+.fa-wand-magic-sparkles {
+
+  .articles.new & {
+    color: black;
+    border-bottom: 2px solid black;
+  }
+}
+
+.fa-cog {
+  .settings & {
+    color: black;
+    border-bottom: 2px solid black;
+  }
+}
