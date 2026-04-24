@@ -5,13 +5,26 @@
 <div class="container">
   <div class="card d-flex">
     <div class="card-body justify-content-between align-items-center">
-      <% if @article.content.present? %>
-        <p><%= @article.content %></p>
-      <% elsif @article.document.attached? %>
-        <p>Fichier importé : <%= @article.document.filename %></p>
-      <% else %>
-        <p>Aucun contenu disponible</p>
-      <% end %>
+      <div data-controller="toggle">
+        <div class="form-check mb-3">
+          <input class="form-check-input" type="checkbox" id="show-original" checked
+                 data-toggle-target="trigger" data-action="change->toggle#toggle">
+          <label class="form-check-label" for="show-original">
+            Afficher le texte original
+          </label>
+        </div>
+
+        <% original_text = if @article.content.present?
+                              @article.content
+                            elsif @article.document.attached?
+                              "Fichier importé : #{@article.document.filename}"
+                            else
+                              "Aucun contenu disponible"
+                            end %>
+        <blockquote class="blockquote fst-italic text-muted border-start border-3 ps-3" data-toggle-target="content">
+          <p><%= original_text %></p>
+        </blockquote>
+      </div>
 
       <p><%= @article.translated_content %></p>
 
