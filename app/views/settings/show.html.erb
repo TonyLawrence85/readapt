@@ -1,0 +1,69 @@
+<div class="container my-3">
+
+  <h2 class="mb-4">Mes préférences</h2>
+
+  <div class="mb-3">
+    <label>Police :</label>
+    <p style="font-family:<%= @setting.font %>;">
+      <%= @setting.font %>
+    </p>
+  </div>
+
+  <div class="mb-3">
+    <label>Espacement :</label>
+    <p><%= @setting.letter_spacing %></p>
+  </div>
+
+  <div class="mb-3">
+    <label>Taille du texte :</label>
+    <p><%= @setting.font_size %></p>
+  </div>
+
+  <div class="mb-3">
+    <label>Palette :</label>
+
+    <% palettes = {
+      "blue_red_green" => ["#1E88E5", "#E53935", "#43A047"],
+      "orange_blue_purple" => ["#FB8C00", "#1E88E5", "#8E24AA"],
+      "yellow_blue_green" => ["#FDD835", "#1E88E5", "#43A047"]
+    } %>
+
+    <% colors = palettes[@setting.syllable_palette] || palettes["blue_red_green"] %>
+
+    <div style="display:flex; gap:6px;">
+      <% colors.each do |c| %>
+        <span class="color-dot" style="
+          background:<%= c %>;
+          ">
+        </span>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label>Coloration des syllabes :</label>
+    <p>
+      <%= @setting.syllable_mode ? "Activée ✅" : "Désactivée ❌" %>
+    </p>
+  </div>
+
+  <div class="mt-4">
+    <label>Aperçu :</label>
+
+    <div style="
+      font-family:<%= @setting.font %>;
+      letter-spacing:<%= @setting.letter_spacing %>;
+      font-size:<%= @setting.font_size %>;
+      padding:10px;
+      border:1px solid #eee;
+      border-radius:10px;
+    ">
+      <%= render_with_settings("Lire avec Readapt, c'est facile !") %>
+    </div>
+  </div>
+
+  <div class="mt-4 d-flex gap-2">
+    <%= link_to "Modifier", edit_setting_path(@setting), class: "btn btn-readapt" %>
+  </div>
+
+</div>
