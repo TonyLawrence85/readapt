@@ -1,14 +1,8 @@
 /* BOTTOM NAVBAR */
 
 .navbar-bottom {
-  bottom: 0;
-  width: 100%;
-  position: fixed;
-  z-index: 1000;
   background: #ffffff;
-  height: 5vh;
 }
-
 .navbar-bottom ul {
   display: flex;
   justify-content: space-around;
@@ -16,5 +10,4 @@
 .navbar-bottom li {
   list-style: none;
   margin-top: 0.5rem;
-
 }
