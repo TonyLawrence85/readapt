@@ -13,7 +13,7 @@ class SettingsController < ApplicationController
     @setting = current_user.setting
 
     if @setting.update(setting_params)
-      redirect_to edit_setting_path(@setting), notice: "Préférences mises à jour ✅"
+      redirect_to setting_path(@setting), notice: "Préférences mises à jour ✅"
     else
       render :edit
     end

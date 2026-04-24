@@ -1,40 +1,13 @@
 
-  <div class="mb-3">
-    <label>Langue du texte :</label>
-
-    <div class="language-tags">
-      <% languages = [
-        ["fr", "🇫🇷 Français"],
-        ["en", "🇬🇧 English"],
-        ["es", "🇪🇸 Español"],
-        ["de", "🇩🇪 Deutsch"]
-      ] %>
-
-      <% languages.each do |value, label| %>
-        <div class="tag-item">
-          <input
-            type="radio"
-            name="language"
-            value="<%= value %>"
-            id="lang_<%= value %>"
-            class="tag-selector"
-            <%= "checked" if value == "fr" %>
-          >
-          <label for="lang_<%= value %>"><%= label %></label>
-        </div>
-      <% end %>
-
-    </div>
-  </div>
+  <h1>Mes préférences de lecture</h1>
 
   <%= simple_form_for @setting do |f| %>
 
-   <div class="mb-3">
-      <label>Police</label>
-
+    <div class="mb-4 text-center">
+      <label style="font-size: 24px;">✍️</label>
       <div class="font-tags">
 
-        <% fonts = ["OpenDyslexic", "Arial", "Verdana", "Georgia", "Courier New"] %>
+        <% fonts = ["OpenDyslexic", "Arial", "Verdana", "Georgia"] %>
 
         <% fonts.each do |font| %>
           <div class="tag-item">
@@ -57,8 +30,8 @@
       </div>
     </div>
 
-    <div class="mb-3">
-      <label>Espacement des lettres</label>
+    <div class="mb-4 text-center">
+      <label style="font-size: 24px;">↔️</label>
 
       <input
         type="range"
@@ -76,8 +49,8 @@
       </small>
     </div>
 
-   <div class="mb-3">
-    <label>Taille du texte</label>
+   <div class="mb-4 text-center">
+    <label style="font-size: 24px;">🔤</label>
 
     <input
       type="range"
@@ -106,42 +79,19 @@
 
     <hr>
 
-    <div class="mb-3">
-      <label>Palette de couleurs</label>
 
-      <% palettes = {
-        "blue_red_green" => ["#1E88E5", "#E53935", "#43A047"],
-        "orange_blue_purple" => ["#FB8C00", "#1E88E5", "#8E24AA"],
-        "yellow_blue_green" => ["#FDD835", "#1E88E5", "#43A047"]
-      } %>
+    <%= f.input :syllable_palette,
+      collection: [
+        ["Bleu / Rouge / Vert", "blue_red_green"],
+        ["Orange / Bleu / Violet", "orange_blue_purple"],
+        ["Jaune / Bleu / Vert", "yellow_blue_green"]
+      ],
+      label: "Palette de couleurs",
+      prompt: "Choisir une palette",
+      input_html: { id: "palette-input" }
+    %>
 
-      <div class="palette-tags">
 
-        <% palettes.each do |key, colors| %>
-          <div class="tag-item">
-
-            <input
-              type="radio"
-              name="setting[syllable_palette]"
-              value="<%= key %>"
-              id="palette_<%= key %>"
-              class="tag-selector"
-              <%= "checked" if @setting.syllable_palette == key %>
-            >
-
-            <label for="palette_<%= key %>" class="palette-label">
-
-              <% colors.each do |color| %>
-                <span class="color-dot" style="background-color: <%= color %>;"></span>
-              <% end %>
-
-            </label>
-
-          </div>
-        <% end %>
-
-      </div>
-    </div>
 
     <%= f.input :syllable_mode,
       as: :boolean,
@@ -156,6 +106,8 @@
   <% end %>
 
 </div>
+
+
 <script>
       document.addEventListener("turbo:load", () => {
 
