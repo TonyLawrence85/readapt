@@ -72,6 +72,11 @@ class ArticlesController < ApplicationController
     redirect_to articles_path, notice: "Texte supprimé"
   end
 
+  def synthesize
+    set_article
+    TtsService.call(@article.formatted_content)
+  end
+  
   private
 
   def article_params
