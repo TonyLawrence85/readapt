@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Readapt" %></title>
+    <title><%= content_for(:title) || "Readapt - Lire sans se battre" %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Readapt">
@@ -28,7 +28,7 @@
     <div class="flex-main-content">
       <div class="main-content">
         <%= render "shared/navbar" %>
-      <%# <%= render "shared/flashes" %>
+      <%# render "shared/flashes" %>
         <%= yield %>
       </div>
       <%= render "shared/navbar_bottom" %>
