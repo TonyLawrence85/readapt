@@ -76,3 +76,5 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem 'google-cloud-text_to_speech'

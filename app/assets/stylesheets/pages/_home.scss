@@ -157,6 +157,7 @@
   width: 100%;
   max-width: 480px;
   padding: 48px 24px;
+  margin: 0 auto;
 }
 
 .card-container {
@@ -218,6 +219,8 @@
   border-radius: 18px;
   padding: 16px 18px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  text-decoration: none;
+  color: var(--teal-deep);
 }
 
 .action-card.disabled {
@@ -241,7 +244,7 @@
   flex-shrink: 0;
 }
 
-.action-icon.primary-icon { background: rgba(255, 255, 255, 0.2); color: white; }
+.action-icon.primary-icon { background: rgba(255, 255, 255, 0.15); color: white; }
 .action-icon.amber        { background: rgba(240, 165, 0, 0.12);  color: #f0a500; }
 .action-icon.blue         { background: rgba(59, 130, 246, 0.12); color: #3b82f6; }
 
@@ -262,7 +265,11 @@
 
 .action-desc {
   font-size: 12px;
-  opacity: 0.6;
+  color: rgba(45, 92, 92, 0.6);
+}
+
+.action-card.primary .action-desc {
+  color: white;
 }
 
 .action-arrow {
