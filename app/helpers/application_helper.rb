@@ -12,15 +12,15 @@ module ApplicationHelper
     setting = current_user.setting
     return text unless setting
 
+    letter_spacing = with_px(setting.letter_spacing)
+    font_size      = with_px(setting.font_size)
+
     content =
       if setting.syllable_mode
         TextFormatter.syllabify(text, palette: setting.syllable_palette)
       else
         text
       end
-
-    letter_spacing = with_px(setting.letter_spacing)
-    font_size      = with_px(setting.font_size)
 
     "<div style='font-family: #{setting.font}; letter-spacing: #{letter_spacing}; font-size: #{font_size};'>
       #{content}

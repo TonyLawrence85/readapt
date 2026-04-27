@@ -4,8 +4,7 @@ class TextFormatter
 
   PALETTES = {
     "blue_red_green"     => ["#1E88E5", "#E53935", "#43A047"],
-    "orange_blue_purple" => ["#FB8C00", "#1E88E5", "#8E24AA"],
-    "yellow_blue_green"  => ["#FDD835", "#1E88E5", "#43A047"]
+    "orange_blue_purple" => ["#FB8C00", "#1E88E5", "#8E24AA"]
   }
 
   def self.colors_for(palette)
