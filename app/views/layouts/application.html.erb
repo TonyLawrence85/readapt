@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Readapt" %></title>
+    <title><%= content_for(:title) || "Readapt - Lire sans se battre" %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Readapt">
@@ -14,9 +14,9 @@
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
     <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
+    <link rel="icon" href="/favicon-color.svg" type="image/svg+xml" media="(prefers-color-scheme: light)">
+    <link rel="icon" href="/favicon-bw.svg" type="image/svg+xml" media="(prefers-color-scheme: dark)">
+    <link rel="icon" href="/favicon-color.svg" type="image/svg+xml">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
@@ -28,7 +28,7 @@
     <div class="flex-main-content">
       <div class="main-content">
         <%= render "shared/navbar" %>
-      <%# <%= render "shared/flashes" %>
+      <%# render "shared/flashes" %>
         <%= yield %>
       </div>
       <%= render "shared/navbar_bottom" %>
