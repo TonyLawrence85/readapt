@@ -50,6 +50,7 @@ class ArticlesController < ApplicationController
       lines = response.content.split("\n")
       formatted_lines = lines.map { |line| TextFormatter.syllabify(line, palette: palette) }
       @article.update(formatted_content: formatted_lines.join("<br>"))
+      AudioGenerationJob.perform_later(article.id)
       redirect_to article_path(@article), notice: "Texte créé avec succès"
     else
       if params[:article][:source] == "import"

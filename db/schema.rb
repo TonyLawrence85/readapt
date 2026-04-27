@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_23_103018) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_27_141517) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -43,6 +43,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_23_103018) do
   end
 
   create_table "articles", force: :cascade do |t|
+    t.text "audio_timestamps"
     t.text "content"
     t.datetime "created_at", null: false
     t.boolean "favourite", default: false, null: false
