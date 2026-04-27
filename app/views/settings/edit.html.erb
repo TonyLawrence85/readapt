@@ -31,7 +31,7 @@
           <label class="settings-label mb-0">
             <i class="fa-solid fa-arrows-left-right"></i> Espacement
           </label>
-          <span class="slider-value" id="spacing-value"><%= @setting.letter_spacing || "0px" %></span>
+          <span class="slider-value" id="spacing-value"><%= @setting.letter_spacing.to_s.gsub('px','').presence || "0" %></span>
         </div>
         <input type="range" min="0" max="10" step="1"
                value="<%= @setting.letter_spacing.to_s.gsub('px','') || 0 %>"
@@ -43,7 +43,7 @@
           <label class="settings-label mb-0">
             <i class="fa-solid fa-text-height"></i> Taille
           </label>
-          <span class="slider-value" id="size-value"><%= @setting.font_size || "16px" %></span>
+          <span class="slider-value" id="size-value"><%= @setting.font_size.to_s.gsub('px','').presence || "12" %></span>
         </div>
         <input type="range" min="12" max="40" step="1"
                value="<%= @setting.font_size.to_s.gsub('px','') || 16 %>"
@@ -79,15 +79,19 @@
 
     </div>
 
-    <%# ── BOX 3 : Aperçu combiné ── %>
-    <div class="settings-box mb-3" id="preview-box">
-      <div id="combined-preview" class="combined-preview"
-           style="font-family:<%= @setting.font %>; letter-spacing:<%= @setting.letter_spacing %>; font-size:<%= @setting.font_size %>;">
-        Lire avec Readapt, c'est facile !
-      </div>
-    </div>
+    <%# ── Sticky : Aperçu + Bouton ── %>
+    <div class="settings-sticky-bottom">
 
-    <%= f.button :submit, "Enregistrer mes préférences", class: "btn btn-readapt w-100" %>
+      <div class="settings-box mb-2" id="preview-box">
+        <div id="combined-preview" class="combined-preview"
+             style="font-family:<%= @setting.font %>; letter-spacing:<%= @setting.letter_spacing %>; font-size:<%= @setting.font_size %>;">
+          Lire avec Readapt, c'est facile !
+        </div>
+      </div>
+
+      <%= f.button :submit, "Enregistrer mes préférences", class: "btn btn-readapt w-100" %>
+
+    </div>
 
   <% end %>
 
@@ -188,12 +192,12 @@ document.addEventListener("turbo:load", () => {
   })
 
   spacingInput.addEventListener("input", e => {
-    document.getElementById("spacing-value").innerText = e.target.value + "px"
+    document.getElementById("spacing-value").innerText = e.target.value
     updatePreview()
   })
 
   sizeInput.addEventListener("input", e => {
-    document.getElementById("size-value").innerText = e.target.value + "px"
+    document.getElementById("size-value").innerText = e.target.value
     updatePreview()
   })
 

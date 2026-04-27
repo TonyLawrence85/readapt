@@ -53,6 +53,16 @@
   margin-bottom: 0.2rem;
 }
 
+/* ── Sticky aperçu + bouton ── */
+.settings-sticky-bottom {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  background: #F4F1E9;
+  padding-top: 0.3rem;
+  padding-bottom: 0.5rem;
+}
+
 /* ── Aperçu combiné (box 3) ── */
 .combined-preview {
   min-height: 2.5rem;
@@ -204,20 +214,12 @@ input[type=range] {
   .color-dot { border: 1px solid white; }
 }
 
-/* Palette : fond transparent, juste le liseret */
-.tag-selector + label:has(.palette-swatch) {
+/* Palette sélectionnée : fond lavande + border gradient uniquement */
+.tag-selector:checked + label.palette-label {
   background:
-    transparent padding-box,
-    linear-gradient(150deg, rgba(25, 79, 122, 0.28) 40%, rgba(27, 158, 122, 0.28)) border-box;
-}
-
-.tag-selector:checked + label:has(.palette-swatch) {
-  border: 1.5px solid transparent;
-  background:
-    transparent padding-box,
-    linear-gradient(150deg, #a8c4e0 40%, #a8d9cc) border-box;
-  box-shadow: none;
-  padding: 0.3rem 0.7rem;
+    linear-gradient(#ECEAFF, #ECEAFF) padding-box,
+    linear-gradient(150deg, #7ab0d0 40%, #7abfb0) border-box;
+  color: #194F7A;
 }
 
 .tag-selector + label:hover {

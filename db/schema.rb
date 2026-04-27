@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_27_080957) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_27_151242) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -56,11 +56,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_27_080957) do
 
   create_table "settings", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.string "font"
-    t.string "font_size"
-    t.string "letter_spacing"
-    t.boolean "syllable_mode"
-    t.string "syllable_palette"
+    t.string "font", default: "OpenDyslexic"
+    t.string "font_size", default: "12"
+    t.string "letter_spacing", default: "0"
+    t.boolean "syllable_mode", default: false
+    t.string "syllable_palette", default: "blue_red_green"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_settings_on_user_id"
