@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_23_103018) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_27_142845) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -48,7 +48,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_23_103018) do
     t.boolean "favourite", default: false, null: false
     t.text "formatted_content"
     t.string "title"
-    t.text "translated_content"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_articles_on_user_id"
@@ -59,7 +58,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_23_103018) do
     t.string "font"
     t.string "font_size"
     t.string "letter_spacing"
-    t.string "syllable_color"
     t.boolean "syllable_mode"
     t.string "syllable_palette"
     t.datetime "updated_at", null: false

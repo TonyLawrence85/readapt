@@ -75,7 +75,7 @@ class ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:title, :content, :favourite, :translated_content, :document)
+    params.require(:article).permit(:title, :content, :favourite, :document)
   end
 
   def set_article
