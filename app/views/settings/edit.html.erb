@@ -3,7 +3,7 @@
 
   <h1 class="text-center mt-3 mb-3">Choisis tes préférences</h1>
 
-  <%= simple_form_for @setting do |f| %>
+  <%= simple_form_for @setting, html: { class: "settings-edit-form" } do |f| %>
 
     <%# ── BOX 1 : Typographie ── %>
     <div class="settings-box mb-3" id="typography-box">
@@ -162,7 +162,7 @@ document.addEventListener("turbo:load", () => {
     combinedPreview.style.letterSpacing  = spacing
     combinedPreview.style.fontSize       = size
 
-    if (palette.bg) {
+    if (syllableMode.checked && palette.bg) {
       combinedPreview.style.backgroundColor = palette.bg
       combinedPreview.style.padding         = "0.6rem 0.8rem"
       combinedPreview.style.borderRadius    = "8px"
@@ -175,8 +175,7 @@ document.addEventListener("turbo:load", () => {
     if (syllableMode.checked) {
       combinedPreview.innerHTML = syllabify(previewText, palette.syllables)
     } else {
-      const textStyle = palette.text ? `style="color:${palette.text}"` : ""
-      combinedPreview.innerHTML = `<span ${textStyle}>${previewText}</span>`
+      combinedPreview.innerHTML = previewText
     }
   }
 

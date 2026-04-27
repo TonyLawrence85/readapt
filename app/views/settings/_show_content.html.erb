@@ -44,9 +44,9 @@
           <span style="color:<%= palette_data[:text] %>;">Aa</span>
         </span>
       <% else %>
-        <% palette_data[:syllables].each do |c| %>
-          <span class="color-dot" style="background:<%= c %>;"></span>
-        <% end %>
+        <span class="palette-swatch palette-swatch--letters">
+          <span style="color:<%= palette_data[:syllables][0] %>; font-weight:800;">A</span><span style="color:<%= palette_data[:syllables][1] %>; font-size:0.75rem;">a</span><span style="color:<%= palette_data[:syllables][2] %>; font-size:0.75rem;">a</span>
+        </span>
       <% end %>
     </div>
   </div>

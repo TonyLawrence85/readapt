@@ -18,7 +18,7 @@ module ApplicationHelper
 
     base_style = "font-family: #{setting.font}; letter-spacing: #{letter_spacing}; font-size: #{font_size};"
 
-    if palette_data[:bg]
+    if setting.syllable_mode && palette_data[:bg]
       base_style += " background-color: #{palette_data[:bg]}; color: #{palette_data[:text]}; padding: 0.8rem 1rem; border-radius: 8px;"
     end
 
