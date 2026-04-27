@@ -7,27 +7,35 @@
 
 <h1 class="text-center mt-3 mb-3">Mes préférences</h1>
 
-<div class="mb-3 text-center">
-  <label class="settings-label">
-    <i class="fa-solid fa-font"></i> Police
-  </label>
-  <p style="font-family:<%= @setting.font %>;">
-    <%= @setting.font %>
-  </p>
-</div>
+<%# ── BOX 1 : Typographie ── %>
+<div class="settings-box mb-3">
+  <div class="show-stats-row">
 
-<div class="mb-3 text-center">
-  <label class="settings-label">
-    <i class="fa-solid fa-arrows-left-right"></i> Espacement
-  </label>
-  <p><%= @setting.letter_spacing || "0px" %></p>
-</div>
+    <div class="show-stat">
+      <i class="fa-solid fa-font show-icon"></i>
+      <span class="show-label">Police</span>
+      <span class="show-value" style="font-family:<%= @setting.font %>;">
+        <%= @setting.font %>
+      </span>
+    </div>
 
-<div class="mb-3 text-center">
-  <label class="settings-label">
-    <i class="fa-solid fa-text-height"></i> Taille
-  </label>
-  <p><%= @setting.font_size || "16px" %></p>
+    <div class="show-stat-divider"></div>
+
+    <div class="show-stat">
+      <i class="fa-solid fa-arrows-left-right show-icon"></i>
+      <span class="show-label">Espacement</span>
+      <span class="show-value"><%= @setting.letter_spacing || "0px" %></span>
+    </div>
+
+    <div class="show-stat-divider"></div>
+
+    <div class="show-stat">
+      <i class="fa-solid fa-text-height show-icon"></i>
+      <span class="show-label">Taille</span>
+      <span class="show-value"><%= @setting.font_size || "16px" %></span>
+    </div>
+
+  </div>
 </div>
 
 <div class="mb-3 text-center">
