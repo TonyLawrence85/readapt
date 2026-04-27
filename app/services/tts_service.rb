@@ -21,10 +21,6 @@ class TtsService
       audio_config: audio_config
     )
 
-    # Le contenu audio est dans response.audio_content
-    # Tu peux l'enregistrer dans un fichier ou l'envoyer vers ActiveStorage
-    File.open("public/output.mp3", "wb") do |file|
-      file.write(response.audio_content)
-    end
+    response.audio_content
   end
 end

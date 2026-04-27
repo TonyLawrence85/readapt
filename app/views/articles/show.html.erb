@@ -55,24 +55,28 @@
         <p>Fichier importé : <%= @article.document.filename %></p>
       <% end %>
 
-      <% audio_url = "https://res.cloudinary.com/dsovlghl6/video/upload/v1777283390/testmp3_dzufin.m4a" %>
       <div data-controller="karaoke" data-karaoke-timestamps-value="<%= @article.audio_timestamps %>">
-      <div data-controller="plyr" data-karaoke-target="player" class="audio-player-container">
-        <audio data-plyr-target="audio" controls preload="none">
-          <source src="<%= audio_url %>" type="audio/mp4">
-        </audio>
-      </div>
-      <% if @article.audio_timestamps.present? %>
-
-        <% timestamps = JSON.parse(@article.audio_timestamps) %>
-        <div class= "karaoke-container">
-          <% timestamps.each_with_index do |segment, index| %>
-            <span data-karaoke-target="segment" data-index="<%= index %>" class="karaoke-segment">
-              <%= segment["text"] %>
-            </span>
+        <div data-controller="plyr" data-karaoke-target="player" class="audio-player-container">
+          <% if @article.audio.attached? %>
+            <audio data-plyr-target="audio" controls preload="none">
+              <source src="<%= url_for(@article.audio) %>" type="audio/mpeg">
+            </audio>
+          <% else %>
+            <p class="text-muted" data-controller="refresh" data-refresh-interval-value="3000" data-refresh-url-value="<%= article_path(@article) %>">
+              <i class="fa fa-spinner fa-spin"></i> Audio en cours de génération...
+            </p>
           <% end %>
         </div>
-      <% end %>
+        <% if @article.audio_timestamps.present? %>
+          <% timestamps = JSON.parse(@article.audio_timestamps) %>
+          <div class="karaoke-container">
+            <% timestamps.each_with_index do |segment, index| %>
+              <span data-karaoke-target="segment" data-index="<%= index %>" class="karaoke-segment">
+                <%= segment["text"] %>
+              </span>
+            <% end %>
+          </div>
+        <% end %>
       </div>
 
       <% if @article.formatted_content.present? %>
