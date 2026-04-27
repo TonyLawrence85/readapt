@@ -1,29 +1,29 @@
 <% palette_options = {
-  "blue_red_green"     => { type: :dots,  colors: ["#1E88E5", "#E53935", "#43A047"] },
-  "orange_blue_purple" => { type: :dots,  colors: ["#FB8C00", "#1E88E5", "#8E24AA"] },
-  "cream_dark_blue"    => { type: :theme, bg: "#194F7A", text: "#FFF8E7" },
-  "yellow_black"       => { type: :theme, bg: "#111111", text: "#FFD700" },
-  "offwhite_dark_green"=> { type: :theme, bg: "#1B4332", text: "#F5F5DC" },
-  "orange_dark_gray"   => { type: :theme, bg: "#2D2D2D", text: "#FF8C00" }
+  "blue_red_green"     => { type: :letters, colors: ["#1E88E5", "#E53935", "#43A047"] },
+  "orange_blue_purple" => { type: :letters, colors: ["#FB8C00", "#1E88E5", "#8E24AA"] },
+  "cream_dark_blue"    => { type: :theme,   bg: "#194F7A", text: "#FFF8E7" },
+  "yellow_black"       => { type: :theme,   bg: "#111111", text: "#FFD700" },
+  "offwhite_dark_green"=> { type: :theme,   bg: "#1B4332", text: "#F5F5DC" },
+  "orange_dark_gray"   => { type: :theme,   bg: "#2D2D2D", text: "#FF8C00" }
 } %>
 
-<%# Ligne 1 : 2 palettes tricolores %>
+<%# Ligne 1 : 2 palettes syllabes (Aaa) %>
 <div class="palette-tags mt-2">
-  <% palette_options.select { |_, d| d[:type] == :dots }.each do |key, data| %>
+  <% palette_options.select { |_, d| d[:type] == :letters }.each do |key, data| %>
     <div class="tag-item">
       <input type="radio" name="setting[syllable_palette]" value="<%= key %>"
              id="palette_<%= key %>" class="tag-selector"
              <%= "checked" if @setting.syllable_palette == key %>>
       <label for="palette_<%= key %>" class="palette-label">
-        <% data[:colors].each do |color| %>
-          <span class="color-dot" style="background-color:<%= color %>;"></span>
-        <% end %>
+        <span class="palette-swatch palette-swatch--letters">
+          <span style="color:<%= data[:colors][0] %>; font-weight:800;">A</span><span style="color:<%= data[:colors][1] %>; font-size:0.75rem;">a</span><span style="color:<%= data[:colors][2] %>; font-size:0.75rem;">a</span>
+        </span>
       </label>
     </div>
   <% end %>
 </div>
 
-<%# Ligne 2 : 4 palettes thème %>
+<%# Ligne 2 : 4 palettes thème (Aa) %>
 <div class="palette-tags mt-2">
   <% palette_options.select { |_, d| d[:type] == :theme }.each do |key, data| %>
     <div class="tag-item">
