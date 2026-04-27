@@ -1,33 +1,35 @@
-<div class="texts-index w-100">
-  <h2 class="title-index">Mes textes :</h2>
+<div class="container mt-2">
+  <div class="texts-index">
+    <h2>Mes textes</h2>
 
-  <div class="tabs">
-  <%= link_to "Tous", articles_path(filter: "all"),
-      class: "tab #{'active' if @filter == 'all'}" %>
+    <div class="tabs">
+    <%= link_to "Tous", articles_path(filter: "all"),
+        class: "tab #{'active' if @filter == 'all'}" %>
 
-  <%= link_to "Favoris", articles_path(filter: "favourites"),
-      class: "tab #{'active' if @filter == 'favourites'}" %>
+    <%= link_to "Favoris", articles_path(filter: "favourites"),
+        class: "tab #{'active' if @filter == 'favourites'}" %>
 
-</div>
-  <% @articles.each do |article| %>
-    <div class="readapt-card">
-      <div class="readapt-card_left">
-        <%= link_to toggle_favourite_article_path(article), data: { turbo_method: :patch } do %>
-          <% if article.favourite %>
-            <i class="fa-solid fa-star"></i>
-          <% else %>
-            <i class="fa-regular fa-star"></i>
+  </div>
+    <% @articles.each do |article| %>
+      <div class="readapt-card">
+        <div class="readapt-card_left">
+          <%= link_to toggle_favourite_article_path(article), data: { turbo_method: :patch } do %>
+            <% if article.favourite %>
+              <i class="fa-solid fa-star"></i>
+            <% else %>
+              <i class="fa-regular fa-star"></i>
+            <% end %>
           <% end %>
-        <% end %>
-        <div class="readapt-card_content">
-          <p><%= link_to article.title, article_path(article), class: "readapt-card_title" %></p>
-          <p><%= time_ago_in_words(article.created_at) %></p>
+          <div class="readapt-card_content">
+            <p><%= link_to article.title, article_path(article), class: "readapt-card_title" %></p>
+            <p>il y a <%= time_ago_in_words(article.created_at) %></p>
+          </div>
         </div>
+        <%= link_to article_path(article), data: { turbo_method: :delete } do %>
+          <i class="fa-solid fa-trash-can"></i>
+        <% end %>
       </div>
-      <%= link_to article_path(article), data: { turbo_method: :delete } do %>
-        <i class="fa-solid fa-trash-can"></i>
-      <% end %>
-    </div>
-  <% end %>
+    <% end %>
 
+  </div>
 </div>

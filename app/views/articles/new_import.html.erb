@@ -1,12 +1,10 @@
-<div class="container">
+<div class="container mt-2">
+  <h2 class="title-import-pdf">Importe ton PDF </h2>
   <%= simple_form_for @article, url: articles_path do |f| %>
-    <%= f.input :title %>
+    <%= f.input :title, :label => "Titre" %>
     <%= f.input :document, as: :file %>
     <%= f.hidden_field :source, value: "import" %>
-    <%= f.button :submit, "Importer", class: "btn btn-success"%>
+    <%= f.button :submit, "Importer", class: "btn-readapt"%>
   <% end %>
 
-  <div class="links">
-    <%= link_to "Mes textes", articles_path, class: "btn-readapt" %>
-  </div>
 </div>
