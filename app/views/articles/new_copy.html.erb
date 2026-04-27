@@ -1,9 +1,9 @@
-<div class="container">
+<div class="container mt-2">
+  <h2>Colle ton texte</h2>
   <%= simple_form_for @article, url: articles_path do |f| %>
-    <%= f.input :title %>
-    <%= f.input :content %>
+    <%= f.input :title, :label => "Titre" %>
+    <%= f.input :content, :label => "Contenu" %>
     <%= f.hidden_field :source, value: "copy" %>
     <%= f.button :submit, "Créer", class: "btn-readapt"%>
-    <%= link_to "Mes textes", articles_path, class: "btn-readapt" %>
   <% end %>
 </div>

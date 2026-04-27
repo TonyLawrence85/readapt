@@ -1,0 +1,15 @@
+<div class="offcanvas offcanvas-bottom"
+     tabindex="-1"
+     id="offcanvasBottom"
+     aria-labelledby="offcanvasBottomLabel">
+
+  <div class="offcanvas-header">
+    <h5 id="offcanvasBottomLabel">Nouveau texte</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+
+  <div class="offcanvas-body">
+    <%= link_to "Coller un texte", new_copy_articles_path, class: "btn-readapt" %>
+    <%= link_to "Importer un fichier", new_import_articles_path, class: "btn-readapt" %>
+  </div>
+</div>
