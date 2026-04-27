@@ -50,3 +50,25 @@
   font-weight: 700;
   color: #333;
 }
+
+/* ── Badges activé / désactivé ── */
+.show-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  margin-top: 0.3rem;
+
+  &--on {
+    background: rgba(27, 158, 122, 0.12);
+    color: #1B9E7A;
+  }
+
+  &--off {
+    background: rgba(0, 0, 0, 0.06);
+    color: #999;
+  }
+}

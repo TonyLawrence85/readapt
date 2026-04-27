@@ -38,28 +38,35 @@
   </div>
 </div>
 
-<div class="mb-3 text-center">
-  <label class="settings-label">
-    <i class="fa-solid fa-palette"></i> Palette
-  </label>
-  <div class="d-flex justify-content-center gap-2 mt-1">
-    <% colors.each do |c| %>
-      <span class="color-dot" style="background:<%= c %>;"></span>
+<%# ── BOX 2 : Syllabes ── %>
+<div class="settings-box mb-3">
+
+  <div class="settings-section">
+    <label class="settings-label">
+      <i class="fa-solid fa-palette"></i> Palette
+    </label>
+    <div class="d-flex justify-content-center gap-2 mt-1">
+      <% colors.each do |c| %>
+        <span class="color-dot" style="background:<%= c %>;"></span>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="settings-section">
+    <label class="settings-label">
+      <i class="fa-solid fa-droplet"></i> Coloration des syllabes
+    </label>
+    <% if @setting.syllable_mode %>
+      <span class="show-badge show-badge--on">
+        <i class="fa-solid fa-circle-check"></i> Activée
+      </span>
+    <% else %>
+      <span class="show-badge show-badge--off">
+        <i class="fa-solid fa-circle-xmark"></i> Désactivée
+      </span>
     <% end %>
   </div>
-</div>
 
-<div class="mb-3 text-center">
-  <label class="settings-label">
-    <i class="fa-solid fa-droplet"></i> Coloration des syllabes
-  </label>
-  <p>
-    <% if @setting.syllable_mode %>
-      <i class="fa-solid fa-circle-check" style="color:#1B9E7A;"></i> Activée
-    <% else %>
-      <i class="fa-solid fa-circle-xmark" style="color:#aaa;"></i> Désactivée
-    <% end %>
-  </p>
 </div>
 
 <div class="mb-3 text-center">
