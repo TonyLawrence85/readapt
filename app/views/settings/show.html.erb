@@ -5,6 +5,8 @@
 } %>
 <% colors = palettes[@setting.syllable_palette] || palettes["blue_red_green"] %>
 
+<div class="px-3">
+
 <h1 class="text-center mt-3 mb-3">Mes préférences</h1>
 
 <%# ── BOX 1 : Typographie ── %>
@@ -82,3 +84,5 @@
 <%= link_to edit_setting_path(@setting), class: "btn btn-readapt w-100" do %>
   <i class="fa-solid fa-pen-to-square me-1"></i> Modifier mes préférences
 <% end %>
+
+</div>
