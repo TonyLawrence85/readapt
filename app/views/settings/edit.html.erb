@@ -99,6 +99,26 @@
 
 </div>
 
+<%# ── Modal plein écran : aperçu après enregistrement ── %>
+<div class="modal fade" id="settingsShowModal" tabindex="-1" aria-labelledby="settingsShowModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content settings-show-modal-content">
+
+      <div class="modal-header settings-show-modal-header">
+        <h5 class="modal-title" id="settingsShowModalLabel">
+          <i class="fa-solid fa-circle-check me-2" style="color:#1B9E7A;"></i>
+          Préférences enregistrées
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+
+      <div class="modal-body px-3" id="offcanvas-show-content">
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <script>
 document.addEventListener("turbo:load", () => {
 
@@ -178,5 +198,12 @@ document.addEventListener("turbo:load", () => {
   syllableMode.addEventListener("change", updatePreview)
 
   updatePreview()
+})
+
+document.addEventListener("turbo:submit-end", (event) => {
+  if (event.detail.success) {
+    const el = document.getElementById("settingsShowModal")
+    if (el) bootstrap.Modal.getOrCreateInstance(el).show()
+  }
 })
 </script>

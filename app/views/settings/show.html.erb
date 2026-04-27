@@ -1,89 +1,11 @@
-<% palette_data = TextFormatter.palette_data_for(@setting.syllable_palette) %>
-
 <div class="px-3">
 
-<h1 class="text-center mt-3 mb-3">Mes préférences</h1>
+  <h1 class="text-center mt-3 mb-3">Mes préférences</h1>
 
-<%# ── BOX 1 : Typographie ── %>
-<div class="settings-box mb-3">
-  <div class="show-stats-row">
+  <%= render "show_content", setting: @setting %>
 
-    <div class="show-stat">
-      <i class="fa-solid fa-font show-icon"></i>
-      <span class="show-label">Police</span>
-      <span class="show-value" style="font-family:<%= @setting.font %>;">
-        <%= @setting.font %>
-      </span>
-    </div>
-
-    <div class="show-stat-divider"></div>
-
-    <div class="show-stat">
-      <i class="fa-solid fa-arrows-left-right show-icon"></i>
-      <span class="show-label">Espacement</span>
-      <span class="show-value"><%= @setting.letter_spacing || "0px" %></span>
-    </div>
-
-    <div class="show-stat-divider"></div>
-
-    <div class="show-stat">
-      <i class="fa-solid fa-text-height show-icon"></i>
-      <span class="show-label">Taille</span>
-      <span class="show-value"><%= @setting.font_size || "16px" %></span>
-    </div>
-
-  </div>
-</div>
-
-<%# ── BOX 2 : Syllabes ── %>
-<div class="settings-box mb-3">
-
-  <div class="settings-section">
-    <label class="settings-label">
-      <i class="fa-solid fa-palette"></i> Palette
-    </label>
-    <div class="d-flex justify-content-center gap-2 mt-1">
-      <% if palette_data[:bg] %>
-        <span class="palette-swatch" style="background:<%= palette_data[:bg] %>;">
-          <span style="color:<%= palette_data[:text] %>;">Aa</span>
-        </span>
-      <% else %>
-        <% palette_data[:syllables].each do |c| %>
-          <span class="color-dot" style="background:<%= c %>;"></span>
-        <% end %>
-      <% end %>
-    </div>
-  </div>
-
-  <div class="settings-section">
-    <label class="settings-label">
-      <i class="fa-solid fa-droplet"></i> Coloration des syllabes
-    </label>
-    <% if @setting.syllable_mode %>
-      <span class="show-badge show-badge--on">
-        <i class="fa-solid fa-circle-check"></i> Activée
-      </span>
-    <% else %>
-      <span class="show-badge show-badge--off">
-        <i class="fa-solid fa-circle-xmark"></i> Désactivée
-      </span>
-    <% end %>
-  </div>
-
-</div>
-
-<%# ── BOX 3 : Aperçu final ── %>
-<div class="settings-box show-preview-box mb-4">
-  <label class="settings-label mb-2">
-    <i class="fa-solid fa-eye"></i> Aperçu final
-  </label>
-  <div class="show-preview-content">
-    <%= render_with_settings("Lire avec Readapt, c'est facile !") %>
-  </div>
-</div>
-
-<%= link_to edit_setting_path(@setting), class: "btn btn-readapt w-100" do %>
-  <i class="fa-solid fa-pen-to-square me-1"></i> Modifier mes préférences
-<% end %>
+  <%= link_to edit_setting_path(@setting), class: "btn btn-readapt w-100" do %>
+    <i class="fa-solid fa-pen-to-square me-1"></i> Modifier mes préférences
+  <% end %>
 
 </div>
