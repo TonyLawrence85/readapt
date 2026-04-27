@@ -1,8 +1,4 @@
-<% palettes = {
-  "blue_red_green"     => ["#1E88E5", "#E53935", "#43A047"],
-  "orange_blue_purple" => ["#FB8C00", "#1E88E5", "#8E24AA"]
-} %>
-<% colors = palettes[@setting.syllable_palette] || palettes["blue_red_green"] %>
+<% palette_data = TextFormatter.palette_data_for(@setting.syllable_palette) %>
 
 <div class="px-3">
 
@@ -47,8 +43,14 @@
       <i class="fa-solid fa-palette"></i> Palette
     </label>
     <div class="d-flex justify-content-center gap-2 mt-1">
-      <% colors.each do |c| %>
-        <span class="color-dot" style="background:<%= c %>;"></span>
+      <% if palette_data[:bg] %>
+        <span class="palette-swatch" style="background:<%= palette_data[:bg] %>;">
+          <span style="color:<%= palette_data[:text] %>;">Aa</span>
+        </span>
+      <% else %>
+        <% palette_data[:syllables].each do |c| %>
+          <span class="color-dot" style="background:<%= c %>;"></span>
+        <% end %>
       <% end %>
     </div>
   </div>

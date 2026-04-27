@@ -23,8 +23,8 @@
 }
 
 .show-stat-divider {
-  width: 1px;
-  background: rgba(25, 79, 122, 0.1);
+  width: 1.5px;
+  background: linear-gradient(to bottom, transparent, rgba(25, 79, 122, 0.28), transparent);
   align-self: stretch;
   margin: 0.2rem 0;
 }
@@ -50,6 +50,20 @@
   font-weight: 700;
   color: #333;
 }
+
+/* ── Swatch palette thème (bg + texte) ── */
+.palette-swatch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 1.8rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
 
 /* ── Box aperçu final ── */
 .show-preview-box {

@@ -12,11 +12,21 @@
 .settings-section {
   padding: 0.5rem 0;
   text-align: center;
+  position: relative;
 
   &:not(:last-child) {
-    border-bottom: 1px solid rgba(25, 79, 122, 0.07);
     margin-bottom: 0.4rem;
     padding-bottom: 0.5rem;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 8%;
+      right: 8%;
+      height: 1.5px;
+      background: linear-gradient(to right, transparent, rgba(25, 79, 122, 0.22), transparent);
+    }
   }
 }
 
@@ -137,6 +147,13 @@ input[type=range] {
   color: white;
 
   .color-dot { border: 1px solid white; }
+}
+
+.tag-selector:checked + label:has(.palette-swatch) {
+  background: transparent;
+  border: 2px solid white;
+  box-shadow: 0 0 0 2px #1B9E7A;
+  padding: 3px;
 }
 
 .tag-selector + label:hover {

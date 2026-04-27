@@ -111,9 +111,12 @@ document.addEventListener("turbo:load", () => {
   const syllableMode    = document.getElementById("syllable-mode")
 
   const palettes = {
-    blue_red_green:     ["#1E88E5", "#E53935", "#43A047"],
-    orange_blue_purple: ["#FB8C00", "#1E88E5", "#8E24AA"],
-    yellow_blue_green:  ["#FDD835", "#1E88E5", "#43A047"]
+    blue_red_green:      { bg: null,      text: null,      syllables: ["#1E88E5", "#E53935", "#43A047"] },
+    orange_blue_purple:  { bg: null,      text: null,      syllables: ["#FB8C00", "#1E88E5", "#8E24AA"] },
+    cream_dark_blue:     { bg: "#194F7A", text: "#FFF8E7", syllables: ["#FFF8E7", "#D4C5A9", "#FFFACD"] },
+    yellow_black:        { bg: "#111111", text: "#FFD700", syllables: ["#FFD700", "#FFC107", "#FFEB3B"] },
+    offwhite_dark_green: { bg: "#1B4332", text: "#F5F5DC", syllables: ["#F5F5DC", "#E8E8C8", "#FAFAD2"] },
+    orange_dark_gray:    { bg: "#2D2D2D", text: "#FF8C00", syllables: ["#FF8C00", "#FF6B35", "#FFA500"] }
   }
 
   const previewText = "Lire avec Readapt, c'est facile !"
@@ -132,10 +135,24 @@ document.addEventListener("turbo:load", () => {
   }
 
   function updatePreview() {
-    const colors = palettes[getSelectedPalette()]
-    syllablePreview.innerHTML = syllableMode.checked
-      ? syllabify(previewText, colors)
-      : previewText
+    const palette = palettes[getSelectedPalette()]
+
+    if (palette.bg) {
+      syllablePreview.style.backgroundColor = palette.bg
+      syllablePreview.style.borderRadius    = "6px"
+      syllablePreview.style.padding         = "0.5rem 0.8rem"
+    } else {
+      syllablePreview.style.backgroundColor = ""
+      syllablePreview.style.borderRadius    = ""
+      syllablePreview.style.padding         = ""
+    }
+
+    if (syllableMode.checked) {
+      syllablePreview.innerHTML = syllabify(previewText, palette.syllables)
+    } else {
+      const textStyle = palette.text ? `style="color:${palette.text}"` : ""
+      syllablePreview.innerHTML = `<span ${textStyle}>${previewText}</span>`
+    }
   }
 
   fontInputs.forEach(input => {
