@@ -30,7 +30,6 @@ user = User.first
 
 Setting.create!(
   font: "Arial",
-  syllable_color: "red",
   letter_spacing: "2px",
   user: user
 )
