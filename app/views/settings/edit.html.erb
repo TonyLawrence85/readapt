@@ -74,6 +74,7 @@
 
       <div class="settings-section syllable-toggle-section">
         <div class="form-check form-switch d-flex align-items-center justify-content-center gap-2">
+          <input type="hidden" name="setting[syllable_mode]" value="0">
           <input class="form-check-input" type="checkbox" id="syllable-mode" name="setting[syllable_mode]" value="1" <%= "checked" if @setting.syllable_mode %>>
           <label class="form-check-label settings-label mb-0" for="syllable-mode">
             <i class="fa-solid fa-droplet"></i> Coloration des syllabes
