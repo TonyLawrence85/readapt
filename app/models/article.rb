@@ -4,6 +4,7 @@ class Article < ApplicationRecord
   validates :content, presence: true, unless: :document_attached?
   has_one_attached :document
   validate :document_must_be_pdf, if: :document_attached?
+  has_one_attached :audio
 
   private
 

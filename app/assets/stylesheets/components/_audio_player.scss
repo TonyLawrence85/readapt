@@ -1,0 +1,41 @@
+.audio-player-container {
+  width: 100%;
+  margin: 0 auto 24px auto;
+  background: linear-gradient(150deg, #194F7A 40%, #1B9E7A);
+  border-radius: 16px;
+  padding: 0;
+  box-shadow: 0 4px 20px rgba(25, 79, 122, 0.3);
+  overflow: visible;
+  position: sticky;
+  top: 1em;
+}
+
+.plyr {
+  --plyr-color-main: #1B9E7A;
+  --plyr-range-fill-background: #1B9E7A;
+  background: transparent;
+  border-radius: 16px;
+  overflow: visible;
+}
+
+.plyr--audio {
+  background-color: transparent;
+}
+
+.plyr--audio .plyr__controls {
+  background: transparent !important;
+  color: white !important;
+  border-radius: 16px;
+}
+
+.plyr--audio .plyr__controls .plyr__control svg {
+  fill: white !important;
+}
+
+.plyr__time {
+  color: white !important;
+}
+
+.card {
+  overflow: visible;
+}
