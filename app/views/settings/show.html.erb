@@ -69,22 +69,16 @@
 
 </div>
 
-<div class="mb-3 text-center">
-  <label class="settings-label">
-    <i class="fa-solid fa-eye"></i> Aperçu
+<%# ── BOX 3 : Aperçu final ── %>
+<div class="settings-box show-preview-box mb-4">
+  <label class="settings-label mb-2">
+    <i class="fa-solid fa-eye"></i> Aperçu final
   </label>
-  <div style="
-    font-family:<%= @setting.font %>;
-    letter-spacing:<%= @setting.letter_spacing %>;
-    font-size:<%= @setting.font_size %>;
-    padding:10px;
-    border:1px solid #eee;
-    border-radius:10px;
-  ">
+  <div class="show-preview-content">
     <%= render_with_settings("Lire avec Readapt, c'est facile !") %>
   </div>
 </div>
 
-<%= link_to edit_setting_path(@setting), class: "btn btn-readapt w-100 mt-2" do %>
+<%= link_to edit_setting_path(@setting), class: "btn btn-readapt w-100" do %>
   <i class="fa-solid fa-pen-to-square me-1"></i> Modifier mes préférences
 <% end %>

@@ -51,6 +51,21 @@
   color: #333;
 }
 
+/* ── Box aperçu final ── */
+.show-preview-box {
+  text-align: center;
+  box-shadow: 0 4px 18px rgba(25, 79, 122, 0.11),
+              0 0 0 1px rgba(25, 79, 122, 0.07);
+}
+
+.show-preview-content {
+  background: rgba(25, 79, 122, 0.03);
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  border: 1px solid rgba(25, 79, 122, 0.08);
+  min-height: 2.5rem;
+}
+
 /* ── Badges activé / désactivé ── */
 .show-badge {
   display: inline-flex;

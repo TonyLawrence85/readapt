@@ -1,5 +1,11 @@
 module ApplicationHelper
 
+  def with_px(value)
+    v = value.to_s.strip
+    return "0px" if v.blank?
+    v.end_with?("px") ? v : "#{v}px"
+  end
+
   def render_with_settings(text)
     return text unless user_signed_in?
 
@@ -13,7 +19,10 @@ module ApplicationHelper
         text
       end
 
-    "<div style='font-family: #{setting.font}; letter-spacing: #{setting.letter_spacing}; font-size: #{setting.font_size};'>
+    letter_spacing = with_px(setting.letter_spacing)
+    font_size      = with_px(setting.font_size)
+
+    "<div style='font-family: #{setting.font}; letter-spacing: #{letter_spacing}; font-size: #{font_size};'>
       #{content}
     </div>".html_safe
   end
