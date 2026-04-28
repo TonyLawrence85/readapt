@@ -44,7 +44,7 @@ class ArticlesController < ApplicationController
       response = if pdf_content
                   chat.ask("#{build_prompt(setting)}\n\nTexte à reformater :\n#{pdf_content}")
                   else
-                    response = chat.ask("#{build_prompt(setting)}\n\nTexte à reformater :\n#{@article.content}")
+                  chat.ask("#{build_prompt(setting)}\n\nTexte à reformater :\n#{@article.content}")
                   end
       palette = current_user.setting.syllable_palette || "blue_red_green"
       lines = response.content.split("\n")
@@ -108,6 +108,7 @@ class ArticlesController < ApplicationController
 
     FORMAT DE SORTIE (STRICT) :
     - Pas de <p>, uniquement des <br> séparés.
+    - Ajoute une ponctuation "." avant chaque retour à la ligne.
     - Retourne UNIQUEMENT le texte adapté, sans préambule ni commentaire.
     - Phrases courtes : 15 mots maximum. Si une phrase est plus longue,
       coupe-la en plusieurs phrases simples.
