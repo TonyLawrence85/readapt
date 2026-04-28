@@ -1,11 +1,14 @@
-<div class="container mt-2">
+<div class="container mt-2" data-controller="loading">
   <h2>Colle ton texte</h2>
   <%= simple_form_for @article, url: articles_path do |f| %>
     <%= f.input :title, :label => "Titre" %>
     <%= f.input :content, :label => "Contenu" %>
     <%= f.hidden_field :source, value: "copy" %>
-    <%= f.button :submit, "Créer", class: "btn-readapt"%>
+    <%= f.button :submit, "Créer", class: "btn-readapt", data: { action: "click->loading#loadingPage" }%>
   <% end %>
+
+  <script src="https://unpkg.com/typed.js@3.0.0/dist/typed.umd.js"></script>
+  <div class="loading-frame">
+    <span id="typed6"></span>
+  </div>
 </div>
-
-
