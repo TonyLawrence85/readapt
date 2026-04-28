@@ -49,16 +49,17 @@
   margin-bottom: 24px;
 }
 
-karaoke-segment {
-  display: inline;
+.karaoke-segment {
+  display: block;
   transition: all 0.3s ease;
   cursor: default;
   padding: 2px 4px;
   border-radius: 4px;
+  margin-bottom: 4px;
 }
 
 .karaoke-active {
-  background-color: #1B9E7A;
+  background-color: #9da09f8e;
   color: white;
   font-weight: 600;
 

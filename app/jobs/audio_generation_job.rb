@@ -32,7 +32,6 @@ class AudioGenerationJob < ApplicationJob
           language: "fr"
         }
       )
-
       timestamps = response["segments"].map do |segment|
         {
           text: segment["text"],
@@ -44,4 +43,3 @@ class AudioGenerationJob < ApplicationJob
     end
   end
 end
-
