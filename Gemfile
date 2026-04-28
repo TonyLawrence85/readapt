@@ -49,6 +49,8 @@ gem "sassc-rails"
 gem "ruby_llm", "~> 1.2.0"
 gem "pdf-reader"
 gem 'text-hyphen'
+gem "cloudinary"
+
 group :development, :test do
   gem "dotenv-rails"
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -74,3 +76,5 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem 'google-cloud-text_to_speech'

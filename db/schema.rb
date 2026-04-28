@@ -48,7 +48,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_27_151242) do
     t.boolean "favourite", default: false, null: false
     t.text "formatted_content"
     t.string "title"
-    t.text "translated_content"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_articles_on_user_id"
