@@ -6,6 +6,16 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Readapt">
     <meta name="mobile-web-app-capable" content="yes">
+    <title><%= meta_title %></title>
+    <meta name="description" content="<%= meta_description %>">
+
+    <!– Facebook Open Graph data –>
+    <meta property="og:title" content="<%= meta_title %>">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="<%= request.original_url %>">
+    <meta property="og:image" content="<%= meta_image %>">
+    <meta property="og:description" content="<%= meta_description %>">
+    <meta property="og:site_name" content="<%= meta_title %>">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -18,8 +28,8 @@
     <link rel="icon" href="/favicon-bw.svg" type="image/svg+xml" media="(prefers-color-scheme: dark)">
     <link rel="icon" href="/favicon-color.svg" type="image/svg+xml">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
-    <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js" defer></script>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
+    <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js" defer></script> <%# herb:disable all %>
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
