@@ -27,25 +27,26 @@ class ArticlesController < ApplicationController
     @article = Article.new(article_params)
     @article.user = current_user
 
-    if params[:article][:source] == "copy"
-      unless @article.content.present?
-        render :new_copy, status: :unprocessable_entity and return
-      end
+    if (params[:article][:source] == "copy") && !@article.content.present?
+      render :new_copy, status: :unprocessable_entity and return
+    end
+
+    pdf_content = nil
+    if params[:article][:document].present?
+      reader = PDF::Reader.new(params[:article][:document].path)
+      pdf_content = reader.pages.map(&:text).join("\n")
     end
 
     if @article.save
       setting = current_user.setting
       chat = RubyLLM.chat(model: "gpt-4o-mini")
 
-        if @article.document.attached?
-          pdf_content = @article.document.open do |file|
-            reader = PDF::Reader.new(file)
-            reader.pages.map(&:text).join("\n")
-          end
-          response = chat.ask("#{build_prompt(setting)}\n\nTexte à reformater :\n#{pdf_content}")
-        else
-          response = chat.ask("#{build_prompt(setting)}\n\nTexte à reformater :\n#{@article.content}")
-        end
+      response = if pdf_content
+
+                   chat.ask("#{build_prompt(setting)}\n\nTexte à reformater :\n#{pdf_content}")
+                 else
+                   chat.ask("#{build_prompt(setting)}\n\nTexte à reformater :\n#{@article.content}")
+                 end
       palette = current_user.setting.syllable_palette || "blue_red_green"
       lines = response.content.split("\n")
       formatted_lines = lines.map { |line| TextFormatter.syllabify(line, palette: palette) }
@@ -61,12 +62,10 @@ class ArticlesController < ApplicationController
         content_type: "audio/mpeg"
       )
       redirect_to article_path(@article), notice: "Texte créé avec succès"
+    elsif params[:article][:source] == "import"
+      render :new_import, status: :unprocessable_entity
     else
-      if params[:article][:source] == "import"
-        render :new_import, status: :unprocessable_entity
-      else
-        render :new, status: :unprocessable_entity
-      end
+      render :new, status: :unprocessable_entity
     end
   end
 

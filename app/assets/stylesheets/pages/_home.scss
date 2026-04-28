@@ -20,6 +20,8 @@
     --white: #ffffff;
   }
 
+  html { scroll-behavior: smooth; }
+
   .hero-text {
     padding: 18px 0 0;
   }
@@ -198,10 +200,17 @@
 
 .section-title {
   font-family: 'Fraunces', serif;
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 26px;
+  font-weight: 900;
   color: var(--teal-deep);
+  line-height: 1.1;
+  letter-spacing: -0.8px;
   margin-bottom: 12px;
+
+  em {
+    font-style: italic;
+    color: var(--teal-light);
+  }
 }
 
 .actions-grid {
@@ -342,4 +351,117 @@
   font-size: 11px;
   color: var(--text-mid);
   opacity: 0.6;
+}
+
+// ── Hero CTAs ──────────────────────────────────────────
+.hero-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--teal-deep);
+  color: white;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 16px 28px;
+  border-radius: 16px;
+  width: 100%;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(13, 74, 74, 0.25);
+  margin-bottom: 12px;
+
+  &:hover { color: white; opacity: 0.92; }
+}
+
+.hero-cta-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  color: var(--teal-mid);
+  font-size: 15px;
+  font-weight: 500;
+  padding: 14px 28px;
+  border-radius: 16px;
+  border: 1.5px solid rgba(43, 191, 168, 0.25);
+  width: 100%;
+  text-decoration: none;
+  margin-bottom: 32px;
+
+  &:hover { color: var(--teal-mid); border-color: var(--teal-light); }
+}
+
+// ── Section headers ────────────────────────────────────
+.section-header {
+  padding: 4px 0 16px;
+}
+
+.section-eyebrow {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--teal-light);
+  margin-bottom: 6px;
+}
+
+// ── Steps ──────────────────────────────────────────────
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.step-item {
+  background: white;
+  border-radius: 18px;
+  padding: 18px 16px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  box-shadow: 0 2px 10px rgba(13, 74, 74, 0.05);
+  border: 1px solid rgba(13, 74, 74, 0.04);
+}
+
+.step-num {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  flex-shrink: 0;
+  background: rgba(43, 191, 168, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-num-text {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: 16px;
+  color: var(--teal-mid);
+}
+
+.step-name {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--teal-deep);
+  margin-bottom: 4px;
+}
+
+.step-desc {
+  font-size: 13px;
+  color: rgba(13, 74, 74, 0.55);
+  line-height: 1.55;
+  font-weight: 300;
+}
+
+// ── Transform card overline ────────────────────────────
+.transform-overline {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.35);
+  margin-bottom: 12px;
 }
