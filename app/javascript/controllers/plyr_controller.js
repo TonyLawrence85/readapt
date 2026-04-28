@@ -39,6 +39,11 @@ export default class extends Controller {
         speed: "Vitesse"
       }
     })
+
+    this.element.dispatchEvent(new CustomEvent("plyr:ready", {
+    detail: { player: this.player },
+    bubbles: true
+    }))
   }
 
   disconnect() {

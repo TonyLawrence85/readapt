@@ -50,7 +50,7 @@ gem "ruby_llm", "~> 1.2.0"
 gem "pdf-reader"
 gem 'text-hyphen'
 gem "cloudinary"
-
+gem "ruby-openai"
 group :development, :test do
   gem "dotenv-rails"
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

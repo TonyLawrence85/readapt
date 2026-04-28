@@ -42,30 +42,22 @@ class ArticlesController < ApplicationController
       chat = RubyLLM.chat(model: "gpt-4o-mini")
 
       response = if pdf_content
-
-                   chat.ask("#{build_prompt(setting)}\n\nTexte à reformater :\n#{pdf_content}")
-                 else
-                   chat.ask("#{build_prompt(setting)}\n\nTexte à reformater :\n#{@article.content}")
-                 end
+                  chat.ask("#{build_prompt(setting)}\n\nTexte à reformater :\n#{pdf_content}")
+                  else
+                    response = chat.ask("#{build_prompt(setting)}\n\nTexte à reformater :\n#{@article.content}")
+                  end
       palette = current_user.setting.syllable_palette || "blue_red_green"
       lines = response.content.split("\n")
       formatted_lines = lines.map { |line| TextFormatter.syllabify(line, palette: palette) }
       @article.update(formatted_content: formatted_lines.join("<br>"))
-
-      # Création de l'audio
-      text_brut = ActionController::Base.helpers.strip_tags(@article.formatted_content)
-      audio_bytes = TtsService.call(text_brut)
-      audio_io = StringIO.new(audio_bytes)
-      @article.audio.attach(
-        io: audio_io,
-        filename: "article_#{@article.id}.mp3",
-        content_type: "audio/mpeg"
-      )
+      AudioGenerationJob.perform_later(@article.id)
       redirect_to article_path(@article), notice: "Texte créé avec succès"
-    elsif params[:article][:source] == "import"
-      render :new_import, status: :unprocessable_entity
     else
-      render :new, status: :unprocessable_entity
+      if params[:article][:source] == "import"
+        render :new_import, status: :unprocessable_entity
+      else
+        render :new, status: :unprocessable_entity
+      end
     end
   end
 
@@ -79,6 +71,11 @@ class ArticlesController < ApplicationController
     set_article
     @article.destroy
     redirect_to articles_path, notice: "Texte supprimé"
+  end
+
+  def synthesize
+    set_article
+    TtsService.call(@article.formatted_content)
   end
 
   private
@@ -111,7 +108,6 @@ class ArticlesController < ApplicationController
 
     FORMAT DE SORTIE (STRICT) :
     - Pas de <p>, uniquement des <br> séparés.
-    - Ajoute une ponctuation "." avant chaque retour à la ligne.
     - Retourne UNIQUEMENT le texte adapté, sans préambule ni commentaire.
     - Phrases courtes : 15 mots maximum. Si une phrase est plus longue,
       coupe-la en plusieurs phrases simples.

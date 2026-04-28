@@ -43,6 +43,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_27_151242) do
   end
 
   create_table "articles", force: :cascade do |t|
+    t.text "audio_timestamps"
     t.text "content"
     t.datetime "created_at", null: false
     t.boolean "favourite", default: false, null: false
