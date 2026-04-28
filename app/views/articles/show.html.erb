@@ -54,11 +54,10 @@
       <% if @article.document.attached? %>
         <p>Fichier importé : <%= @article.document.filename %></p>
       <% end %>
-
-      <% audio_url = "https://res.cloudinary.com/dsovlghl6/video/upload/v1777283390/testmp3_dzufin.m4a" %>
+      <% audio_url =  %>
       <div data-controller="plyr" class="audio-player-container">
         <audio data-plyr-target="audio" controls preload="none">
-          <source src="<%= audio_url %>" type="audio/mp4">
+          <source src="<%= url_for(@article.audio) %>" type="audio/mp4">
         </audio>
       </div>
 
