@@ -52,15 +52,8 @@
 
     </div>
 
-    <%# ── BOX 2 : Palette + Mode syllabes ── %>
+    <%# ── BOX 2 : Mode syllabes + Palette ── %>
     <div class="settings-box mb-3" id="syllable-box">
-
-      <div class="settings-section">
-        <label class="settings-label">
-          <i class="fa-solid fa-palette"></i> Palette de couleurs
-        </label>
-        <%= render 'palette' %>
-      </div>
 
       <div class="settings-section syllable-toggle-section">
         <div class="d-flex align-items-center gap-2">
@@ -74,6 +67,15 @@
                    role="switch"
                    <%= "checked" if @setting.syllable_mode %>>
           </div>
+        </div>
+      </div>
+
+      <div id="palette-section" class="palette-slide <%= 'palette-slide--visible' if @setting.syllable_mode %>">
+        <div class="settings-section">
+          <label class="settings-label">
+            <i class="fa-solid fa-palette"></i> Palette de couleurs
+          </label>
+          <%= render 'palette' %>
         </div>
       </div>
 
@@ -166,7 +168,7 @@ document.addEventListener("turbo:load", () => {
     combinedPreview.style.letterSpacing  = spacing
     combinedPreview.style.fontSize       = size
 
-    if (syllableMode.checked && palette.bg) {
+    if (palette.bg) {
       combinedPreview.style.backgroundColor = palette.bg
       combinedPreview.style.padding         = "0.6rem 0.8rem"
       combinedPreview.style.borderRadius    = "8px"
@@ -201,7 +203,17 @@ document.addEventListener("turbo:load", () => {
     updatePreview()
   })
 
-  syllableMode.addEventListener("change", updatePreview)
+  syllableMode.addEventListener("change", () => {
+    document.getElementById("palette-section")
+      .classList.toggle("palette-slide--visible", syllableMode.checked)
+    updatePreview()
+    if (syllableMode.checked) {
+      setTimeout(() => {
+        document.getElementById("syllable-box")
+          .scrollIntoView({ behavior: "smooth", block: "center" })
+      }, 250)
+    }
+  })
 
   updatePreview()
 })
