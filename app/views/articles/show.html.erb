@@ -55,6 +55,7 @@
         <p>Fichier importé : <%= @article.document.filename %></p>
       <% end %>
 
+
       <% if @article.formatted_content.present? %>
         <% colors = TextFormatter.colors_for(current_user.setting.syllable_palette || "blue_red_green") %>
         <style>
@@ -75,6 +76,9 @@
               <i class="fa fa-spinner fa-spin"></i> Audio en cours de génération...
             </p>
           <% end %>
+ 
+          <%= wrap_with_settings(@article.formatted_content) %>
+
         </div>
 
         <% if @article.audio.attached? && @article.audio_timestamps.blank? %>

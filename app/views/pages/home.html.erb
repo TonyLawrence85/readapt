@@ -1,18 +1,22 @@
 
 <div class="page-container">
+
+  <%# ── HERO ──────────────────────────────────────────── %>
   <div class="hero-text">
     <div class="hero-badge">Pour les esprits dyslexiques ✦</div>
-      <h1 class="hero-headline">Lire sans <br>
-      se <em>battre</em></h1>
-      <p class="hero-sub">Readapt, pensé pour toi, transforme n'importe quel texte en format OpenDyslexic</p>
+    <h1 class="hero-headline">Lire sans<br>se <em>battre</em></h1>
+    <p class="hero-sub">Readapt convertit instantanément n'importe quel texte en police OpenDyslexic, conçue pour améliorer ta lecture.</p>
+    <a href="#fonctionnalites" class="hero-cta">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="16" height="16"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      Adapter mon texte
+    </a>
+    <a href="#comment-ca-marche" class="hero-cta-secondary">Découvrir Readapt</a>
   </div>
 
-
+  <%# ── DÉMO AVANT / APRÈS ────────────────────────────── %>
   <div class="transform-card">
-    <p>AVANT  &rarr;  APRÈS</p>
-    <br>
+    <p class="transform-overline">Avant &rarr; Après</p>
     <div class="transform-before">La dyslexie affecte environ 10% de la population mondiale, rendant la lecture difficile</div>
-
     <div class="transform-arrow">
       <div class="transform-arrow-line"></div>
       <div class="transform-arrow-icon">
@@ -20,11 +24,11 @@
       </div>
       <div class="transform-arrow-line"></div>
     </div>
-
     <p class="transform-after-label">✦ OpenDyslexic activé</p>
     <div class="transform-after">La dyslexie affecte environ 10% de la population mondiale, rendant la lecture difficile</div>
   </div>
 
+  <%# ── STATS ─────────────────────────────────────────── %>
   <div class="card-container">
     <div class="stat-card">
       <div class="stat-number">10<span>%</span></div>
@@ -39,10 +43,42 @@
       <div class="stat-label">pour adapter<br>ton texte</div>
     </div>
   </div>
-  <div class="section-title">Importe ton texte</div>
 
+  <%# ── COMMENT ÇA MARCHE ─────────────────────────────── %>
+  <div id="comment-ca-marche" class="section-header">
+    <div class="section-eyebrow">Simple &amp; rapide</div>
+    <div class="section-title">Comment ça <em>marche</em> ?</div>
+  </div>
+  <div class="steps">
+    <div class="step-item">
+      <div class="step-num"><span class="step-num-text">1</span></div>
+      <div class="step-content">
+        <div class="step-name">Importe ton texte</div>
+        <div class="step-desc">Colle un texte ou importe un fichier PDF directement depuis ton téléphone.</div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num"><span class="step-num-text">2</span></div>
+      <div class="step-content">
+        <div class="step-name">Readapt adapte</div>
+        <div class="step-desc">En moins de 3 secondes, ton texte est converti en police OpenDyslexic.</div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num"><span class="step-num-text">3</span></div>
+      <div class="step-content">
+        <div class="step-name">Lis confortablement</div>
+        <div class="step-desc">Tes textes adaptés sont sauvegardés dans "Mes textes" pour y revenir à tout moment.</div>
+      </div>
+    </div>
+  </div>
+
+  <%# ── FONCTIONNALITÉS ───────────────────────────────── %>
+  <div id="fonctionnalites" class="section-header">
+    <div class="section-eyebrow">Fonctionnalités</div>
+    <div class="section-title">Importe ton <em>texte</em></div>
+  </div>
   <div class="actions-grid">
-
     <%= link_to new_copy_articles_path, class: "action-card primary" do %>
       <div class="action-icon primary-icon">
         <i class="fa-regular fa-copy"></i>
@@ -54,17 +90,6 @@
       <div class="action-arrow">›</div>
     <% end %>
 
-    <!-- <div class="action-card disabled"> -->
-      <!-- <div class="action-icon amber"> -->
-        <!-- <i class="fa-solid fa-qrcode"></i> -->
-      <!-- </div> -->
-      <!-- <div class="action-text"> -->
-        <!-- <div class="action-title">Scanne un QR code</div> -->
-        <!-- <div class="action-desc">Capture instantanée depuis ton appareil</div> -->
-      <!-- </div> -->
-      <!-- <div class="action-arrow">›</div> -->
-    <!-- </div> -->
-
     <%= link_to new_import_articles_path, class: "action-card" do %>
       <div class="action-icon blue">
         <i class="fa-solid fa-file-arrow-up"></i>
@@ -75,28 +100,29 @@
       </div>
       <div class="action-arrow">›</div>
     <% end %>
-
-
-    <% if user_signed_in? && @recent_articles.any? %>
-      <div class="text-container">
-        <div class="recent-header">
-          <h2 class="section-title" style="margin-bottom:0;">Mes textes récents</h2>
-          <%= link_to "Voir tout →", articles_path, class: "see-all" %>
-        </div>
-        <div class="texts-list">
-          <% @recent_articles.each do |article| %>
-            <%= link_to article_path(article), class: "text-chip" do %>
-              <div class="text-chip-icon">
-                <i class="fa-regular fa-file-lines"></i>
-              </div>
-              <div class="text-chip-content">
-                <div class="text-chip-title"><%= article.title %></div>
-                <div class="text-chip-meta"><%= time_ago_in_words(article.created_at) %></div>
-              </div>
-            <% end %>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
   </div>
+
+  <%# ── MES TEXTES RÉCENTS ─────────────────────────────── %>
+  <% if user_signed_in? && @recent_articles.any? %>
+    <div class="text-container">
+      <div class="recent-header">
+        <h2 class="section-title" style="margin-bottom:0;">Mes textes récents</h2>
+        <%= link_to "Voir tout →", articles_path, class: "see-all" %>
+      </div>
+      <div class="texts-list">
+        <% @recent_articles.each do |article| %>
+          <%= link_to article_path(article), class: "text-chip" do %>
+            <div class="text-chip-icon">
+              <i class="fa-regular fa-file-lines"></i>
+            </div>
+            <div class="text-chip-content">
+              <div class="text-chip-title"><%= article.title %></div>
+              <div class="text-chip-meta"><%= time_ago_in_words(article.created_at) %></div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
 </div>

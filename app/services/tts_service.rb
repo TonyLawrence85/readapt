@@ -8,11 +8,11 @@ class TtsService
     # Choix de la voix (Langue et genre)
     voice = {
       language_code: "fr-FR",
-      ssml_gender:   "NEUTRAL"
+      ssml_gender:   :NEUTRAL
     }
 
     # Configuration du format de sortie
-    audio_config = { audio_encoding: "MP3" }
+    audio_config = { audio_encoding: :MP3 }
 
     # Requête à l'API
     response = client.synthesize_speech(

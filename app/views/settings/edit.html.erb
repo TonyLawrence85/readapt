@@ -1,206 +1,227 @@
 
-  <h1>Mes préférences de lecture</h1>
+<div class="px-3">
 
-  <%= simple_form_for @setting do |f| %>
-    <div class="mb-4 text-center">
-      <label style="font-size: 24px;">✍️</label>
-      <div class="font-tags">
+  <h1 class="text-center mt-3 mb-3">Choisis tes préférences</h1>
 
-        <% fonts = ["OpenDyslexic", "Arial", "Verdana", "Georgia"] %>
+  <%= simple_form_for @setting, html: { class: "settings-edit-form" } do |f| %>
 
-        <% fonts.each do |font| %>
-          <div class="tag-item">
-            <input
-              type="radio"
-              name="setting[font]"
-              value="<%= font %>"
-              id="font_<%= font.parameterize %>"
-              class="tag-selector"
-              <%= "checked" if @setting.font == font %>
-            >
+    <%# ── BOX 1 : Typographie ── %>
+    <div class="settings-box mb-3" id="typography-box">
 
-            <label for="font_<%= font.parameterize %>"
-                  style="font-family: <%= font %>;">
-              <%= font %>
-            </label>
-          </div>
-        <% end %>
-
+      <div class="settings-section">
+        <label class="settings-label">
+          <i class="fa-solid fa-font"></i> Police
+        </label>
+        <div class="font-tags">
+          <% ["OpenDyslexic", "Arial", "Verdana", "Georgia"].each do |font| %>
+            <div class="tag-item">
+              <input type="radio" name="setting[font]" value="<%= font %>"
+                     id="font_<%= font.parameterize %>" class="tag-selector"
+                     <%= "checked" if @setting.font == font %>>
+              <label for="font_<%= font.parameterize %>" style="font-family: <%= font %>;">
+                <%= font %>
+              </label>
+            </div>
+          <% end %>
+        </div>
       </div>
+
+      <div class="settings-section">
+        <div class="slider-header">
+          <label class="settings-label mb-0">
+            <i class="fa-solid fa-arrows-left-right"></i> Espacement
+          </label>
+          <span class="slider-value" id="spacing-value"><%= @setting.letter_spacing.to_s.gsub('px','').presence || "0" %></span>
+        </div>
+        <input type="range" min="0" max="10" step="1"
+               value="<%= @setting.letter_spacing.to_s.gsub('px','') || 0 %>"
+               id="spacing-input" class="form-range" name="setting[letter_spacing]">
+      </div>
+
+      <div class="settings-section">
+        <div class="slider-header">
+          <label class="settings-label mb-0">
+            <i class="fa-solid fa-text-height"></i> Taille
+          </label>
+          <span class="slider-value" id="size-value"><%= @setting.font_size.to_s.gsub('px','').presence || "12" %></span>
+        </div>
+        <input type="range" min="12" max="40" step="1"
+               value="<%= @setting.font_size.to_s.gsub('px','') || 16 %>"
+               id="size-input" class="form-range" name="setting[font_size]">
+      </div>
+
     </div>
 
-    <div class="mb-4 text-center">
-      <label style="font-size: 24px;">↔️</label>
+    <%# ── BOX 2 : Mode syllabes + Palette ── %>
+    <div class="settings-box mb-3" id="syllable-box">
 
-      <input
-        type="range"
-        min="0"
-        max="10"
-        step="1"
-        value="<%= @setting.letter_spacing.to_s.gsub('px','') || 0 %>"
-        id="spacing-input"
-        class="form-range"
-        name="setting[letter_spacing]"
-      >
+      <div class="settings-section syllable-toggle-section">
+        <div class="d-flex align-items-center gap-2">
+          <label class="settings-label mb-0">
+            <i class="fa-solid fa-droplet"></i> Coloration des syllabes
+          </label>
+          <div class="ms-auto">
+            <input type="hidden" name="setting[syllable_mode]" value="0">
+            <input class="form-check-input gradient-toggle" type="checkbox"
+                   id="syllable-mode" name="setting[syllable_mode]" value="1"
+                   role="switch"
+                   <%= "checked" if @setting.syllable_mode %>>
+          </div>
+        </div>
+      </div>
 
-      <small id="spacing-value">
-        <%= @setting.letter_spacing || "0px" %>
-      </small>
+      <div id="palette-section" class="palette-slide <%= 'palette-slide--visible' if @setting.syllable_mode %>">
+        <div class="settings-section">
+          <label class="settings-label">
+            <i class="fa-solid fa-palette"></i> Palette de couleurs
+          </label>
+          <%= render 'palette' %>
+        </div>
+      </div>
+
     </div>
 
-   <div class="mb-4 text-center">
-    <label style="font-size: 24px;">🔤</label>
+    <%# ── Sticky : Aperçu + Bouton ── %>
+    <div class="settings-sticky-bottom">
 
-    <input
-      type="range"
-      min="12"
-      max="40"
-      step="1"
-      value="<%= @setting.font_size.to_s.gsub('px','') || 16 %>"
-      id="size-input"
-      class="form-range"
-      name="setting[font_size]"
-    >
+      <div class="settings-box mb-2" id="preview-box">
+        <div id="combined-preview" class="combined-preview"
+             style="font-family:<%= @setting.font %>; letter-spacing:<%= @setting.letter_spacing %>; font-size:<%= @setting.font_size %>;">
+          Lire avec Readapt, c'est facile !
+        </div>
+      </div>
 
-    <small id="size-value">
-      <%= @setting.font_size || "16px" %>
-    </small>
+      <%= f.button :submit, "Enregistrer mes préférences", class: "btn btn-readapt w-100" %>
+
+    </div>
+
+  <% end %>
+
+</div>
+
+<%# ── Modal plein écran : aperçu après enregistrement ── %>
+<div class="modal fade" id="settingsShowModal" tabindex="-1" aria-labelledby="settingsShowModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content settings-show-modal-content">
+
+      <div class="modal-header settings-show-modal-header">
+        <h5 class="modal-title" id="settingsShowModalLabel">
+          <i class="fa-solid fa-circle-check me-2" style="color:#1B9E7A;"></i>
+          Préférences enregistrées
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+
+      <div class="modal-body px-3" id="offcanvas-show-content">
+      </div>
+
+    </div>
   </div>
-
-    <h2 id="preview-text"
-        style="
-          font-family: <%= @setting.font %>;
-          letter-spacing: <%= @setting.letter_spacing %>;
-          font-size: <%= @setting.font_size %>;
-        ">
-      Lire avec Readapt, c'est facile !
-    </h2>
-
-    <hr>
-
-
-    <%= f.input :syllable_palette,
-      collection: [
-        ["Bleu / Rouge / Vert", "blue_red_green"],
-        ["Orange / Bleu / Violet", "orange_blue_purple"],
-        ["Jaune / Bleu / Vert", "yellow_blue_green"]
-      ],
-      label: "Palette de couleurs",
-      prompt: "Choisir une palette",
-      input_html: { id: "palette-input" }
-    %>
-
-
-
-    <%= f.input :syllable_mode,
-      as: :boolean,
-      label: "Activer la coloration des syllabes",
-      input_html: { id: "syllable-mode" }
-    %>
-
-    <div id="syllable-preview" class="mb-3"></div>
-
-    <%= f.button :submit, "Enregistrer mes préférences", class: "btn btn-readapt" %>
-
-      <% end %>
-
-    </div>
-
+</div>
 
 <script>
-      document.addEventListener("turbo:load", () => {
+document.addEventListener("turbo:load", () => {
 
-  const preview = document.getElementById("preview-text")
-  const syllablePreview = document.getElementById("syllable-preview")
-
-  const fontInputs = document.querySelectorAll('input[name="setting[font]"]')
-  const paletteInput = document.getElementById("palette-input")
-  const spacingInput = document.getElementById("spacing-input")
-  const sizeInput = document.getElementById("size-input")
-  const syllableMode = document.getElementById("syllable-mode")
-  const languageSwitch = document.getElementById("language-switch")
+  const combinedPreview = document.getElementById("combined-preview")
+  const fontInputs      = document.querySelectorAll('input[name="setting[font]"]')
+  const paletteInputs   = document.querySelectorAll('input[name="setting[syllable_palette]"]')
+  const spacingInput    = document.getElementById("spacing-input")
+  const sizeInput       = document.getElementById("size-input")
+  const syllableMode    = document.getElementById("syllable-mode")
 
   const palettes = {
-    blue_red_green: ["blue", "red", "green"],
-    orange_blue_purple: ["orange", "blue", "purple"],
-    yellow_blue_green: ["yellow", "blue", "green"]
+    blue_red_green:      { bg: null,      text: null,      syllables: ["#1E88E5", "#E53935", "#43A047"] },
+    orange_blue_purple:  { bg: null,      text: null,      syllables: ["#FB8C00", "#1E88E5", "#8E24AA"] },
+    cream_dark_blue:     { bg: "#194F7A", text: "#FFF8E7", syllables: ["#FFF8E7", "#D4C5A9", "#FFFACD"] },
+    yellow_black:        { bg: "#111111", text: "#FFD700", syllables: ["#FFD700", "#FFC107", "#FFEB3B"] },
+    offwhite_dark_green: { bg: "#1B4332", text: "#F5F5DC", syllables: ["#F5F5DC", "#E8E8C8", "#FAFAD2"] },
+    orange_dark_gray:    { bg: "#2D2D2D", text: "#FF8C00", syllables: ["#FF8C00", "#FF6B35", "#FFA500"] }
   }
 
-  const texts = {
-    fr: "Lire avec Readapt, c'est facile !",
-    en: "Reading with Readapt is easy!",
-    es: "Leer con Readapt es fácil!",
-    de: "Lesen mit Readapt ist einfach!"
+  const previewText = "Lire avec Readapt, c'est facile !"
+
+  function getSelectedPalette() {
+    const checked = document.querySelector('input[name="setting[syllable_palette]"]:checked')
+    return checked ? checked.value : "blue_red_green"
   }
 
-  let currentText = texts["fr"]
+  function getSelectedFont() {
+    const checked = document.querySelector('input[name="setting[font]"]:checked')
+    return checked ? checked.value : ""
+  }
 
   function syllabify(text, colors) {
-    return text.split(" ").map(word => {
-      return (word.match(/.{1,2}/g) || [word])
-        .map((part, i) => {
-          let color = colors[i % colors.length]
-          return `<span style="color:${color}">${part}</span>`
-        }).join("")
-    }).join(" ")
+    return text.split(" ").map(word =>
+      (word.match(/.{1,2}/g) || [word])
+        .map((part, i) => `<span style="color:${colors[i % colors.length]}">${part}</span>`)
+        .join("")
+    ).join(" ")
   }
 
   function updatePreview() {
-    const colors = palettes[paletteInput.value]
+    const palette  = palettes[getSelectedPalette()]
+    const spacing  = spacingInput.value + "px"
+    const size     = sizeInput.value + "px"
+    const font     = getSelectedFont()
+
+    combinedPreview.style.fontFamily     = font
+    combinedPreview.style.letterSpacing  = spacing
+    combinedPreview.style.fontSize       = size
+
+    if (palette.bg) {
+      combinedPreview.style.backgroundColor = palette.bg
+      combinedPreview.style.padding         = "0.6rem 0.8rem"
+      combinedPreview.style.borderRadius    = "8px"
+    } else {
+      combinedPreview.style.backgroundColor = ""
+      combinedPreview.style.padding         = ""
+      combinedPreview.style.borderRadius    = ""
+    }
 
     if (syllableMode.checked) {
-      syllablePreview.innerHTML = syllabify(currentText, colors)
+      combinedPreview.innerHTML = syllabify(previewText, palette.syllables)
     } else {
-      syllablePreview.innerHTML = currentText
+      combinedPreview.innerHTML = previewText
     }
   }
 
-
-  const languageInputs = document.querySelectorAll('input[name="language"]')
-
-  languageInputs.forEach(input => {
-    input.addEventListener("change", (e) => {
-      currentText = texts[e.target.value]
-      preview.innerText = currentText
-      updatePreview()
-    })
-  })
-
   fontInputs.forEach(input => {
-    input.addEventListener("change", (e) => {
-      preview.style.fontFamily = e.target.value
-    })
+    input.addEventListener("change", updatePreview)
   })
 
-  paletteInput.addEventListener("change", updatePreview)
+  paletteInputs.forEach(input => {
+    input.addEventListener("change", updatePreview)
+  })
 
- spacingInput.addEventListener("input", (e) => {
-    const value = e.target.value + "px"
+  spacingInput.addEventListener("input", e => {
+    document.getElementById("spacing-value").innerText = e.target.value
+    updatePreview()
+  })
 
-    preview.style.letterSpacing = value
+  sizeInput.addEventListener("input", e => {
+    document.getElementById("size-value").innerText = e.target.value
+    updatePreview()
+  })
 
-    // affichage valeur
-    const spacingValue = document.getElementById("spacing-value")
-    if (spacingValue) {
-      spacingValue.innerText = value
+  syllableMode.addEventListener("change", () => {
+    document.getElementById("palette-section")
+      .classList.toggle("palette-slide--visible", syllableMode.checked)
+    updatePreview()
+    if (syllableMode.checked) {
+      setTimeout(() => {
+        document.getElementById("syllable-box")
+          .scrollIntoView({ behavior: "smooth", block: "center" })
+      }, 250)
     }
   })
-
-  sizeInput.addEventListener("input", (e) => {
-    const value = e.target.value + "px"
-
-    preview.style.fontSize = value
-
-    const sizeValue = document.getElementById("size-value")
-    if (sizeValue) {
-      sizeValue.innerText = value
-    }
-  })
-
-  syllableMode.addEventListener("change", updatePreview)
 
   updatePreview()
-
 })
 
+document.addEventListener("turbo:submit-end", (event) => {
+  if (event.detail.success) {
+    const el = document.getElementById("settingsShowModal")
+    if (el) bootstrap.Modal.getOrCreateInstance(el).show()
+  }
+})
 </script>
