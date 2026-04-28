@@ -61,22 +61,11 @@
         </audio>
       </div>
 
+
       <% if @article.formatted_content.present? %>
-
-        <% colors = TextFormatter.colors_for(current_user.setting.syllable_palette || "blue_red_green") %>
-
-        <style>
-          .syl-0 { color: <%= colors[0] %>; }
-          .syl-1 { color: <%= colors[1] %>; }
-          .syl-2 { color: <%= colors[2] %>; }
-        </style>
-
-        <div id="readapt-text" class="mt-3" style="
-          font-family: <%= current_user.setting.font || 'OpenDyslexic' %>;
-          letter-spacing: <%= current_user.setting.letter_spacing || 'normal' %>;
-        ">
+        <div id="readapt-text" class="mt-3">
           <h5>Texte reformaté pour la dyslexie</h5>
-          <%= @article.formatted_content.html_safe %>
+          <%= wrap_with_settings(@article.formatted_content) %>
         </div>
       <% end %>
 

@@ -53,6 +53,17 @@
   margin-bottom: 0.2rem;
 }
 
+/* ── Slide palette ── */
+.palette-slide {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.45s ease;
+
+  &--visible {
+    max-height: 300px;
+  }
+}
+
 /* ── Sticky aperçu + bouton ── */
 .settings-sticky-bottom {
   position: sticky;
