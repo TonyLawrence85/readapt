@@ -50,6 +50,16 @@ class ArticlesController < ApplicationController
       lines = response.content.split("\n")
       formatted_lines = lines.map { |line| TextFormatter.syllabify(line, palette: palette) }
       @article.update(formatted_content: formatted_lines.join("<br>"))
+
+      # Création de l'audio
+      text_brut = ActionController::Base.helpers.strip_tags(@article.formatted_content)
+      audio_bytes = TtsService.call(text_brut)
+      audio_io = StringIO.new(audio_bytes)
+      @article.audio.attach(
+        io: audio_io,
+        filename: "article_#{@article.id}.mp3",
+        content_type: "audio/mpeg"
+      )
       redirect_to article_path(@article), notice: "Texte créé avec succès"
     else
       if params[:article][:source] == "import"
@@ -72,11 +82,6 @@ class ArticlesController < ApplicationController
     redirect_to articles_path, notice: "Texte supprimé"
   end
 
-  def synthesize
-    set_article
-    TtsService.call(@article.formatted_content)
-  end
-  
   private
 
   def article_params
