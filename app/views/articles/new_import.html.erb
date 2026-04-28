@@ -1,10 +1,20 @@
-<div class="container mt-2">
+<div class="container mt-2" data-controller="pdf-preview">
   <h2 class="title-import-pdf">Importe ton PDF </h2>
   <%= simple_form_for @article, url: articles_path do |f| %>
     <%= f.input :title, :label => "Titre" %>
-    <%= f.input :document, as: :file %>
+    <%= f.input :document, as: :file,
+                                      input_html: {
+                                      accept: "application/pdf",
+                                      data: {
+                                        pdf_preview_target: "input",
+                                        action: "change->pdf-preview#showPreview"
+                                        }
+                                      } %>
     <%= f.hidden_field :source, value: "import" %>
     <%= f.button :submit, "Importer", class: "btn-readapt"%>
   <% end %>
-
+  <div data-pdf-preview-target="container" class="pdf-preview-container mt-3" hidden>
+    <h2>Aperçu</h2>
+    <embed data-pdf-preview-target="embed", type="application/pdf", class="pdf-preview-embed" />
+  </div>
 </div>
