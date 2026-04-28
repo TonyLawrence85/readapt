@@ -4,3 +4,5 @@ import { eagerLoadControllersFrom } from "@hotwired/stimulus-loading"
 eagerLoadControllersFrom("controllers", application)
 import PlyrController from "./plyr_controller"
 application.register("plyr", PlyrController)
+import KaraokeController from "./karaoke_controller"
+application.register("karaoke", KaraokeController)
