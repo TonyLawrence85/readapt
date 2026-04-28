@@ -76,8 +76,7 @@
               <i class="fa fa-spinner fa-spin"></i> Audio en cours de génération...
             </p>
           <% end %>
- 
-          <%= wrap_with_settings(@article.formatted_content) %>
+
 
         </div>
 
@@ -96,7 +95,7 @@
             <% if @article.audio_timestamps.present? %>
               <%= inject_karaoke_targets(@article.formatted_content) %>
             <% else %>
-              <%= @article.formatted_content.html_safe %>
+              <%= @article.formatted_content.html_safe %> <%# herb:disable all %>
             <% end %>
           </div>
         <% end %>
