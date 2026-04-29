@@ -19,14 +19,13 @@ class TextFormatter
     palette_data_for(palette)[:syllables]
   end
 
-  def self.syllabify(text, palette: "blue_red_green")
-    colors = colors_for(palette)
+  def self.syllabify(text)
     i = 0
     text.split(" ").map do |word|
       Syllabifier.split(word).map do |part|
-        color = colors[i % 3]
+        cls = "syl-#{i % 3}"
         i += 1
-        "<span style='color:#{color}'>#{part}</span>"
+        "<span class='#{cls}'>#{part}</span>"
       end.join
     end.join(" ")
   end

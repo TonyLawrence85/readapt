@@ -47,9 +47,12 @@ class ArticlesController < ApplicationController
                  else
                    chat.ask("#{build_prompt(setting)}\n\nTexte à reformater :\n#{@article.content}")
                  end
-      palette = current_user.setting.syllable_palette || "blue_red_green"
       lines = response.content.split("\n")
-      formatted_lines = lines.map { |line| TextFormatter.syllabify(line, palette: palette) }
+      formatted_lines = if setting.syllable_mode
+        lines.map { |line| TextFormatter.syllabify(line) }
+      else
+        lines
+      end
       @article.update(formatted_content: formatted_lines.join("<br>"))
 
       AudioGenerationJob.perform_later(@article.id)
