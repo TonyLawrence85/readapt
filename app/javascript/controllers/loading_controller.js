@@ -2,15 +2,16 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="loading"
 export default class extends Controller {
   connect() {
-    console.log("hello");
+    document.querySelector('.frame').style.display = 'none'
   }
   loadingPage() {
-    console.log("loading page")
+    document.querySelector('.frame').style.display = 'block'
 
-    typed6 = new Typed('#typed6', {
-    strings: ['Je rephrase le texte en phrase plus courte...\n `Chargement des settings..` ^1000 \n Changement de police d\'écriture`\n`Ajout des couleurs...` ^1000 \n `Ajout des espacements`\n `Modification de la taille`\n `Création du texte en audio...`'],
-    typeSpeed: 100,
-    backSpeed: 0,
+    typed3 = new Typed('#typed3', {
+    strings: ['Chargement des paramètres: <strong>sur la couleur</strong>', 'Chargement des paramètres: <strong>la taille</strong>', 'Chargement des paramètres: <strong>espacement</strong>;'],
+    typeSpeed: 50,
+    backSpeed: 25,
+    smartBackspace: true, // this is a default
     loop: true
   });
   }
