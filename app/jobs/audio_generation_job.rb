@@ -8,7 +8,12 @@ class AudioGenerationJob < ApplicationJob
 
     return if article.formatted_content.blank?
 
-    plain_text = ActionController::Base.helpers.strip_tags(article.formatted_content).gsub(/\s+/, " ").strip
+    phrases = article.formatted_content.split(/<br\s*\/?>/i).reject(&:blank?)
+    plain_text = phrases.map { |p|
+      s = ActionController::Base.helpers.strip_tags(p).strip
+      s = s.gsub(/[,;:\-–—]/, "")
+      s.end_with?(".") ? s : "#{s}."
+    }.join(" ")
     audio_content = TtsService.call(plain_text)
 
     article.audio.attach(
@@ -32,12 +37,24 @@ class AudioGenerationJob < ApplicationJob
           language: "fr"
         }
       )
-      timestamps = response["segments"].map do |segment|
-        {
-          text: segment["text"],
-          start: segment["start"],
-          end: segment["end"]
-        }
+      all_words = []
+      response["segments"].each do |seg|
+        count = seg["text"].downcase.gsub(/[^a-zàâçéèêëîïôùûüœæ\s]/i, "").split.length
+        count.times { all_words << { start: seg["start"], end: seg["end"] } }
+      end
+
+      word_pos = 0
+      timestamps = phrases.map do |phrase|
+        phrase_words = ActionController::Base.helpers.strip_tags(phrase)
+                         .downcase.gsub(/[^a-zàâçéèêëîïôùûüœæ\s]/i, "").split
+
+        start_time = all_words[word_pos]&.[](:start) || 0
+        word_pos += phrase_words.length
+        end_time = all_words[[word_pos - 1, all_words.length - 1].min]&.[](:end) || 0
+
+        { text: ActionController::Base.helpers.strip_tags(phrase).strip,
+          start: start_time,
+          end: end_time }
       end
       article.update(audio_timestamps: timestamps.to_json)
     end
