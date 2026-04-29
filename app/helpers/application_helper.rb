@@ -52,7 +52,7 @@ module ApplicationHelper
 
     content =
       if setting.syllable_mode
-        TextFormatter.syllabify(text, palette: setting.syllable_palette)
+        TextFormatter.syllabify(text)
       else
         text
       end

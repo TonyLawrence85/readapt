@@ -37,7 +37,7 @@ class SettingsController < ApplicationController
     # appliquer les settings
     adapted_text =
       if setting.syllable_mode
-        TextFormatter.syllabify(text, palette: setting.syllable_palette)
+        TextFormatter.syllabify(text)
       else
         text
       end
