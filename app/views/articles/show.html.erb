@@ -56,14 +56,6 @@
       <% end %>
 
 
-      <% if @article.formatted_content.present? %>
-        <% colors = TextFormatter.colors_for(current_user.setting.syllable_palette || "blue_red_green") %>
-        <style>
-          .syl-0 { color: <%= colors[0] %>; }
-          .syl-1 { color: <%= colors[1] %>; }
-          .syl-2 { color: <%= colors[2] %>; }
-        </style>
-      <% end %>
 
       <div data-controller="karaoke" data-karaoke-timestamps-value="<%= @article.audio_timestamps %>">
         <div data-controller="plyr" data-karaoke-target="player" class="audio-player-container">
@@ -87,16 +79,10 @@
         <% end %>
 
         <% if @article.formatted_content.present? %>
-          <div id="readapt-text" class="mt-3" style="
-            font-family: <%= current_user.setting.font || 'OpenDyslexic' %>;
-            letter-spacing: <%= current_user.setting.letter_spacing || 'normal' %>;
-          ">
+          <div id="readapt-text" class="mt-3">
             <h5>Texte reformaté pour la dyslexie</h5>
-            <% if @article.audio_timestamps.present? %>
-              <%= inject_karaoke_targets(@article.formatted_content) %>
-            <% else %>
-              <%= @article.formatted_content.html_safe %> <%# herb:disable all %>
-            <% end %>
+            <% content = @article.audio_timestamps.present? ? inject_karaoke_targets(@article.formatted_content) : @article.formatted_content %>
+            <%= wrap_with_settings(content) %>
           </div>
         <% end %>
 
