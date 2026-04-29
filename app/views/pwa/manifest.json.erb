@@ -1,22 +1,27 @@
 {
   "name": "Readapt",
+  "short_name": "Readapt",
+  "description": "L'application qui facilite la lecture pour les personnes dyslexiques",
   "icons": [
-    {
-      "src": "/icon.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    },
-    {
-      "src": "/icon.png",
-      "type": "image/png",
-      "sizes": "512x512",
-      "purpose": "maskable"
-    }
+    <%
+      icons_dir = Rails.root.join("app/assets/images/icons/")
+      # Garde uniquement les PNG avec un pattern -NNNxNNN dans le nom
+      files = Dir.entries(icons_dir).select do |f|
+        f.end_with?(".png") && f.match?(/-\d{2,4}x\d{2,4}\.png\z/)
+      end
+    %>
+    <% files.each_with_index do |file, index| %>
+      <% match = file.match(/-(?<size>\d{2,4}x\d{2,4})\.png\z/) %>
+      {
+        "src": "<%= image_path "icons/#{file}" %>",
+        "sizes": "<%= match[:size] %>",
+        "type": "image/png"<%= file.include?("maskable") ? ",\n        \"purpose\": \"maskable\"" : "" %>
+      }<%= "," unless index == files.size - 1 %>
+    <% end %>
   ],
   "start_url": "/",
   "display": "standalone",
   "scope": "/",
-  "description": "Readapt.",
-  "theme_color": "red",
-  "background_color": "red"
+  "theme_color": "#DC2626",
+  "background_color": "#DC2626"
 }
