@@ -1,4 +1,4 @@
-<div class="container mt-2" data-controller="pdf-preview">
+<div class="container mt-2" data-controller="pdf-preview loading">
   <h2 class="title-import-pdf">Importe ton PDF </h2>
   <%= simple_form_for @article, url: articles_path do |f| %>
     <%= f.input :title, :label => "Titre" %>
@@ -11,8 +11,26 @@
                                         }
                                       } %>
     <%= f.hidden_field :source, value: "import" %>
-    <%= f.button :submit, "Importer", class: "btn-readapt"%>
+    <%= f.button :submit, "Importer", class: "btn-readapt", data: { action: "click->loading#loadingPage" }%>
   <% end %>
+  <script src="https://unpkg.com/typed.js@3.0.0/dist/typed.umd.js"></script>
+
+  <div class="frame">
+    <script src="https://unpkg.com/typed.js@3.0.0/dist/typed.umd.js"></script>
+
+    <div class="loading-frame">
+      <div class="typewriter">
+        <div class="slide"><i></i></div>
+        <div class="paper"></div>
+        <div class="keyboard"></div>
+
+      </div>
+    <span id="typed3"></span>
+    </div>
+    <div class="text"> <!-- pour la box shadow -->
+    </div>
+  </div>
+  
   <div data-pdf-preview-target="container" class="pdf-preview-container mt-3" hidden>
     <h2>Aperçu</h2>
     <embed data-pdf-preview-target="embed", type="application/pdf", class="pdf-preview-embed" />
