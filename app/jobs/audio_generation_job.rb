@@ -8,7 +8,12 @@ class AudioGenerationJob < ApplicationJob
 
     return if article.formatted_content.blank?
 
-    plain_text = ActionController::Base.helpers.strip_tags(article.formatted_content).gsub(/\s+/, " ").strip
+    phrases = article.formatted_content.split(/<br\s*\/?>/i).reject(&:blank?)
+    plain_text = phrases.map { |p|
+      s = ActionController::Base.helpers.strip_tags(p).strip
+      s = s.gsub(/[,;:\-–—]/, "")
+      s.end_with?(".") ? s : "#{s}."
+    }.join(" ")
     audio_content = TtsService.call(plain_text)
 
     article.audio.attach(

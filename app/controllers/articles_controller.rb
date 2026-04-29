@@ -106,15 +106,15 @@ class ArticlesController < ApplicationController
     4. Préfère la voix active à la voix passive.
     5. Évite les doubles négations.
     6. Conserve strictement les noms propres, chiffres, dates et citations.
-    7. Aère le texte : un saut de ligne entre chaque phrase, un saut de
-      ligne double entre les paragraphes logiques.
+    7. Termine chaque phrase par un point.
 
     FORMAT DE SORTIE (STRICT) :
-    - Pas de <p>, uniquement des <br> séparés.
+    - Pas de <p>, uniquement du texte brut.
     - Retourne UNIQUEMENT le texte adapté, sans préambule ni commentaire.
     - Phrases courtes : 15 mots maximum. Si une phrase est plus longue,
       coupe-la en plusieurs phrases simples.
-    - Après chaque phrase fait un saut à la ligne.
+    - Un saut de ligne après chaque phrase.
+    - Un saut de ligne double entre les paragraphes logiques.
 
     PROMPT
   end
