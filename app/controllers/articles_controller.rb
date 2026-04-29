@@ -47,7 +47,8 @@ class ArticlesController < ApplicationController
                  else
                    chat.ask("#{build_prompt(setting)}\n\nTexte à reformater :\n#{@article.content}")
                  end
-      lines = response.content.split("\n")
+      normalized = response.content.gsub(/\.\s+(?=[A-ZÀÂÉÈÊËÎÏÔÙÛÜŒÆ])/, ".\n")
+      lines = normalized.split("\n").reject(&:blank?)
       formatted_lines = if setting.syllable_mode
         lines.map { |line| TextFormatter.syllabify(line) }
       else
@@ -114,9 +115,8 @@ class ArticlesController < ApplicationController
     FORMAT DE SORTIE (STRICT) :
     - Pas de <p>, uniquement du texte brut.
     - Retourne UNIQUEMENT le texte adapté, sans préambule ni commentaire.
-    - Phrases courtes : 15 mots maximum. Si une phrase est plus longue,
-      coupe-la en plusieurs phrases simples.
-    - Un saut de ligne après chaque phrase.
+    - MAXIMUM ABSOLU : 15 mots par phrase. Compte les mots. Coupe si nécessaire.
+    - Après chaque point, retourne obligatoirement à la ligne. Une phrase = une ligne, sans exception.
     - Un saut de ligne double entre les paragraphes logiques.
 
     PROMPT
