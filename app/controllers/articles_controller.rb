@@ -61,6 +61,14 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def status
+    set_article
+    render json: {
+      audio_ready: @article.audio.attached?,
+      timestamps_ready: @article.audio_timestamps.present?
+    }
+  end
+
   def toggle_favourite
     set_article
     @article.update(favourite: !@article.favourite)

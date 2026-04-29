@@ -67,22 +67,16 @@
 
       <div data-controller="karaoke" data-karaoke-timestamps-value="<%= @article.audio_timestamps %>">
         <div data-controller="plyr" data-karaoke-target="player" class="audio-player-container">
-          <% if @article.audio.attached? %>
+          <% if @article.audio.attached? && @article.audio_timestamps.present? %>
             <audio data-plyr-target="audio" controls preload="none">
               <source src="<%= url_for(@article.audio) %>" type="audio/mpeg">
             </audio>
-          <% else %>
-            <p class="text-muted" data-controller="refresh" data-refresh-interval-value="3000" data-refresh-url-value="<%= article_path(@article) %>">
-              <i class="fa fa-spinner fa-spin"></i> Audio en cours de génération...
-            </p>
           <% end %>
-
-
         </div>
 
-        <% if @article.audio.attached? && @article.audio_timestamps.blank? %>
-          <p class="text-muted" data-controller="refresh" data-refresh-interval-value="3000" data-refresh-url-value="<%= article_path(@article) %>">
-            <i class="fa fa-spinner fa-spin"></i> Transcription en cours...
+        <% if @article.audio_timestamps.blank? %>
+          <p class="text-muted" data-controller="refresh" data-refresh-interval-value="3000" data-refresh-url-value="<%= status_article_path(@article) %>" data-refresh-wait-value="timestamps">
+            <i class="fa fa-spinner fa-spin"></i> Audio et transcription en cours...
           </p>
         <% end %>
 
