@@ -23,7 +23,7 @@ export default class extends Controller {
 
       speed: {
         selected: 1,
-        options: [0.75, 1, 1.5]
+        options: [0.5, 1, 1.5]
       },
 
       seekTime: 2,
