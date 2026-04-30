@@ -19,6 +19,7 @@
     --text-mid: #2d5c5c;
     --white: #ffffff;
     --bg-home: #dce9e7;
+    --gradient: linear-gradient(150deg, #194F7A 40%, #1B9E7A);
   }
 
   html { scroll-behavior: smooth; }
@@ -270,7 +271,7 @@
 .action-title {
   font-size: 15px;
   font-weight: 500;
-  color: var(--teal-deep);
+  color: var(--gradient);
   margin-bottom: 2px;
 }
 
@@ -364,7 +365,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: var(--teal-deep);
+  background: var(--gradient);
   color: white;
   font-size: 15px;
   font-weight: 500;
