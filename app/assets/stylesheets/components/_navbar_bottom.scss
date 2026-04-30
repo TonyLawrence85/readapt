@@ -13,8 +13,13 @@
 }
 
 .navbar-bottom i {
-  color: grey;
+  color: #194F7A;
   padding: 10px;
+}
+
+.navbar-bottom a:hover i,
+.navbar-bottom a:focus i {
+  color:#1B7A6E
 }
 
 .fa-house {

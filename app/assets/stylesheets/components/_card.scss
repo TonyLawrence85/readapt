@@ -56,9 +56,10 @@
 
 .tabs {
   display: flex;
+  align-items: center;
+  justify-content: space-around;
   gap: 12px;
   margin-bottom: 12px;
-  margin-left: 8px;
 }
 
 .tab {
