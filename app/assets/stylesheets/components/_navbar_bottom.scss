@@ -13,38 +13,43 @@
 }
 
 .navbar-bottom i {
-  color: grey;
+  color: #194F7A;
   padding: 10px;
+}
+
+.navbar-bottom a:hover i,
+.navbar-bottom a:focus i {
+  color:#1B7A6E
 }
 
 .fa-house {
   .pages.home & {
-    color: black;
-    border-bottom: 2px solid black;
-    border-bottom: 2px solid black;
+    color: #1B7A6E;
+    border-bottom: 2px solid #1B7A6E;
+    border-bottom: 2px solid #1B7A6E;
 
   }
 }
 
 .fa-book-open {
   .articles.index & {
-    color: black;
-    border-bottom: 2px solid black;
-    border-bottom: 2px solid black;
+    color: #1B7A6E;
+    border-bottom: 2px solid #1B7A6E;
+    border-bottom: 2px solid #1B7A6E;
   }
 }
 
 .fa-wand-magic-sparkles {
 
   .articles.new & {
-    color: black;
-    border-bottom: 2px solid black;
+    color: #1B7A6E;
+    border-bottom: 2px solid #1B7A6E;
   }
 }
 
 .fa-gear {
   .settings.show & {
-    color: black;
-    border-bottom: 2px solid black;
+    color: #1B7A6E;
+    border-bottom: 2px solid #1B7A6E;
   }
 }
