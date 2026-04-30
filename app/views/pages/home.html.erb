@@ -106,7 +106,7 @@
   <% if user_signed_in? && @recent_articles.any? %>
     <div class="text-container">
       <div class="recent-header">
-        <h2 class="section-title" style="margin-bottom:0;">Mes textes récents</h2>
+        <h2 class="section-title" style="margin-bottom:0;">Mes textes <em>récents</em></h2>
         <%= link_to "Voir tout →", articles_path, class: "see-all" %>
       </div>
       <div class="texts-list">

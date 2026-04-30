@@ -19,7 +19,7 @@
     --text-mid: #2d5c5c;
     --white: #ffffff;
     --bg-home: #dce9e7;
-    --gradient: linear-gradient(150deg, #194F7A 40%, #1B9E7A);
+    --gradient: linear-gradient(150deg, #194F7A 30%, #1B9E7A);
   }
 
   html { scroll-behavior: smooth; }
@@ -209,15 +209,9 @@
   font-family: 'Fraunces', serif;
   font-size: 26px;
   font-weight: 900;
-  color: var(--gradient);
   line-height: 1.1;
   letter-spacing: -0.8px;
   margin-bottom: 12px;
-
-  em {
-    font-style: italic;
-    color: var(--teal-light);
-  }
 }
 
 .actions-grid {
@@ -245,7 +239,7 @@
 }
 
 .action-card.primary {
-  background: linear-gradient(135deg, var(--teal-mid), var(--teal-deep));
+  background: var(--gradient);
   color: white;
 }
 
@@ -307,6 +301,10 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 12px;
+
+  .section-title {
+    flex: 1;
+  }
 }
 
 .see-all {
