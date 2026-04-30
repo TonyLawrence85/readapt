@@ -22,13 +22,6 @@
     --gradient: linear-gradient(150deg, #194F7A 40%, #1B9E7A);
   }
 
-  html { scroll-behavior: smooth; }
-
-  body.pages.home,
-  body.pages.home .main-content {
-    background-color: #F4F1E9;
-  }
-
   .hero-text {
     padding: 18px 0 0;
   }
@@ -64,7 +57,6 @@
   }
 
   .hero-headline {
-    font-family: 'Fraunces', serif;
     font-weight: 900;
     font-size: 34px;
     line-height: 1.05;
@@ -73,7 +65,6 @@
     margin-bottom: 10px;
 
     em {
-      font-style: italic;
       color: var(--teal-light);
     }
   }
@@ -155,7 +146,6 @@
 
 .transform-after {
   font-family: 'OpenDyslexic', sans-serif;
-  font-size: 14px;
   color: var(--white);
   line-height: 1.9;
 }
@@ -165,7 +155,7 @@
   flex-direction: column;
   width: 100%;
   max-width: 480px;
-  padding: 48px 24px;
+  padding: 10px 24px;
   margin: 0 auto;
 }
 
@@ -206,7 +196,6 @@
 }
 
 .section-title {
-  font-family: 'Fraunces', serif;
   font-size: 26px;
   font-weight: 900;
   line-height: 1.1;
@@ -404,7 +393,7 @@
   padding: 4px 0 16px;
 }
 
-.section-eyebrow {
+#titre-fonctionnalites  {
   font-size: 15px;
   font-weight: 500;
   letter-spacing: 2px;

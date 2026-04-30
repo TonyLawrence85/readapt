@@ -1,7 +1,7 @@
 <div class="container mt-2" data-controller="pdf-preview loading">
-  <h2 class=" section-title title-import-pdf">Importe ton PDF </h2>
+  <h2 class="section-title" id="title-import-pdf">Importe ton PDF </h2>
   <%= simple_form_for @article, url: articles_path do |f| %>
-    <%= f.input :title, :label => "Titre" %>
+    <%= f.input :title, :label => "Titre:", label_html: { class: "label-simple-form" } %>
     <%= f.input :document, as: :file,
                                       input_html: {
                                       accept: "application/pdf",
@@ -9,7 +9,7 @@
                                         pdf_preview_target: "input",
                                         action: "change->pdf-preview#showPreview"
                                         }
-                                      } %>
+                                      }, label_html: { class: "label-simple-form" } %>
     <%= f.hidden_field :source, value: "import" %>
     <%= f.button :submit, "Importer", class: "btn-readapt", data: { action: "click->loading#loadingPage" }%>
   <% end %>
