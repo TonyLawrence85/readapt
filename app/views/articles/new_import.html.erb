@@ -1,5 +1,5 @@
 <div class="container mt-2" data-controller="pdf-preview loading">
-  <h2 class="title-import-pdf">Importe ton PDF </h2>
+  <h2 class=" section-title title-import-pdf">Importe ton PDF </h2>
   <%= simple_form_for @article, url: articles_path do |f| %>
     <%= f.input :title, :label => "Titre" %>
     <%= f.input :document, as: :file,
@@ -30,7 +30,7 @@
     <div class="text"> <!-- pour la box shadow -->
     </div>
   </div>
-  
+
   <div data-pdf-preview-target="container" class="pdf-preview-container mt-3" hidden>
     <h2>Aperçu</h2>
     <embed data-pdf-preview-target="embed", type="application/pdf", class="pdf-preview-embed" />

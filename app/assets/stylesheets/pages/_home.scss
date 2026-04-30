@@ -26,7 +26,7 @@
 
   body.pages.home,
   body.pages.home .main-content {
-    background-color: var(--bg-home);
+    background-color: #F4F1E9;
   }
 
   .hero-text {
@@ -210,6 +210,10 @@
   font-size: 26px;
   font-weight: 900;
   line-height: 1.1;
+  background: linear-gradient(150deg, #194F7A 30%, #1B9E7A);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   letter-spacing: -0.8px;
   margin-bottom: 12px;
 }

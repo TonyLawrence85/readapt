@@ -22,7 +22,7 @@
           <% end %>
           <div class="readapt-card_content">
             <p><%= link_to article.title, article_path(article), class: "readapt-card_title" %></p>
-            <p>il y a <%= time_ago_in_words(article.created_at) %></p>
+            <p class="ago-colour">il y a <%= time_ago_in_words(article.created_at) %></p>
           </div>
         </div>
         <%= link_to article_path(article), data: { turbo_method: :delete } do %>
