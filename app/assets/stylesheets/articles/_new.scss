@@ -11,9 +11,18 @@
   text-align: center;
 }
 
-
 .pdf-preview-embed {
   width: 100%;
   height: 50vh;
   border-radius: 8px;
+}
+
+#offcanvasBottomLabel {
+  padding-left: 6.5rem;
+  font-size: 26px;
+  font-weight: 900;
+  line-height: 1.1;
+  background: linear-gradient(150deg, #194F7A 30%, #1B9E7A);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

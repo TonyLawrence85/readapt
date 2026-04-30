@@ -1,9 +1,3 @@
-// Span du typed
-
-#typed6 {
-  font-size: medium;
-  font-weight: bold;
-}
 
 :root {
   --duration: 10s;
@@ -13,6 +7,37 @@
   --delay-character: 0.2s;
   --text-color-hover: #ff8489;
 }
+
+#new-copy-title {
+  text-align: center;
+}
+
+// Span du typed
+
+#typed6 {
+  font-size: medium;
+  font-weight: bold;
+}
+
+// Simple form
+
+.label-simple-form {
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1.1;
+  background: linear-gradient(150deg, #194F7A 30%, #1B9E7A);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.input-simple-form {
+  width: 100%;
+  height: 150px;
+  padding: 10px;
+}
+
+// L'encadrement autour du typewriter
 
 .frame {
   width: var(--size);
@@ -43,19 +68,6 @@
 
 }
 
-@keyframes frameMove {
-  0% { top: 0; left: 0; transform: rotate(0deg); }
-  24% { top: 0; left: calc(100% - var(--font-size)); transform: rotate(0deg); }
-  25% { transform: rotate(90deg); }
-  49% { top: calc(100% - var(--font-size) * 1.5); left: calc(100% - var(--font-size)); transform: rotate(90deg); }
-  50% { transform: rotate(180deg); }
-  74% { top: calc(100% - var(--font-size) * 1.5); left: 0%; transform: rotate(180deg); }
-  75% { transform: rotate(270deg); }
-  99% { top: 0%; left: 0%; transform: rotate(270deg); }
-  100% { transform: rotate(360deg); }
-}
-
-
 // TYPEWRITER ANIMATION
 
 @mixin keyboard($position: 0, $value: 0) {
@@ -64,7 +76,7 @@
 }
 
 .typewriter {
-  --blue: #5C86FF;
+  --blue: #194f7a ;
   --blue-dark: #275EFE;
   --key: #fff;
   --paper: #EEF0FD;
