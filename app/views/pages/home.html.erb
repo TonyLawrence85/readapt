@@ -47,7 +47,7 @@
   <%# ── COMMENT ÇA MARCHE ─────────────────────────────── %>
   <div id="comment-ca-marche" class="section-header">
     <div class="section-eyebrow">Simple &amp; rapide</div>
-    <div class="section-title">Comment ça <em>marche</em> ?</div>
+    <h2 class="section-title">Comment ça <em>marche</em> ?</h2>
   </div>
   <div class="steps">
     <div class="step-item">
@@ -105,7 +105,7 @@
   <%# ── MES TEXTES RÉCENTS ─────────────────────────────── %>
   <% if user_signed_in? && @recent_articles.any? %>
     <div class="text-container">
-      <div class="recent-header"> 
+      <div class="recent-header">
         <h2 class="section-title" style="margin-bottom:0;">Mes textes récents</h2>
         <%= link_to "Voir tout →", articles_path, class: "see-all" %>
       </div>

@@ -209,15 +209,9 @@
   font-family: 'Fraunces', serif;
   font-size: 26px;
   font-weight: 900;
-  color: var(--teal-deep);
   line-height: 1.1;
   letter-spacing: -0.8px;
   margin-bottom: 12px;
-
-  em {
-    font-style: italic;
-    color: var(--teal-light);
-  }
 }
 
 .actions-grid {
@@ -245,7 +239,7 @@
 }
 
 .action-card.primary {
-  background: linear-gradient(135deg, var(--teal-mid), var(--teal-deep));
+  background: var(--gradient);
   color: white;
 }
 
@@ -307,6 +301,10 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 12px;
+
+  .section-title {
+    flex: 1;
+  }
 }
 
 .see-all {
@@ -403,7 +401,7 @@
 }
 
 .section-eyebrow {
-  font-size: 10px;
+  font-size: 15px;
   font-weight: 500;
   letter-spacing: 2px;
   text-transform: uppercase;
