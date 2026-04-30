@@ -2,7 +2,7 @@
   <h2 class="section-title" id="title-import-pdf">Importe ton PDF </h2>
   <%= simple_form_for @article, url: articles_path do |f| %>
     <%= f.input :title, :label => "Titre:", label_html: { class: "label-simple-form" } %>
-    <%= f.input :document, as: :file,
+    <%= f.input :document, as: :file, :label => "Document:",
                                       input_html: {
                                       accept: "application/pdf",
                                       data: {
