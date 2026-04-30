@@ -1,5 +1,7 @@
 .btn-readapt {
   background: $main-background;
+  --bs-btn-active-color: white;
+  --bs-btn-color: white;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -14,6 +16,9 @@
     opacity: 0.85;
     color: white;
   }
+
+  &:active, &:focus {
+    color: white;
+    opacity: 0.85;
+  }
 }
-
-

@@ -41,7 +41,12 @@ h1, h2, h3 {
 }
 
 .fa-trash-can {
-  color: rgb(192, 22, 22);
+  color: rgb(150, 146, 146);
+}
+
+a:hover .fa-trash-can,
+a:focus .fa-trash-can {
+  color: red;
 }
 
 .fa-star {
