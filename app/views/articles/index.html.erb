@@ -1,35 +1,57 @@
-<div class="container mt-2">
-  <div class="texts-index">
-    <h2 class="section-title" id="title-index-article">Mes textes</h2>
-
-    <div class="tabs">
-    <%= link_to "Tous", articles_path(filter: "all"),
-        class: "tab #{'active' if @filter == 'all'}" %>
-
-    <%= link_to "Favoris", articles_path(filter: "favourites"),
-        class: "tab #{'active' if @filter == 'favourites'}" %>
-
+<div class="texts-page">
+  <div class="form-page-topbar">
+    <div style="width: 34px;"></div>
+    <span class="form-page-logo">Read<span>apt</span></span>
+    <div style="width: 34px;"></div>
   </div>
-    <% @articles.each do |article| %>
-      <div class="readapt-card">
-        <div class="readapt-card_left">
-          <%= link_to toggle_favourite_article_path(article), data: { turbo_method: :patch } do %>
-            <% if article.favourite %>
-              <i class="fa-solid fa-star"></i>
-            <% else %>
-              <i class="fa-regular fa-star"></i>
+
+  <div class="texts-page-body">
+    <div class="form-hero">
+      <div class="sec-eye">Bibliothèque</div>
+      <div class="sec-title">Mes <em>textes</em></div>
+    </div>
+
+    <div class="texts-tabs">
+      <%= link_to "Tous", articles_path(filter: "all"),
+          class: "texts-tab #{'texts-tab-active' if @filter == 'all'}" %>
+      <%= link_to "Favoris", articles_path(filter: "favourites"),
+          class: "texts-tab #{'texts-tab-active' if @filter == 'favourites'}" %>
+    </div>
+
+    <div class="texts-cards">
+      <% @articles.each do |article| %>
+        <div class="text-card-item">
+          <div class="text-card-icon">
+            <i class="fa-regular fa-file-lines"></i>
+          </div>
+          <div class="text-card-body">
+            <%= link_to article.title, article_path(article), class: "text-card-title" %>
+            <div class="text-card-meta">
+              <span class="ago-colour">Il y a <%= time_ago_in_words(article.created_at) %></span>
+              <span class="text-card-tag">OD</span>
+            </div>
+          </div>
+          <div class="text-card-actions">
+            <%= link_to toggle_favourite_article_path(article), data: { turbo_method: :patch }, class: "text-card-fav #{article.favourite ? 'active-fav' : ''}" do %>
+              <% icon_class = article.favourite ? "fa-solid fa-star" : "fa-regular fa-star" %>
+              <i class="<%= icon_class %>"></i>
             <% end %>
-          <% end %>
-          <div class="readapt-card_content">
-            <p><%= link_to article.title, article_path(article), class: "readapt-card_title" %></p>
-            <p class="ago-colour">Il y a <%= time_ago_in_words(article.created_at) %></p>
+            <%= link_to article_path(article), data: { turbo_method: :delete }, class: "text-card-delete" do %>
+              <i class="fa-solid fa-trash-can"></i>
+            <% end %>
           </div>
         </div>
-        <%= link_to article_path(article), data: { turbo_method: :delete } do %>
-          <i class="fa-solid fa-trash-can"></i>
-        <% end %>
-      </div>
-    <% end %>
+      <% end %>
 
+      <% if @articles.empty? %>
+        <div class="texts-empty">
+          <div class="texts-empty-icon">
+            <i class="fa-regular fa-file-lines"></i>
+          </div>
+          <div class="texts-empty-title">Aucun texte pour l'instant</div>
+          <p class="texts-empty-sub">Importe ton premier texte pour commencer</p>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

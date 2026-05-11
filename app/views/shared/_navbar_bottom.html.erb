@@ -1,18 +1,34 @@
 <nav class="navbar-bottom">
-  <ul>
-    <li><%= link_to root_path do %><i class="fa-solid fa-house"></i><% end %></li>
-    <li><%= link_to articles_path do %><i class="fa-solid fa-book-open"></i><% end %></li>
+  <%= link_to root_path, class: "ni #{controller_name == 'pages' ? 'active' : ''}" do %>
+    <div class="ni-iw">
+      <i class="fa-solid fa-house"></i>
+    </div>
+    <span class="ni-l">Accueil</span>
+  <% end %>
 
-    <li>
-      <a href="#"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasBottom"
-        aria-controls="offcanvasBottom">
-        <i class="fa-solid fa-wand-magic-sparkles">Aa</i>
-      </a>
-    </li>
-    <% if current_user %>
-      <li><%= link_to setting_path(current_user.setting) do %><i class="fa-solid fa-gear"></i><% end %></li>
+  <%= link_to articles_path, class: "ni #{controller_name == 'articles' && action_name == 'index' ? 'active' : ''}" do %>
+    <div class="ni-iw">
+      <i class="fa-solid fa-book-open"></i>
+    </div>
+    <span class="ni-l">Mes textes</span>
+  <% end %>
+
+  <button class="ni"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasBottom"
+          aria-controls="offcanvasBottom">
+    <div class="ni-iw ni-add">
+      <i class="fa-solid fa-plus"></i>
+    </div>
+    <span class="ni-l">Adapter</span>
+  </button>
+
+  <% if current_user %>
+    <%= link_to setting_path(current_user.setting), class: "ni #{controller_name == 'settings' ? 'active' : ''}" do %>
+      <div class="ni-iw">
+        <i class="fa-solid fa-gear"></i>
+      </div>
+      <span class="ni-l">Paramètres</span>
     <% end %>
-  </ul>
+  <% end %>
 </nav>

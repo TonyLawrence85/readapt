@@ -1,89 +1,73 @@
-<style>
-  .original-text-trigger {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-    font-size: 16px;
-    vertical-align: middle;
-    margin-left: 8px;
-  }
-
-  .original-text-tooltip {
-    display: none;
-    position: absolute;
-    top: 130%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 12px 16px;
-    width: 400px;
-    font-size: 16px;
-    font-weight: normal;
-    color: #333;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    z-index: 100;
-    text-align: left;
-  }
-
-  .original-text-trigger:hover .original-text-tooltip {
-    display: block;
-  }
-</style>
-
-<h1 class="text-center">
-  <%= @article.title %>
-</h1>
-
-<% if @article.content.present? %>
-  <div class="text-center">
-    <span class="original-text-trigger">
-      👁 Voir le texte original
-      <span class="original-text-tooltip">
-        <%= @article.content %>
-      </span>
-    </span>
+<div class="result-page">
+  <div class="result-topbar">
+    <%= link_to articles_path, class: "result-nav-btn" do %>
+      <i class="fa-solid fa-arrow-left"></i>
+    <% end %>
+    <span class="result-topbar-title"><%= @article.title.truncate(22) %></span>
+    <%= link_to article_path(@article), data: { turbo_method: :delete }, class: "result-nav-btn result-delete" do %>
+      <i class="fa-solid fa-trash-can"></i>
+    <% end %>
   </div>
-<% end %>
 
-<div class="container">
-  <div class="card d-flex">
-    <div class="card-body justify-content-between align-items-center">
+  <div class="result-controls-bar">
+    <div class="ctrl-pill ctrl-active">
+      <i class="fa-solid fa-font"></i> OpenDyslexic
+    </div>
+    <div class="ctrl-pill">
+      <i class="fa-solid fa-circle-half-stroke"></i> Syllabes
+    </div>
+    <%= link_to setting_path(current_user.setting), class: "ctrl-pill" do %>
+      <i class="fa-solid fa-sliders"></i> Réglages
+    <% end %>
+  </div>
 
-      <% if @article.document.attached? %>
-        <p>Fichier importé : <%= @article.document.filename %></p>
-      <% end %>
+  <div class="result-scroll">
+    <% if @article.content.present? %>
+      <div class="result-original-wrap">
+        <span class="result-original-trigger">
+          <i class="fa-regular fa-eye"></i> Voir le texte original
+          <span class="result-original-tooltip"><%= @article.content %></span>
+        </span>
+      </div>
+    <% end %>
 
-
-      <div data-controller="karaoke" data-karaoke-timestamps-value="<%= @article.audio_timestamps %>">
-        <div data-controller="plyr" data-karaoke-target="player" class="audio-player-container">
-          <% if @article.audio.attached? && @article.audio_timestamps.present? %>
-            <audio data-plyr-target="audio" controls preload="none">
-              <source src="<%= url_for(@article.audio) %>" type="audio/mpeg">
-            </audio>
-          <% end %>
-
-
-        </div>
-
-        <% if @article.audio_timestamps.blank? %>
-          <p class="text-muted" data-controller="refresh" data-refresh-interval-value="3000" data-refresh-url-value="<%= status_article_path(@article) %>" data-refresh-wait-value="timestamps">
-            <i class="fa fa-spinner fa-spin"></i> Audio et transcription en cours...
-          </p>
+    <div data-controller="karaoke" data-karaoke-timestamps-value="<%= @article.audio_timestamps %>">
+      <div data-controller="plyr" data-karaoke-target="player" class="audio-player-container">
+        <% if @article.audio.attached? && @article.audio_timestamps.present? %>
+          <audio data-plyr-target="audio" controls preload="none">
+            <source src="<%= url_for(@article.audio) %>" type="audio/mpeg">
+          </audio>
         <% end %>
-
-        <% if @article.formatted_content.present? %>
-          <div id="readapt-text" class="mt-3">
-            <h5>Texte reformaté pour la dyslexie</h5>
-            <% content = @article.audio_timestamps.present? ? inject_karaoke_targets(@article.formatted_content) : @article.formatted_content %>
-            <%= wrap_with_settings(content) %>
-          </div>
-        <% end %>
-
       </div>
 
+      <% if @article.audio_timestamps.blank? %>
+        <p class="result-loading-msg"
+           data-controller="refresh"
+           data-refresh-interval-value="3000"
+           data-refresh-url-value="<%= status_article_path(@article) %>"
+           data-refresh-wait-value="timestamps">
+          <i class="fa fa-spinner fa-spin"></i> Audio en cours de génération...
+        </p>
+      <% end %>
+
+      <% if @article.formatted_content.present? %>
+        <div id="readapt-text" class="result-text-body">
+          <div class="result-doc-meta">
+            <span class="result-doc-name"><%= @article.title %></span>
+            <% if @article.document.attached? %>
+              <span class="result-source-tag"><i class="fa-solid fa-file-pdf"></i> PDF</span>
+            <% elsif @article.source == "photo" %>
+              <span class="result-source-tag"><i class="fa-solid fa-camera"></i> Photo</span>
+            <% end %>
+          </div>
+          <% content = @article.audio_timestamps.present? ? inject_karaoke_targets(@article.formatted_content) : @article.formatted_content %>
+          <%= wrap_with_settings(content) %>
+        </div>
+      <% else %>
+        <div class="result-loading-msg">
+          <i class="fa fa-spinner fa-spin"></i> Adaptation en cours...
+        </div>
+      <% end %>
     </div>
   </div>
-  <%= link_to "Retour", articles_path %>
 </div>

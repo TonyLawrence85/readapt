@@ -10,3 +10,9 @@
 .navbar-lewagon .navbar-brand img {
   width: 140px;
 }
+
+// Masqué sur les pages articles/settings qui ont leur propre topbar
+body.articles,
+body.settings {
+  .navbar-lewagon { display: none; }
+}
