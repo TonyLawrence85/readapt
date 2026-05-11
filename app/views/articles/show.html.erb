@@ -1,9 +1,6 @@
 <div class="result-page">
   <div class="result-topbar">
-    <%= link_to articles_path, class: "result-nav-btn" do %>
-      <i class="fa-solid fa-arrow-left"></i>
-    <% end %>
-    <span class="result-topbar-title"><%= @article.title.truncate(22) %></span>
+    <span class="result-topbar-title"><%= @article.title.truncate(28) %></span>
     <%= link_to article_path(@article), data: { turbo_method: :delete }, class: "result-nav-btn result-delete" do %>
       <i class="fa-solid fa-trash-can"></i>
     <% end %>
