@@ -23,12 +23,25 @@ class ArticlesController < ApplicationController
     @article = Article.new
   end
 
+  def new_photo
+    @article = Article.new
+  end
+
   def create
     @article = Article.new(article_params)
     @article.user = current_user
 
     if (params[:article][:source] == "copy") && !@article.content.present?
       render :new_copy, status: :unprocessable_entity and return
+    end
+
+    if params[:article][:source] == "photo"
+      render :new_photo, status: :unprocessable_entity and return if params[:photo].blank?
+
+      extracted = extract_text_from_photo(params[:photo].path)
+      render :new_photo, status: :unprocessable_entity and return if extracted.blank?
+
+      @article.content = extracted
     end
 
     pdf_content = nil
@@ -50,14 +63,16 @@ class ArticlesController < ApplicationController
       normalized = response.content.gsub(/\.\s+(?=[A-ZÀÂÉÈÊËÎÏÔÙÛÜŒÆ])/, ".\n")
       lines = normalized.split("\n").reject(&:blank?)
       formatted_lines = if setting.syllable_mode
-        lines.map { |line| TextFormatter.syllabify(line) }
-      else
-        lines
-      end
+                          lines.map { |line| TextFormatter.syllabify(line) }
+                        else
+                          lines
+                        end
       @article.update(formatted_content: formatted_lines.join("<br>"))
 
       AudioGenerationJob.perform_later(@article.id)
       redirect_to article_path(@article), notice: "Texte créé avec succès"
+    elsif params[:article][:source] == "photo"
+      render :new_photo, status: :unprocessable_entity
     elsif params[:article][:source] == "import"
       render :new_import, status: :unprocessable_entity
     else
@@ -93,6 +108,14 @@ class ArticlesController < ApplicationController
 
   def set_article
     @article = Article.find(params[:id])
+  end
+
+  def extract_text_from_photo(image_path)
+    chat = RubyLLM.chat(model: "gpt-4o-mini")
+    prompt = "Extrais exactement tout le texte visible dans cette image. " \
+             "Retourne uniquement le texte brut, sans commentaire ni mise en forme."
+    response = chat.ask(prompt, with: { image: image_path })
+    response.content
   end
 
   def build_prompt(setting)
