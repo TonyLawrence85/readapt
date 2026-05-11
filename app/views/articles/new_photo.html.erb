@@ -1,0 +1,40 @@
+<div class="container mt-2" data-controller="camera loading">
+  <h2 class="section-title">Prends une photo</h2>
+
+  <%= simple_form_for @article, url: articles_path, html: { enctype: "multipart/form-data" } do |f| %>
+    <%= f.input :title, label: "Titre:", label_html: { class: "label-simple-form" } %>
+
+    <div class="mb-3">
+      <label class="label-simple-form">Photo du texte :</label>
+      <input type="file"
+             name="photo"
+             accept="image/*"
+             capture="environment"
+             class="form-control"
+             data-camera-target="input"
+             data-action="change->camera#showPreview" />
+    </div>
+
+    <%= f.hidden_field :source, value: "photo" %>
+    <%= f.button :submit, "Analyser", class: "btn-readapt", data: { action: "click->loading#loadingPage" } %>
+  <% end %>
+
+  <div class="frame">
+    <script src="https://unpkg.com/typed.js@3.0.0/dist/typed.umd.js"></script>
+
+    <div class="loading-frame">
+      <div class="typewriter">
+        <div class="slide"><i></i></div>
+        <div class="paper"></div>
+        <div class="keyboard"></div>
+      </div>
+      <span id="typed3"></span>
+    </div>
+    <div class="text"></div>
+  </div>
+
+  <div data-camera-target="preview" class="mt-3" hidden>
+    <h5>Aperçu :</h5>
+    <img data-camera-target="img" class="img-fluid rounded" style="max-height: 400px;" alt="Aperçu de la photo" />
+  </div>
+</div>

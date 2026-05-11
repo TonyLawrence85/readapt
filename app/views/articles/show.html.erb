@@ -56,7 +56,6 @@
       <% end %>
 
 
-
       <div data-controller="karaoke" data-karaoke-timestamps-value="<%= @article.audio_timestamps %>">
         <div data-controller="plyr" data-karaoke-target="player" class="audio-player-container">
           <% if @article.audio.attached? && @article.audio_timestamps.present? %>

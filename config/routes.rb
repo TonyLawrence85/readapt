@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     collection do
       get :new_copy
       get :new_import
+      get :new_photo
       get :synthesize
     end
     member do
