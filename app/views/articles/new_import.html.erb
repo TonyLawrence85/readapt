@@ -1,39 +1,58 @@
-<div class="container mt-2" data-controller="pdf-preview loading">
-  <h2 class="section-title" id="title-import-pdf">Importe ton PDF </h2>
-  <%= simple_form_for @article, url: articles_path do |f| %>
-    <%= f.input :title, :label => "Titre:", label_html: { class: "label-simple-form" } %>
-    <%= f.input :document, as: :file, :label => "Document:",
-                                      input_html: {
-                                      accept: "application/pdf",
-                                      data: {
-                                        pdf_preview_target: "input",
-                                        action: "change->pdf-preview#showPreview"
-                                        }
-                                      }, label_html: { class: "label-simple-form" } %>
-    <%= f.hidden_field :source, value: "import" %>
-    <%= f.button :submit, "Importer", class: "btn-readapt", data: { action: "click->loading#loadingPage" } %>
-  <% end %>
-  <script src="https://unpkg.com/typed.js@3.0.0/dist/typed.umd.js"></script>
+<div class="form-page" data-controller="pdf-preview loading">
+  <div class="form-page-body">
+    <div class="form-hero">
+      <div class="sec-eye">Importer un fichier</div>
+      <div class="sec-title">Importe ton <em>fichier</em></div>
+      <p class="sec-sub">PDF uniquement pour un rendu optimal</p>
+    </div>
+
+    <%= simple_form_for @article, url: articles_path do |f| %>
+      <div class="form-field-group">
+        <label class="form-field-label">Titre</label>
+        <%= f.text_field :title, class: "form-input", placeholder: "Ex: Cours de biologie, Contrat..." %>
+      </div>
+
+      <label class="photo-drop-zone" for="pdf-file-input">
+        <div class="photo-drop-icon">
+          <i class="fa-solid fa-file-arrow-up"></i>
+        </div>
+        <div class="photo-drop-title">Dépose ton fichier ici</div>
+        <div class="photo-drop-sub">ou appuie pour choisir depuis tes fichiers</div>
+        <div style="margin-top: 12px;">
+          <span class="format-pill-badge">PDF</span>
+        </div>
+        <%= f.file_field :document,
+            id: "pdf-file-input",
+            accept: "application/pdf",
+            class: "photo-input-hidden",
+            data: {
+              pdf_preview_target: "input",
+              action: "change->pdf-preview#showPreview"
+            } %>
+      </label>
+
+      <div data-pdf-preview-target="container" class="photo-preview-container" hidden>
+        <h3 class="pdf-preview-label">Aperçu</h3>
+        <embed data-pdf-preview-target="embed" type="application/pdf" class="pdf-preview-embed">
+        <p data-pdf-preview-target="fallback" class="pdf-preview-fallback" hidden></p>
+      </div>
+
+      <%= f.hidden_field :source, value: "import" %>
+
+      <%= f.button :submit, "Importer ce fichier", class: "btn-readapt-full", data: { action: "click->loading#loadingPage" } %>
+    <% end %>
+  </div>
 
   <div class="frame">
-    <script src="https://unpkg.com/typed.js@3.0.0/dist/typed.umd.js"></script>
-
+    <script src="https://unpkg.com/typed.js@3.0.0/dist/typed.umd.js"></script> <%# herb:disable all %>
     <div class="loading-frame">
       <div class="typewriter">
         <div class="slide"><i></i></div>
         <div class="paper"></div>
         <div class="keyboard"></div>
-
       </div>
-    <span id="typed3"></span>
+      <span id="typed3"></span>
     </div>
-    <div class="text"> <!-- pour la box shadow -->
-    </div>
-  </div>
-
-  <div data-pdf-preview-target="container" class="pdf-preview-container mt-3" hidden>
-    <h2>Aperçu</h2>
-    <embed data-pdf-preview-target="embed" type="application/pdf" class="pdf-preview-embed">
-    <p data-pdf-preview-target="fallback" class="pdf-preview-fallback" hidden></p>
+    <div class="text"></div>
   </div>
 </div>

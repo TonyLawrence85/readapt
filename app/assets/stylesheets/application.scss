@@ -21,6 +21,7 @@
 @import "articles/new_copy";
 @import "articles/new_import";
 @import "articles/index";
+@import "articles/show";
 
 
 a {
@@ -33,11 +34,21 @@ a {
   }
 }
 
-h1, h2, h3 {
-  background: linear-gradient(150deg, #194F7A 30%, #1B9E7A);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+// Gradient headings uniquement sur la home et pages Devise
+body.pages,
+body.devise {
+  h1, h2, h3 {
+    background: linear-gradient(150deg, #194F7A 30%, #1B9E7A);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+// DM Sans comme police de base sur les pages articles/settings
+body.articles,
+body.settings {
+  font-family: 'DM Sans', sans-serif;
 }
 
 .fa-trash-can {

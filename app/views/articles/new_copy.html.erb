@@ -1,26 +1,42 @@
-<div class="container mt-2" data-controller="loading">
-  <h2 class="section-title" id="new-copy-title">Colle ton texte</h2>
+<div class="form-page" data-controller="loading">
+  <div class="form-page-body">
+    <div class="form-hero">
+      <div class="sec-eye">Coller un texte</div>
+      <div class="sec-title">Colle ton <em>texte</em></div>
+      <p class="sec-sub">Copie-colle depuis n'importe quelle application</p>
+    </div>
 
-  <%= simple_form_for @article, url: articles_path do |f| %>
-    <%= f.input :title, label: "Titre:", label_html: { class: "label-simple-form" } %>
-    <%= f.input :content, :label => "Contenu:", input_html: {class: "input-simple-form" },label_html: { class: "label-simple-form" } %>
-    <%= f.hidden_field :source, value: "copy" %>
-    <%= f.button :submit, "Créer", class: "btn-readapt", data: { action: "click->loading#loadingPage" } %>
-  <% end %>
+    <%= simple_form_for @article, url: articles_path do |f| %>
+      <div class="form-field-group">
+        <label class="form-field-label">Titre du texte</label>
+        <%= f.text_field :title, class: "form-input", placeholder: "Ex: Cours de biologie, Email..." %>
+      </div>
+
+      <div class="form-field-group">
+        <label class="form-field-label">Ton texte</label>
+        <%= f.text_area :content, class: "form-textarea", placeholder: "Colle ici ton texte à adapter...", rows: 9 %>
+      </div>
+
+      <%= f.hidden_field :source, value: "copy" %>
+
+      <%= f.button :submit, "Adapter mon texte", class: "btn-readapt-full", data: { action: "click->loading#loadingPage" } %>
+    <% end %>
+
+    <%= link_to new_import_articles_path, class: "btn-secondary-full" do %>
+      Importer un fichier à la place
+    <% end %>
+  </div>
 
   <div class="frame">
     <script src="https://unpkg.com/typed.js@3.0.0/dist/typed.umd.js"></script> <%# herb:disable all %>
-
     <div class="loading-frame">
       <div class="typewriter">
         <div class="slide"><i></i></div>
         <div class="paper"></div>
         <div class="keyboard"></div>
-
       </div>
-    <span id="typed3"></span>
+      <span id="typed3"></span>
     </div>
-    <div class="text"> <!-- pour la box shadow -->
-    </div>
+    <div class="text"></div>
   </div>
 </div>

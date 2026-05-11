@@ -1,5 +1,23 @@
-<nav class="navbar navbar-light navbar-lewagon container-fluid">
-    <%= link_to root_path , class: "navbar-brand justify-content" do %>
-      <%= image_tag "readapt-logo-home.svg" %>
+<nav class="topbar-global">
+  <% if controller_name == 'articles' && %w[new_copy new_import new_photo].include?(action_name) %>
+    <%= link_to root_path, class: "form-back-btn" do %>
+      <i class="fa-solid fa-arrow-left"></i>
     <% end %>
+  <% elsif controller_name == 'articles' && action_name == 'show' %>
+    <%= link_to articles_path, class: "form-back-btn" do %>
+      <i class="fa-solid fa-arrow-left"></i>
+    <% end %>
+  <% elsif controller_name == 'settings' %>
+    <%= link_to :back, class: "form-back-btn" do %>
+      <i class="fa-solid fa-arrow-left"></i>
+    <% end %>
+  <% else %>
+    <div style="width: 34px;"></div>
+  <% end %>
+
+  <%= link_to root_path, class: "topbar-logo" do %>
+    <%= image_tag "readapt-logo-home.svg", alt: "Readapt" %>
+  <% end %>
+
+  <div style="width: 34px;"></div>
 </nav>
