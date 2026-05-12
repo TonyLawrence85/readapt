@@ -196,14 +196,11 @@
 }
 
 .section-title {
-  font-size: 26px;
-  font-weight: 900;
-  line-height: 1.1;
-  background: linear-gradient(150deg, #194F7A 30%, #1B9E7A);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: -0.8px;
+  font-family: 'Fraunces', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--teal-deep);
+  letter-spacing: -0.3px;
   margin-bottom: 12px;
 }
 
@@ -258,7 +255,7 @@
 .action-title {
   font-size: 15px;
   font-weight: 500;
-  color: var(--gradient);
+  color: var(--teal-deep);
   margin-bottom: 2px;
 }
 
@@ -276,13 +273,20 @@
 }
 
 .action-arrow {
-  font-size: 22px;
-  color: var(--teal-light);
+  width: 28px;
+  height: 28px;
+  background: rgba(43, 191, 168, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
+
+  svg { width: 14px; height: 14px; }
 }
 
 .action-card.primary .action-arrow {
-  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .text-container {
@@ -394,7 +398,7 @@
 }
 
 #titre-fonctionnalites  {
-  font-size: 15px;
+  font-size: 24px;
   font-weight: 500;
   letter-spacing: 2px;
   text-transform: uppercase;
