@@ -1,40 +1,67 @@
-<div class="devise-page">
-  <div class="container d-flex flex-column align-items-center py-4">
+<div class="auth-page">
 
-    <h2 class="mb-4">Sign up</h2>
-
-    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-      <%= f.error_notification %>
-
-      <div class="form-inputs">
-        <%= f.input :email,
-                    required: true,
-                    autofocus: true,
-                    label: "Email",
-                    input_html: { autocomplete: "email" } %>
-
-        <%= f.input :password,
-                    required: true,
-                    label: "Password",
-                    hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                    input_html: { autocomplete: "new-password" } %>
-
-        <%= f.input :password_confirmation,
-                    required: true,
-                    label: "Password confirmation",
-                    input_html: { autocomplete: "new-password" } %>
-      </div>
-      <div class="d-flex flex-column align-items-center gap-3 w-100">
-        <div class="form-actions">
-          <%= f.button :submit, "Sign up", class: "btn-readapt-primary" %>
-        </div>
-      </div>
+  <div class="auth-logo">
+    <%= link_to root_path do %>
+      <%= image_tag "readapt-logo-home.svg", alt: "Readapt", height: 28 %>
     <% end %>
-
-    <div class="devise-links d-flex flex-column align-items-center gap-3 w-100 mt-3">
-      <%= render "devise/shared/links" %>
-      <%= link_to "Back", root_path, class: "btn-back-readapt" %>
-
-    </div>
   </div>
+
+  <div class="auth-tabs">
+    <div class="auth-tab active">Inscription</div>
+    <%= link_to new_user_session_path, class: "auth-tab" do %>Connexion<% end %>
+  </div>
+
+  <div class="auth-header">
+    <div class="auth-icon">
+      <i class="fa-solid fa-user-plus"></i>
+    </div>
+    <div class="auth-title">Crée ton compte</div>
+    <p class="auth-sub">Gratuit, sans engagement</p>
+  </div>
+
+  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="auth-form">
+      <%= f.input :first_name,
+          required: false,
+          autofocus: true,
+          label: "Prénom",
+          wrapper_html: { class: "auth-field" },
+          label_html: { class: "auth-label" },
+          input_html: { class: "auth-input", autocomplete: "given-name", placeholder: "Marie" } %>
+
+      <%= f.input :email,
+          required: true,
+          label: "Email",
+          wrapper_html: { class: "auth-field" },
+          label_html: { class: "auth-label" },
+          input_html: { class: "auth-input", autocomplete: "email", placeholder: "marie@exemple.fr" } %>
+
+      <%= f.input :password,
+          required: true,
+          label: "Mot de passe",
+          hint: ("#{@minimum_password_length} caractères minimum" if @minimum_password_length),
+          wrapper_html: { class: "auth-field" },
+          label_html: { class: "auth-label" },
+          input_html: { class: "auth-input", autocomplete: "new-password", placeholder: "••••••••" } %>
+
+      <%= f.input :password_confirmation,
+          required: true,
+          label: "Confirmer le mot de passe",
+          wrapper_html: { class: "auth-field" },
+          label_html: { class: "auth-label" },
+          input_html: { class: "auth-input", autocomplete: "new-password", placeholder: "••••••••" } %>
+    </div>
+
+    <button type="submit" class="btn-auth-primary">Créer mon compte</button>
+  <% end %>
+
+  <div class="auth-footer">
+    <p class="auth-footer-text">
+      Déjà inscrit ?
+      <%= link_to "Connecte-toi", new_user_session_path, class: "auth-link" %>
+    </p>
+  </div>
+
 </div>

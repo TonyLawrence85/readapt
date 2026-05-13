@@ -31,4 +31,6 @@ Rails.application.routes.draw do
       get :download
     end
   end
+
+  resource :profile, only: :show
 end

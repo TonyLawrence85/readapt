@@ -1,0 +1,107 @@
+<% display_name = current_user.first_name.present? ? current_user.first_name : current_user.email.split("@").first %>
+<% avatar_letter = display_name.first.upcase %>
+
+<div class="profile-page">
+
+  <%# Hero header %>
+  <div class="profile-hero">
+    <div class="ph-glow"></div>
+    <div class="ph-inner">
+      <div class="ph-avatar">
+        <span class="ph-avatar-letter"><%= avatar_letter %></span>
+      </div>
+      <div class="ph-name"><%= display_name.capitalize %></div>
+      <div class="ph-email"><%= current_user.email %></div>
+      <div class="ph-stats">
+        <div class="ph-stat">
+          <div class="ph-stat-n"><%= @articles_count %></div>
+          <div class="ph-stat-l">Textes</div>
+        </div>
+        <div class="ph-stat">
+          <div class="ph-stat-n"><%= number_with_delimiter(@words_count) %></div>
+          <div class="ph-stat-l">Mots lus</div>
+        </div>
+        <div class="ph-stat">
+          <div class="ph-stat-n"><%= @days_count %></div>
+          <div class="ph-stat-l">Jours</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%# Body %>
+  <div class="profile-body">
+
+    <%# Lecture %>
+    <div class="profile-group">
+      <span class="profile-group-title">Lecture</span>
+
+      <%= link_to setting_path(current_user.setting), class: "profile-item" do %>
+        <div class="pi-icon pi-teal">
+          <i class="fa-solid fa-font"></i>
+        </div>
+        <div class="pi-body">
+          <div class="pi-label">Police & affichage</div>
+          <div class="pi-sub">OpenDyslexic · Taille <%= current_user.setting.font_size %>px</div>
+        </div>
+        <i class="fa-solid fa-chevron-right pi-chevron"></i>
+      <% end %>
+
+      <div class="profile-item">
+        <div class="pi-icon pi-teal">
+          <i class="fa-solid fa-palette"></i>
+        </div>
+        <div class="pi-body">
+          <div class="pi-label">Syllabes en couleur</div>
+          <div class="pi-sub"><%= current_user.setting.syllable_mode? ? "Activées" : "Désactivées" %></div>
+        </div>
+        <% if current_user.setting.syllable_mode? %>
+          <span class="pi-badge pi-badge-on">Actif</span>
+        <% else %>
+          <span class="pi-badge pi-badge-off">Inactif</span>
+        <% end %>
+      </div>
+    </div>
+
+    <%# Compte %>
+    <div class="profile-group">
+      <span class="profile-group-title">Compte</span>
+
+      <%= link_to edit_user_registration_path, class: "profile-item" do %>
+        <div class="pi-icon pi-teal">
+          <i class="fa-solid fa-user"></i>
+        </div>
+        <div class="pi-body">
+          <div class="pi-label">Informations personnelles</div>
+          <div class="pi-sub">Prénom, email</div>
+        </div>
+        <i class="fa-solid fa-chevron-right pi-chevron"></i>
+      <% end %>
+
+      <%= link_to edit_user_registration_path, class: "profile-item" do %>
+        <div class="pi-icon pi-teal">
+          <i class="fa-solid fa-lock"></i>
+        </div>
+        <div class="pi-body">
+          <div class="pi-label">Mot de passe</div>
+        </div>
+        <i class="fa-solid fa-chevron-right pi-chevron"></i>
+      <% end %>
+    </div>
+
+    <%# Zone sensible %>
+    <div class="profile-group">
+      <span class="profile-group-title">Zone sensible</span>
+
+      <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class: "profile-item profile-item-danger" do %>
+        <div class="pi-icon pi-red">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </div>
+        <div class="pi-body">
+          <div class="pi-label pi-label-danger">Se déconnecter</div>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+</div>

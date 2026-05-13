@@ -1,105 +1,250 @@
-.devise-page {
+// ── Auth pages (Devise) ────────────────────────────────────
+.devise {
   background: #F4F1E9;
-  min-height: 100vh;
+
+  .flex-main-content {
+    background: #F4F1E9;
+  }
+
+  .navbar-bottom { display: none; }
+
+  // Masque le bas de la page Devise dans l'offcanvas
+  #offcanvasBottom { display: none; }
 }
 
-.devise-page .container {
-  min-height: 100vh;
-}
-
-
-.devise-links {
-  width: 100%;
-  max-width: 320px;
-}
-
-.form-inputs {
-  margin-bottom: 10px;
-}
-
-.devise-links {
-  margin-top: 10px;
-}
-
-.form-inputs .input {
-  margin-bottom: 16px;
-}
-
-.form-inputs input[type="email"],
-.form-inputs input[type="password"] {
-  width: 100%;
-  height: 52px;
-  border: 1px solid #cfd8d5;
-  border-radius: 12px;
-  background: #ffffff;
-  padding: 0 16px;
-  font-size: 16px;
-  color: #123c3a;
-  box-shadow: none;
-  outline: none;
-}
-
-.form-inputs .form-check {
+.auth-page {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 24px 20px 40px;
   display: flex;
-  align-items: center;
-  gap: 10px;
+  flex-direction: column;
+  min-height: calc(100vh - 60px);
+  font-family: 'DM Sans', sans-serif;
 }
 
-.form-inputs .form-check-input {
-  width: 18px;
-  height: 18px;
-  margin-top: 0;
+// Logo centré
+.auth-logo {
+  text-align: center;
+  margin-bottom: 24px;
+
+  img { height: 28px; width: auto; }
 }
 
-.form-inputs .form-check-label {
-  margin-bottom: 0;
+// Onglets Inscription / Connexion
+.auth-tabs {
+  display: flex;
+  background: rgba(13, 74, 74, 0.07);
+  border-radius: 14px;
+  padding: 4px;
+  gap: 4px;
+  margin-bottom: 28px;
+}
+
+.auth-tab {
+  flex: 1;
+  padding: 11px;
+  border-radius: 10px;
+  font-size: 13px;
   font-weight: 500;
-}
-
-.btn-readapt-primary {
-  background: linear-gradient(135deg, #14655f, #0f4f4b);
+  color: rgba(13, 74, 74, 0.45);
+  text-align: center;
+  cursor: pointer;
   border: none;
-  border-radius: 12px;
-  height: 52px;
-  color: #ffffff;
-  font-weight: 600;
-  font-size: 16px;
-  width: 150px;
-  box-shadow: 0 6px 16px rgba(20, 101, 95, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.btn-readapt-secondary,
-.btn-back-readapt {
-  background: #ffffff;
-  border: 1px solid #cfd8d5;
-  border-radius: 12px;
-  height: 52px;
-  color: #123c3a;
-  font-weight: 600;
-  font-size: 16px;
-  width: 150px;
+  background: transparent;
   text-decoration: none;
+  display: block;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    color: rgba(13, 74, 74, 0.7);
+    background: rgba(255, 255, 255, 0.5);
+  }
+
+  &.active {
+    background: white;
+    color: #0d4a4a;
+    box-shadow: 0 2px 8px rgba(13, 74, 74, 0.1);
+    font-weight: 600;
+  }
+}
+
+// Header icône + titre
+.auth-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.auth-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 22px;
+  background: rgba(43, 191, 168, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 20px;
+  margin: 0 auto 16px;
+
+  i {
+    font-size: 24px;
+    color: #1a7a6e;
+  }
 }
 
-.btn-readapt-password {
-  background: linear-gradient(135deg, #ff6a009b, #ff3d3dbc);
-  border: none;
-  border-radius: 12px;
-  height: 52px;
-  color: #ffffff;
-  font-weight: 600;
-  font-size: 16px;
+.auth-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: 24px;
+  color: #0a2e2e;
+  letter-spacing: -0.8px;
+  margin-bottom: 6px;
+  // override gradient appliqué par body.devise h2
+  background: none !important;
+  -webkit-text-fill-color: #0a2e2e !important;
+}
+
+.auth-sub {
+  font-size: 13px;
+  color: #2d5c5c;
+  opacity: 0.7;
+  font-weight: 300;
+}
+
+// Champs du formulaire
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 18px;
+}
+
+.auth-field {
+  margin-bottom: 12px !important;
+
+  // Overrides simple_form Bootstrap wrappers
+  &.input { margin-bottom: 12px !important; }
+}
+
+.auth-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #2d5c5c;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.auth-input {
   width: 100%;
-  box-shadow: 0 6px 16px rgba(20, 101, 95, 0.2);
+  height: 52px;
+  background: white;
+  border: 1.5px solid rgba(13, 74, 74, 0.12);
+  border-radius: 14px;
+  padding: 0 16px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: #0a2e2e;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-shadow: none;
+
+  &::placeholder { color: rgba(13, 74, 74, 0.3); }
+
+  &:focus {
+    border-color: #2bbfa8;
+    box-shadow: 0 0 0 3px rgba(43, 191, 168, 0.12);
+  }
+}
+
+// Se souvenir de moi
+.auth-remember {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #2d5c5c;
+  margin-top: 4px;
+
+  input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #1a7a6e;
+  }
+}
+
+// Bouton principal
+.btn-auth-primary {
+  width: 100%;
+  height: 54px;
+  background: linear-gradient(135deg, #0d4a4a 0%, #1a7a6e 100%);
+  border: none;
+  border-radius: 16px;
+  color: white;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(13, 74, 74, 0.22);
+  transition: opacity 0.2s, transform 0.15s;
+  margin-bottom: 20px;
+
+  &:hover { opacity: 0.92; }
+  &:active { transform: scale(0.98); }
+}
+
+// Footer liens
+.auth-footer {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.auth-footer-text {
+  font-size: 13px;
+  color: #2d5c5c;
+  opacity: 0.75;
+  margin: 0;
+}
+
+.auth-link {
+  color: #1a7a6e;
+  font-weight: 600;
   text-decoration: none;
+
+  &:hover { text-decoration: underline; color: #1a7a6e; }
+}
+
+.auth-link-muted {
+  font-size: 12px;
+  color: rgba(13, 74, 74, 0.45);
+  text-decoration: none;
+
+  &:hover { color: #1a7a6e; }
+}
+
+// Erreurs simple_form
+.auth-page {
+  .error {
+    font-size: 11px;
+    color: #dc3545;
+    margin-top: 4px;
+  }
+
+  .alert-danger, #error_explanation {
+    background: rgba(220, 53, 69, 0.06);
+    border: 1px solid rgba(220, 53, 69, 0.2);
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #dc3545;
+    margin-bottom: 16px;
+  }
+}
+
+// ── Page édition compte Devise ─────────────────────────────
+.devise-edit-page {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+  font-family: 'DM Sans', sans-serif;
 }
