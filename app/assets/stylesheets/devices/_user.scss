@@ -241,10 +241,42 @@
   }
 }
 
-// ── Page édition compte Devise ─────────────────────────────
-.devise-edit-page {
-  max-width: 420px;
-  margin: 0 auto;
-  padding: 0 20px 40px;
+// Message info (ex : email en attente de confirmation)
+.auth-info-text {
+  font-size: 12px;
+  color: #1a7a6e;
+  background: rgba(43, 191, 168, 0.08);
+  border: 1px solid rgba(43, 191, 168, 0.2);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  i { font-size: 13px; }
+}
+
+// Bouton supprimer compte (page édition)
+.btn-delete-account-auth {
+  width: 100%;
+  background: none;
+  border: 1.5px solid rgba(220, 53, 69, 0.3);
+  border-radius: 14px;
+  padding: 12px;
   font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(220, 53, 69, 0.7);
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+
+  i { margin-right: 6px; }
+
+  &:hover {
+    background: rgba(220, 53, 69, 0.06);
+    border-color: rgba(220, 53, 69, 0.6);
+    color: #dc3545;
+  }
 }
