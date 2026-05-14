@@ -10,6 +10,9 @@
       <div class="form-field-group">
         <label class="form-field-label">Titre du texte</label>
         <%= f.text_field :title, class: "form-input", placeholder: "Ex: Cours de biologie, Email..." %>
+        <p class="form-field-error" data-loading-target="titleError" hidden>
+          <i class="fa-solid fa-circle-exclamation"></i> Le titre est obligatoire avant de valider.
+        </p>
       </div>
 
       <div class="form-field-group">
