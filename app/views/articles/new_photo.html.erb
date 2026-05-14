@@ -10,6 +10,9 @@
       <div class="form-field-group">
         <label class="form-field-label">Titre</label>
         <%= f.text_field :title, class: "form-input", placeholder: "Ex: Affiche, document, menu..." %>
+        <p class="form-field-error" data-loading-target="titleError" hidden>
+          <i class="fa-solid fa-circle-exclamation"></i> Le titre est obligatoire avant de valider.
+        </p>
       </div>
 
       <label class="photo-drop-zone" for="photo-input">
