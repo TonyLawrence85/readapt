@@ -70,12 +70,16 @@ a:focus .fa-trash-can {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  overflow: hidden;
 }
 
 .main-content {
-  height: 95vh;
+  flex: 1;
   overflow-y: auto;
+  min-height: 0;
+}
+
+.navbar-bottom {
+  flex-shrink: 0;
 }
 
 /* ---- */

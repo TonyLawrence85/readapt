@@ -12,8 +12,55 @@
   </div>
 
   <div class="offcanvas-body">
-    <%= link_to "Coller un texte", new_copy_articles_path, class: "btn-readapt" %>
-    <%= link_to "Importer un fichier", new_import_articles_path, class: "btn-readapt" %>
-    <%= link_to "Prendre une photo du texte à convertir", new_photo_articles_path, class: "btn-readapt" %>
+    <div class="actions-grid">
+      <%= link_to new_copy_articles_path, class: "action-card primary" do %>
+        <div class="action-icon primary-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+        </div>
+        <div class="action-text">
+          <div class="action-title">Colle ton texte</div>
+          <div class="action-desc">Copie-colle directement depuis n'importe où</div>
+        </div>
+        <div class="action-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      <% end %>
+
+      <%= link_to new_photo_articles_path, class: "action-card" do %>
+        <div class="action-icon teal-deep">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0d4a4a" stroke-width="2">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+            <circle cx="12" cy="13" r="4"/>
+          </svg>
+        </div>
+        <div class="action-text">
+          <div class="action-title">Prends une photo</div>
+          <div class="action-desc">Capture instantanée depuis ton appareil</div>
+        </div>
+        <div class="action-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--teal-light)" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      <% end %>
+
+      <%= link_to new_import_articles_path, class: "action-card" do %>
+        <div class="action-icon blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+        </div>
+        <div class="action-text">
+          <div class="action-title">Importe un fichier</div>
+          <div class="action-desc">PDF ou tout autre document</div>
+        </div>
+        <div class="action-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--teal-light)" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
