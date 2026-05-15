@@ -48,7 +48,11 @@
       <% end %>
 
       <% if @article.formatted_content.present? %>
-        <div id="readapt-text" class="result-text-body">
+        <% s = current_user.setting %>
+        <div id="readapt-text" class="result-text-body"
+             data-controller="text-enhance"
+             data-text-enhance-silent-letters-value="<%= s.silent_letters_mode %>"
+             data-text-enhance-confused-letters-value="<%= s.confused_letters_mode %>">
           <div class="result-doc-meta">
             <span class="result-doc-name"><%= @article.title %></span>
             <% if @article.document.attached? %>
