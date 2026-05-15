@@ -1,7 +1,11 @@
 
-<div class="px-3">
+<div class="settings-page">
+<div class="settings-page-body">
 
-  <h1 class="text-center mt-3 mb-3">Choisis tes préférences</h1>
+  <div class="form-hero">
+    <div class="sec-eye">Personnalisation</div>
+    <div class="sec-title">Mes <em>réglages</em></div>
+  </div>
 
   <%= simple_form_for @setting, html: { class: "settings-edit-form" } do |f| %>
 
@@ -15,9 +19,13 @@
         <div class="font-tags">
           <% ["OpenDyslexic", "Arial", "Verdana", "Georgia"].each do |font| %>
             <div class="tag-item">
-              <input type="radio" name="setting[font]" value="<%= font %>"
-                     id="font_<%= font.parameterize %>" class="tag-selector"
-                     <%= "checked" if @setting.font == font %>>
+              <% if @setting.font == font %>
+                <input type="radio" name="setting[font]" value="<%= font %>"
+                       id="font_<%= font.parameterize %>" class="tag-selector" checked>
+              <% else %>
+                <input type="radio" name="setting[font]" value="<%= font %>"
+                       id="font_<%= font.parameterize %>" class="tag-selector">
+              <% end %>
               <label for="font_<%= font.parameterize %>" style="font-family: <%= font %>;">
                 <%= font %>
               </label>
@@ -35,7 +43,8 @@
         </div>
         <input type="range" min="0" max="10" step="1"
                value="<%= @setting.letter_spacing.to_s.gsub('px','') || 0 %>"
-               id="spacing-input" class="form-range" name="setting[letter_spacing]">
+               id="spacing-input" class="form-range" name="setting[letter_spacing]"
+               autocomplete="off">
       </div>
 
       <div class="settings-section">
@@ -47,7 +56,8 @@
         </div>
         <input type="range" min="12" max="40" step="1"
                value="<%= @setting.font_size.to_s.gsub('px','') || 16 %>"
-               id="size-input" class="form-range" name="setting[font_size]">
+               id="size-input" class="form-range" name="setting[font_size]"
+               autocomplete="off">
       </div>
 
     </div>
@@ -62,10 +72,15 @@
           </label>
           <div class="ms-auto">
             <input type="hidden" name="setting[syllable_mode]" value="0">
-            <input class="form-check-input gradient-toggle" type="checkbox"
-                   id="syllable-mode" name="setting[syllable_mode]" value="1"
-                   role="switch"
-                   <%= "checked" if @setting.syllable_mode %>>
+            <% if @setting.syllable_mode %>
+              <input class="form-check-input gradient-toggle" type="checkbox"
+                     id="syllable-mode" name="setting[syllable_mode]" value="1"
+                     role="switch" checked>
+            <% else %>
+              <input class="form-check-input gradient-toggle" type="checkbox"
+                     id="syllable-mode" name="setting[syllable_mode]" value="1"
+                     role="switch">
+            <% end %>
           </div>
         </div>
       </div>
@@ -161,6 +176,7 @@
 
   <% end %>
 
+</div>
 </div>
 
 <%# ── Modal plein écran : aperçu après enregistrement ── %>
