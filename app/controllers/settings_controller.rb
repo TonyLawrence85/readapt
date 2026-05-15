@@ -50,6 +50,6 @@ class SettingsController < ApplicationController
   private
 
   def setting_params
-    params.require(:setting).permit(:font, :syllable_palette, :letter_spacing, :font_size, :syllable_mode)
+    params.require(:setting).permit(:font, :syllable_palette, :letter_spacing, :font_size, :syllable_mode, :silent_letters_mode, :confused_letters_mode)
   end
 end

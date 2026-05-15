@@ -161,6 +161,30 @@
   font-family: 'DM Sans', sans-serif;
 }
 
+// Lettre muette : estompée
+.silent-letter {
+  opacity: 0.28;
+}
+
+// Lettre confondue (b, d, p, q) : point rouge en dessous
+.confused-letter {
+  position: relative;
+  font-weight: 700;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: #e53935;
+    pointer-events: none;
+  }
+}
+
 .result-source-tag {
   font-size: 11px;
   font-weight: 500;

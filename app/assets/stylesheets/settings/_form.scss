@@ -236,3 +236,39 @@ input[type=range] {
 .tag-selector + label:hover {
   transform: scale(1.06);
 }
+
+/* ── Texte d'aide sous les toggles ── */
+.settings-helper-text {
+  font-size: 0.75rem;
+  color: rgba(25, 79, 122, 0.55);
+  margin: 4px 0 0;
+  text-align: left;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* ── Démos inline dans les settings ── */
+.silent-letter-demo {
+  opacity: 0.28;
+  font-weight: 600;
+  color: #194F7A;
+}
+
+.confused-letter-demo {
+  position: relative;
+  display: inline-block;
+  font-weight: 700;
+  color: #194F7A;
+  margin: 0 2px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: #e53935;
+  }
+}

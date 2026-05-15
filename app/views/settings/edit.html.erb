@@ -81,6 +81,62 @@
 
     </div>
 
+    <%# ── BOX 3 : Aide visuelle ── %>
+    <div class="settings-box mb-3" id="visual-aid-box">
+
+      <div class="settings-section">
+        <div class="d-flex align-items-center gap-2">
+          <label class="settings-label mb-0" for="silent-letters-mode">
+            <i class="fa-solid fa-eye-slash"></i> Lettres muettes
+          </label>
+          <div class="ms-auto">
+            <input type="hidden" name="setting[silent_letters_mode]" value="0">
+            <% if @setting.silent_letters_mode %>
+              <input class="form-check-input gradient-toggle" type="checkbox"
+                     id="silent-letters-mode" name="setting[silent_letters_mode]" value="1"
+                     role="switch" checked>
+            <% else %>
+              <input class="form-check-input gradient-toggle" type="checkbox"
+                     id="silent-letters-mode" name="setting[silent_letters_mode]" value="1"
+                     role="switch">
+            <% end %>
+          </div>
+        </div>
+        <p class="settings-helper-text">
+          Les lettres qui ne se prononcent pas apparaissent en transparence&nbsp;
+          <span class="silent-letter-demo">e</span>
+        </p>
+      </div>
+
+      <div class="settings-section">
+        <div class="d-flex align-items-center gap-2">
+          <label class="settings-label mb-0" for="confused-letters-mode">
+            <i class="fa-solid fa-circle-dot"></i> Lettres confondues
+          </label>
+          <div class="ms-auto">
+            <input type="hidden" name="setting[confused_letters_mode]" value="0">
+            <% if @setting.confused_letters_mode %>
+              <input class="form-check-input gradient-toggle" type="checkbox"
+                     id="confused-letters-mode" name="setting[confused_letters_mode]" value="1"
+                     role="switch" checked>
+            <% else %>
+              <input class="form-check-input gradient-toggle" type="checkbox"
+                     id="confused-letters-mode" name="setting[confused_letters_mode]" value="1"
+                     role="switch">
+            <% end %>
+          </div>
+        </div>
+        <p class="settings-helper-text">
+          Un point rouge sous les lettres souvent confondues&nbsp;
+          <span class="confused-letter-demo">b</span>
+          <span class="confused-letter-demo">d</span>
+          <span class="confused-letter-demo">p</span>
+          <span class="confused-letter-demo">q</span>
+        </p>
+      </div>
+
+    </div>
+
     <%# ── Sticky : Aperçu + Bouton ── %>
     <div class="settings-sticky-bottom">
 
@@ -119,7 +175,7 @@
   </div>
 </div>
 
-<script>
+<script nonce="<%= request.content_security_policy_nonce %>">
 document.addEventListener("turbo:load", () => {
 
   const combinedPreview = document.getElementById("combined-preview")
