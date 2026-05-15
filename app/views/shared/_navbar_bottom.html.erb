@@ -24,6 +24,13 @@
   </button>
 
   <% if current_user %>
+    <%= link_to edit_setting_path(current_user.setting), class: "ni #{controller_name == 'settings' ? 'active' : ''}" do %>
+      <div class="ni-iw">
+        <i class="fa-solid fa-sliders"></i>
+      </div>
+      <span class="ni-l">Réglages</span>
+    <% end %>
+
     <%= link_to profile_path, class: "ni #{controller_name == 'profiles' ? 'active' : ''}" do %>
       <div class="ni-iw">
         <i class="fa-solid fa-circle-user"></i>

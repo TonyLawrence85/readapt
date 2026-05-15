@@ -237,6 +237,74 @@ input[type=range] {
   transform: scale(1.06);
 }
 
+/* ── Grille de paires de lettres confondues ── */
+.confusion-pairs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.confusion-pair-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.confusion-pair-tag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 13px 8px;
+  border-radius: 14px;
+  background: white;
+  border: 1.5px solid rgba(25, 79, 122, 0.18);
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #194F7A;
+  letter-spacing: 0.18em;
+  transition: all 0.18s ease;
+  user-select: none;
+
+  &:hover {
+    border-color: rgba(25, 79, 122, 0.4);
+    background: rgba(25, 79, 122, 0.04);
+  }
+
+  &:has(.confusion-pair-input:checked) {
+    background: linear-gradient(150deg, #194F7A 40%, #1B9E7A);
+    border-color: transparent;
+    color: white;
+  }
+}
+
+/* ── Champ texte libre (personnalisation confusions) ── */
+.settings-text-input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid rgba(25, 79, 122, 0.15);
+  border-radius: 12px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  color: #194F7A;
+  background: white;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  &::placeholder {
+    color: rgba(25, 79, 122, 0.32);
+    font-style: italic;
+  }
+
+  &:focus {
+    border-color: #1B9E7A;
+    box-shadow: 0 0 0 3px rgba(27, 158, 122, 0.1);
+  }
+}
+
 /* ── Texte d'aide sous les toggles ── */
 .settings-helper-text {
   font-size: 0.75rem;

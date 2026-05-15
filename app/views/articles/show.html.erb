@@ -52,7 +52,8 @@
         <div id="readapt-text" class="result-text-body"
              data-controller="text-enhance"
              data-text-enhance-silent-letters-value="<%= s.silent_letters_mode %>"
-             data-text-enhance-confused-letters-value="<%= s.confused_letters_mode %>">
+             data-text-enhance-confused-pairs-value="<%= s.confused_pairs %>"
+             data-text-enhance-confused-custom-value="<%= s.confused_custom %>">
           <div class="result-doc-meta">
             <span class="result-doc-name"><%= @article.title %></span>
             <% if @article.document.attached? %>

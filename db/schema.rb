@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_15_143552) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_15_203006) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -56,7 +56,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_15_143552) do
   end
 
   create_table "settings", force: :cascade do |t|
-    t.boolean "confused_letters_mode", default: false, null: false
+    t.string "confused_custom", default: ""
+    t.string "confused_pairs", default: ""
     t.datetime "created_at", null: false
     t.string "font", default: "OpenDyslexic"
     t.string "font_size", default: "12"

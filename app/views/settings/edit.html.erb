@@ -109,30 +109,38 @@
       </div>
 
       <div class="settings-section">
-        <div class="d-flex align-items-center gap-2">
-          <label class="settings-label mb-0" for="confused-letters-mode">
-            <i class="fa-solid fa-circle-dot"></i> Lettres confondues
-          </label>
-          <div class="ms-auto">
-            <input type="hidden" name="setting[confused_letters_mode]" value="0">
-            <% if @setting.confused_letters_mode %>
-              <input class="form-check-input gradient-toggle" type="checkbox"
-                     id="confused-letters-mode" name="setting[confused_letters_mode]" value="1"
-                     role="switch" checked>
-            <% else %>
-              <input class="form-check-input gradient-toggle" type="checkbox"
-                     id="confused-letters-mode" name="setting[confused_letters_mode]" value="1"
-                     role="switch">
-            <% end %>
-          </div>
+        <label class="settings-label">
+          <i class="fa-solid fa-circle-dot"></i> Lettres confondues
+        </label>
+        <p class="settings-helper-text mb-2">Sélectionne les paires qui te posent problème</p>
+
+        <% active_pairs = @setting.confused_pairs.to_s.split(",") %>
+        <div class="confusion-pairs-grid">
+          <% [["bd","b  d"],["pq","p  q"],["nm","n  m"],["un","u  n"],["ouon","ou  on"],["euen","eu  en"],["69","6  9"]].each do |code, label| %>
+            <label class="confusion-pair-tag">
+              <% if active_pairs.include?(code) %>
+                <input type="checkbox" name="setting[confused_pairs][]" value="<%= code %>" class="confusion-pair-input" checked>
+              <% else %>
+                <input type="checkbox" name="setting[confused_pairs][]" value="<%= code %>" class="confusion-pair-input">
+              <% end %>
+              <%= label %>
+            </label>
+          <% end %>
         </div>
-        <p class="settings-helper-text">
-          Un point rouge sous les lettres souvent confondues&nbsp;
-          <span class="confused-letter-demo">b</span>
-          <span class="confused-letter-demo">d</span>
-          <span class="confused-letter-demo">p</span>
-          <span class="confused-letter-demo">q</span>
-        </p>
+      </div>
+
+      <div class="settings-section">
+        <label class="settings-label" for="confused-custom-input">
+          <i class="fa-solid fa-pen"></i> Personnaliser
+        </label>
+        <p class="settings-helper-text mb-2">Ajoute des caractères séparés par un espace</p>
+        <input type="text"
+               id="confused-custom-input"
+               name="setting[confused_custom]"
+               value="<%= @setting.confused_custom %>"
+               class="settings-text-input"
+               autocomplete="off"
+               placeholder="Ex : r t f …">
       </div>
 
     </div>

@@ -6,5 +6,6 @@ class Setting < ApplicationRecord
   attribute :syllable_mode,       :boolean, default: false
   attribute :syllable_palette,    :string,  default: "blue_red_green"
   attribute :silent_letters_mode, :boolean, default: false
-  attribute :confused_letters_mode, :boolean, default: false
+  attribute :confused_pairs,  :string, default: ""
+  attribute :confused_custom, :string, default: ""
 end
