@@ -1,6 +1,6 @@
 
 <div class="settings-page">
-<div class="settings-page-body">
+  <div class="settings-page-body">
 
   <div class="form-hero">
     <div class="sec-eye">Personnalisation</div>
@@ -170,138 +170,139 @@
         </div>
       </div>
 
-      <%= f.button :submit, "Enregistrer mes préférences", class: "btn btn-readapt w-100" %>
+        <%= f.button :submit, "Enregistrer mes préférences", class: "btn btn-readapt w-100" %>
 
-    </div>
-
-  <% end %>
-
-</div>
-</div>
-
-<%# ── Modal plein écran : aperçu après enregistrement ── %>
-<div class="modal fade" id="settingsShowModal" tabindex="-1" aria-labelledby="settingsShowModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-fullscreen">
-    <div class="modal-content settings-show-modal-content">
-
-      <div class="modal-header settings-show-modal-header">
-        <h5 class="modal-title" id="settingsShowModalLabel">
-          <i class="fa-solid fa-circle-check me-2" style="color:#1B9E7A;"></i>
-          Préférences enregistrées
-        </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
       </div>
 
-      <div class="modal-body px-3" id="offcanvas-show-content">
-      </div>
+    <% end %>
 
+  </div>
+
+
+  <%# ── Modal plein écran : aperçu après enregistrement ── %>
+  <div class="modal fade" id="settingsShowModal" tabindex="-1" aria-labelledby="settingsShowModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content settings-show-modal-content">
+
+        <div class="modal-header settings-show-modal-header">
+          <h5 class="modal-title" id="settingsShowModalLabel">
+            <i class="fa-solid fa-circle-check me-2" style="color:#1B9E7A;"></i>
+            Préférences enregistrées
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+        </div>
+
+        <div class="modal-body px-3" id="offcanvas-show-content">
+        </div>
+
+      </div>
     </div>
   </div>
+
+  <script nonce="<%= request.content_security_policy_nonce %>">
+  document.addEventListener("turbo:load", () => {
+
+    const combinedPreview = document.getElementById("combined-preview")
+    const fontInputs      = document.querySelectorAll('input[name="setting[font]"]')
+    const paletteInputs   = document.querySelectorAll('input[name="setting[syllable_palette]"]')
+    const spacingInput    = document.getElementById("spacing-input")
+    const sizeInput       = document.getElementById("size-input")
+    const syllableMode    = document.getElementById("syllable-mode")
+
+    const palettes = {
+      blue_red_green:      { bg: null,      text: null,      syllables: ["#1E88E5", "#E53935", "#43A047"] },
+      orange_blue_purple:  { bg: null,      text: null,      syllables: ["#FB8C00", "#1E88E5", "#8E24AA"] },
+      cream_dark_blue:     { bg: "#194F7A", text: "#FFF8E7", syllables: ["#FFF8E7", "#D4C5A9", "#FFFACD"] },
+      yellow_black:        { bg: "#111111", text: "#FFD700", syllables: ["#FFD700", "#FFC107", "#FFEB3B"] },
+      offwhite_dark_green: { bg: "#1B4332", text: "#F5F5DC", syllables: ["#F5F5DC", "#E8E8C8", "#FAFAD2"] },
+      orange_dark_gray:    { bg: "#2D2D2D", text: "#FF8C00", syllables: ["#FF8C00", "#FF6B35", "#FFA500"] }
+    }
+
+    const previewText = "Lire avec Readapt, c'est facile !"
+
+    function getSelectedPalette() {
+      const checked = document.querySelector('input[name="setting[syllable_palette]"]:checked')
+      return checked ? checked.value : "blue_red_green"
+    }
+
+    function getSelectedFont() {
+      const checked = document.querySelector('input[name="setting[font]"]:checked')
+      return checked ? checked.value : ""
+    }
+
+    function syllabify(text, colors) {
+      return text.split(" ").map(word =>
+        (word.match(/.{1,2}/g) || [word])
+          .map((part, i) => `<span style="color:${colors[i % colors.length]}">${part}</span>`)
+          .join("")
+      ).join(" ")
+    }
+
+    function updatePreview() {
+      const palette  = palettes[getSelectedPalette()]
+      const spacing  = spacingInput.value + "px"
+      const size     = sizeInput.value + "px"
+      const font     = getSelectedFont()
+
+      combinedPreview.style.fontFamily     = font
+      combinedPreview.style.letterSpacing  = spacing
+      combinedPreview.style.fontSize       = size
+
+      if (palette.bg) {
+        combinedPreview.style.backgroundColor = palette.bg
+        combinedPreview.style.padding         = "0.6rem 0.8rem"
+        combinedPreview.style.borderRadius    = "8px"
+      } else {
+        combinedPreview.style.backgroundColor = ""
+        combinedPreview.style.padding         = ""
+        combinedPreview.style.borderRadius    = ""
+      }
+
+      if (syllableMode.checked) {
+        combinedPreview.innerHTML = syllabify(previewText, palette.syllables)
+      } else {
+        combinedPreview.innerHTML = previewText
+      }
+    }
+
+    fontInputs.forEach(input => {
+      input.addEventListener("change", updatePreview)
+    })
+
+    paletteInputs.forEach(input => {
+      input.addEventListener("change", updatePreview)
+    })
+
+    spacingInput.addEventListener("input", e => {
+      document.getElementById("spacing-value").innerText = e.target.value
+      updatePreview()
+    })
+
+    sizeInput.addEventListener("input", e => {
+      document.getElementById("size-value").innerText = e.target.value
+      updatePreview()
+    })
+
+    syllableMode.addEventListener("change", () => {
+      document.getElementById("palette-section")
+        .classList.toggle("palette-slide--visible", syllableMode.checked)
+      updatePreview()
+      if (syllableMode.checked) {
+        setTimeout(() => {
+          document.getElementById("syllable-box")
+            .scrollIntoView({ behavior: "smooth", block: "center" })
+        }, 250)
+      }
+    })
+
+    updatePreview()
+  })
+
+  document.addEventListener("turbo:submit-end", (event) => {
+    if (event.detail.success) {
+      const el = document.getElementById("settingsShowModal")
+      if (el) bootstrap.Modal.getOrCreateInstance(el).show()
+    }
+  })
+  </script>
 </div>
-
-<script nonce="<%= request.content_security_policy_nonce %>">
-document.addEventListener("turbo:load", () => {
-
-  const combinedPreview = document.getElementById("combined-preview")
-  const fontInputs      = document.querySelectorAll('input[name="setting[font]"]')
-  const paletteInputs   = document.querySelectorAll('input[name="setting[syllable_palette]"]')
-  const spacingInput    = document.getElementById("spacing-input")
-  const sizeInput       = document.getElementById("size-input")
-  const syllableMode    = document.getElementById("syllable-mode")
-
-  const palettes = {
-    blue_red_green:      { bg: null,      text: null,      syllables: ["#1E88E5", "#E53935", "#43A047"] },
-    orange_blue_purple:  { bg: null,      text: null,      syllables: ["#FB8C00", "#1E88E5", "#8E24AA"] },
-    cream_dark_blue:     { bg: "#194F7A", text: "#FFF8E7", syllables: ["#FFF8E7", "#D4C5A9", "#FFFACD"] },
-    yellow_black:        { bg: "#111111", text: "#FFD700", syllables: ["#FFD700", "#FFC107", "#FFEB3B"] },
-    offwhite_dark_green: { bg: "#1B4332", text: "#F5F5DC", syllables: ["#F5F5DC", "#E8E8C8", "#FAFAD2"] },
-    orange_dark_gray:    { bg: "#2D2D2D", text: "#FF8C00", syllables: ["#FF8C00", "#FF6B35", "#FFA500"] }
-  }
-
-  const previewText = "Lire avec Readapt, c'est facile !"
-
-  function getSelectedPalette() {
-    const checked = document.querySelector('input[name="setting[syllable_palette]"]:checked')
-    return checked ? checked.value : "blue_red_green"
-  }
-
-  function getSelectedFont() {
-    const checked = document.querySelector('input[name="setting[font]"]:checked')
-    return checked ? checked.value : ""
-  }
-
-  function syllabify(text, colors) {
-    return text.split(" ").map(word =>
-      (word.match(/.{1,2}/g) || [word])
-        .map((part, i) => `<span style="color:${colors[i % colors.length]}">${part}</span>`)
-        .join("")
-    ).join(" ")
-  }
-
-  function updatePreview() {
-    const palette  = palettes[getSelectedPalette()]
-    const spacing  = spacingInput.value + "px"
-    const size     = sizeInput.value + "px"
-    const font     = getSelectedFont()
-
-    combinedPreview.style.fontFamily     = font
-    combinedPreview.style.letterSpacing  = spacing
-    combinedPreview.style.fontSize       = size
-
-    if (palette.bg) {
-      combinedPreview.style.backgroundColor = palette.bg
-      combinedPreview.style.padding         = "0.6rem 0.8rem"
-      combinedPreview.style.borderRadius    = "8px"
-    } else {
-      combinedPreview.style.backgroundColor = ""
-      combinedPreview.style.padding         = ""
-      combinedPreview.style.borderRadius    = ""
-    }
-
-    if (syllableMode.checked) {
-      combinedPreview.innerHTML = syllabify(previewText, palette.syllables)
-    } else {
-      combinedPreview.innerHTML = previewText
-    }
-  }
-
-  fontInputs.forEach(input => {
-    input.addEventListener("change", updatePreview)
-  })
-
-  paletteInputs.forEach(input => {
-    input.addEventListener("change", updatePreview)
-  })
-
-  spacingInput.addEventListener("input", e => {
-    document.getElementById("spacing-value").innerText = e.target.value
-    updatePreview()
-  })
-
-  sizeInput.addEventListener("input", e => {
-    document.getElementById("size-value").innerText = e.target.value
-    updatePreview()
-  })
-
-  syllableMode.addEventListener("change", () => {
-    document.getElementById("palette-section")
-      .classList.toggle("palette-slide--visible", syllableMode.checked)
-    updatePreview()
-    if (syllableMode.checked) {
-      setTimeout(() => {
-        document.getElementById("syllable-box")
-          .scrollIntoView({ behavior: "smooth", block: "center" })
-      }, 250)
-    }
-  })
-
-  updatePreview()
-})
-
-document.addEventListener("turbo:submit-end", (event) => {
-  if (event.detail.success) {
-    const el = document.getElementById("settingsShowModal")
-    if (el) bootstrap.Modal.getOrCreateInstance(el).show()
-  }
-})
-</script>

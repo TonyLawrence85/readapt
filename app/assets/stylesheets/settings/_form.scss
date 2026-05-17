@@ -70,16 +70,22 @@
   bottom: 0;
   z-index: 10;
   background: #F4F1E9;
-  padding-top: 0.3rem;
-  padding-bottom: 0.5rem;
+  padding-top: 0.2rem;
+  padding-bottom: 0.4rem;
 }
 
-/* ── Aperçu combiné (box 3) ── */
+/* ── Aperçu combiné (réduit) ── */
+#preview-box {
+  padding: 0.35rem 0.8rem;
+  margin-bottom: 0.4rem !important;
+}
+
 .combined-preview {
-  min-height: 2.5rem;
+  min-height: 1.6rem;
   text-align: center;
-  padding: 0.4rem 0.2rem;
-  border-radius: 8px;
+  padding: 0.2rem 0.2rem;
+  font-size: 0.82rem;
+  border-radius: 6px;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
