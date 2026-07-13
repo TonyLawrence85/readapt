@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
+  get "extension/confidentialite", to: "pages#extension_privacy"
   resources :articles, only: [:index, :show, :new, :create, :destroy] do
     collection do
       get :new_copy
