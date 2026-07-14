@@ -20,7 +20,35 @@
   img {
     height: 28px;
     width: auto;
+
+    @media (min-width: 992px) {
+      height: 38px;    // ajuste entre 36 et 44px selon ton goût
+    }
   }
 
   &:hover { opacity: 0.85; }
+}
+
+.topbar-links {
+  display: none;              // masqués en mobile
+
+  @media (min-width: 992px) {
+    display: flex;
+    gap: 28px;
+
+    a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--teal-deep);
+      text-decoration: none;
+      &:hover { color: var(--teal-light); }
+    }
+  }
+}
+.topbar-spacer {
+  width: 34px;
+
+  @media (min-width: 992px) {
+    display: none;    // en desktop, les liens prennent la place
+  }
 }

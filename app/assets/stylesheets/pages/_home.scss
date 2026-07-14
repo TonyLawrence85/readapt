@@ -466,3 +466,104 @@
   color: rgba(255, 255, 255, 0.35);
   margin-bottom: 12px;
 }
+
+// ═══════════════════════════════════════════════════════
+// DESKTOP (≥ 992px)
+// ═══════════════════════════════════════════════════════
+@media (min-width: 992px) {
+
+  .page-container {
+    max-width: 1080px;
+    padding: 40px 40px 80px;
+  }
+
+  // ── Hero en 2 colonnes : texte à gauche, démo à droite
+  .hero {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 64px;
+    align-items: center;
+    margin-bottom: 48px;
+  }
+
+  .hero-text { padding: 0; }
+
+  .hero-badge { font-size: 12px; padding: 6px 14px; }
+
+  .hero-headline {
+    font-size: 56px;
+    letter-spacing: -1.5px;
+    margin-bottom: 18px;
+  }
+
+  .hero-sub {
+    font-size: 17px;
+    max-width: 420px;
+    margin-bottom: 0;
+  }
+
+  .transform-card {
+    margin: 0;               // le grid gère l'espacement
+    padding: 32px;
+  }
+
+  .transform-before,
+  .transform-after { font-size: 17px; }
+
+  // ── Stats : plus d'air
+  .card-container {
+    gap: 24px;
+    margin-bottom: 56px;
+  }
+
+  .stat-card { padding: 28px 20px; }
+  .stat-number { font-size: 36px; span { font-size: 20px; } }
+  .stat-label { font-size: 13px; }
+
+  // ── Titres de section
+  .section-title { font-size: 28px; margin-bottom: 20px; }
+
+  // ── Étapes : 3 colonnes
+  .steps {
+    flex-direction: row;
+    gap: 24px;
+    margin-bottom: 56px;
+
+    .step-item {
+      flex: 1;
+      flex-direction: column;   // numéro au-dessus du texte
+      gap: 16px;
+      padding: 28px 24px;
+    }
+  }
+
+  .step-name { font-size: 17px; }
+  .step-desc { font-size: 14px; }
+
+  // ── Actions d'import : 3 colonnes
+  .actions-grid {
+    flex-direction: row;
+    gap: 24px;
+    margin-bottom: 56px;
+
+    .action-card {
+      flex: 1;
+      flex-direction: column;   // icône au-dessus, carte "tuile"
+      align-items: flex-start;
+      gap: 16px;
+      padding: 28px 24px;
+    }
+  }
+
+  .action-icon { width: 52px; height: 52px; }
+  .action-title { font-size: 17px; }
+  .action-desc { font-size: 13px; }
+  .action-arrow { align-self: flex-end; margin-top: auto; }
+
+  // ── Textes récents : grille 2 colonnes
+  .texts-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+}

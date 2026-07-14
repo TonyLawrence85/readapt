@@ -19,5 +19,13 @@
     <%= image_tag "readapt-logo-home.svg", alt: "Readapt" %>
   <% end %>
 
-  <div style="width: 34px;"></div>
+  <div class="topbar-links">
+    <%= link_to "Accueil", root_path %>
+    <%= link_to "Mes textes", articles_path %>
+    <% if current_user %>
+      <%= link_to "Réglages", edit_setting_path(current_user.setting) %>
+      <%= link_to "Profil", profile_path %>
+    <% end %>
+  </div>
+  <div class="topbar-spacer"></div>
 </nav>
