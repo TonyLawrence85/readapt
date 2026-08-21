@@ -6,6 +6,15 @@ Readapt is a full-stack web application that uses artificial intelligence to tra
 
 Users can import text, upload PDF documents, or extract text from an image. Readapt then uses AI to simplify and restructure the content while preserving its original meaning. The application also generates audio playback and synchronized reading support.
 
+## Readapt Ecosystem
+
+Readapt is built as an accessibility ecosystem with two complementary products:
+
+- **Readapt Web** — this Rails application provides AI-powered text adaptation, PDF and image processing, text-to-speech and synchronized assisted reading.
+- **Readapt Chrome Extension** — adapts typography and reading layout directly on websites, with configurable fonts, spacing and a reading ruler.
+
+Chrome Extension repository: https://github.com/TonyLawrence85/readapt-chrome-extension
+
 ## Why Readapt?
 
 Reading long or complex texts can be difficult for people with dyslexia.
@@ -94,7 +103,6 @@ User input
 ## Tech Stack
 
 ### Backend
-
 - Ruby
 - Ruby on Rails 8
 - PostgreSQL
@@ -104,21 +112,18 @@ User input
 - Devise
 
 ### Frontend
-
 - JavaScript
 - Hotwire / Turbo / Stimulus
 - Bootstrap 5
 - HTML / SCSS
 
 ### Artificial Intelligence
-
 - OpenAI API
 - RubyLLM
 - GPT multimodal models
 - Whisper speech transcription
 
 ### Audio and File Processing
-
 - Google Cloud Text-to-Speech
 - OpenAI Whisper
 - Active Storage
@@ -127,7 +132,6 @@ User input
 - Image Processing
 
 ### Infrastructure and Quality
-
 - Docker
 - Kamal
 - Puma
@@ -196,85 +200,34 @@ Background jobs prevent longer AI and audio operations from blocking normal page
 
 ## Security
 
-The project uses:
-
-- Brakeman for Rails security analysis
-- Bundler Audit for dependency vulnerability scanning
-- Dependabot for dependency updates
-- environment variables for external API credentials
-- Devise for user authentication
-
-API keys should never be stored directly in the repository.
+The project uses Brakeman, Bundler Audit, Dependabot, environment variables for external API credentials, and Devise for user authentication. API keys should never be stored directly in the repository.
 
 ## Local Installation
 
 ### Requirements
-
 - Ruby
 - Rails
 - PostgreSQL
 - OpenAI API key
 - Google Cloud Text-to-Speech credentials
 
-Clone the project:
-
 ```bash
 git clone https://github.com/TonyLawrence85/readapt.git
 cd readapt
-```
-
-Install dependencies:
-
-```bash
 bundle install
-```
-
-Create the database:
-
-```bash
 bin/rails db:create
 bin/rails db:migrate
-```
-
-Configure the required environment variables, including:
-
-```text
-OPENAI_API_KEY=your_openai_api_key
-```
-
-Additional credentials may be required for Google Cloud Text-to-Speech and Cloudinary.
-
-Start the application:
-
-```bash
 bin/dev
 ```
 
-Then open `http://localhost:3000`.
+Configure the required environment variables, including `OPENAI_API_KEY`. Additional credentials may be required for Google Cloud Text-to-Speech and Cloudinary.
 
 ## Testing and Code Quality
 
-Run the Rails test suite:
-
 ```bash
 bin/rails test
-```
-
-Run security analysis:
-
-```bash
 bin/brakeman
-```
-
-Run dependency auditing:
-
-```bash
 bundle exec bundler-audit
-```
-
-Run RuboCop:
-
-```bash
 bin/rubocop
 ```
 
@@ -285,36 +238,17 @@ Readapt supports containerized deployment. The repository includes Docker config
 ## Product Challenges
 
 ### Preserving meaning while simplifying text
-
 The AI must improve readability without summarizing, removing essential information, or inventing new content. This required strict prompt engineering and controlled output formatting.
 
 ### Combining multiple AI services
-
 Readapt combines text generation, multimodal image understanding, text-to-speech, and speech transcription through a Rails application.
 
 ### Audio/text synchronization
-
 Generated audio is transcribed using Whisper and timing information is mapped back to adapted text to support synchronized reading.
 
 ## What This Project Demonstrates
 
-Readapt demonstrates experience with:
-
-- full-stack web application development
-- Ruby on Rails architecture
-- relational databases
-- authentication
-- background jobs
-- file uploads
-- AI API integration
-- multimodal AI
-- prompt engineering
-- speech-to-text
-- text-to-speech
-- third-party API integration
-- asynchronous processing
-- deployment
-- accessibility-focused product design
+Readapt demonstrates experience with full-stack web application development, Ruby on Rails architecture, relational databases, authentication, background jobs, file uploads, AI API integration, multimodal AI, prompt engineering, speech-to-text, text-to-speech, third-party APIs, asynchronous processing, deployment and accessibility-focused product design.
 
 ## Future Improvements
 
@@ -335,8 +269,7 @@ Readapt is currently under active development. It was created during my transiti
 
 ## Author
 
-**Tony Lawrence**
-
+**Tony Lawrence**  
 Full-Stack & AI Software Developer
 
 Focus areas: Ruby on Rails, AI-powered web applications, OpenAI API integration, workflow automation, and digital marketing.
@@ -345,6 +278,4 @@ GitHub: https://github.com/TonyLawrence85
 
 ## License
 
-This project is currently intended for portfolio and demonstration purposes.
-
-All rights reserved unless otherwise stated.
+This project is currently intended for portfolio and demonstration purposes. All rights reserved unless otherwise stated.
