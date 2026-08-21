@@ -2,9 +2,54 @@
 
 **AI-powered reading assistant designed to make written content more accessible for people with dyslexia.**
 
-Readapt is a full-stack web application that uses artificial intelligence to transform written content into a more accessible reading experience.
+Readapt is a full-stack accessibility application that transforms text, PDFs and photographed content into a personalized reading experience using artificial intelligence, accessible typography, syllable support, text-to-speech and synchronized reading.
 
-Users can import text, upload PDF documents, or extract text from an image. Readapt then uses AI to simplify and restructure the content while preserving its original meaning. The application also generates audio playback and synchronized reading support.
+<p align="center">
+  <img src="docs/screenshots/home.jpg" alt="Readapt home screen" width="340">
+</p>
+
+## From content to accessible reading
+
+Readapt is designed around a simple idea: users should be able to bring content from wherever they encounter it and turn it into something easier to read.
+
+Users can paste text, upload a PDF, or photograph printed content. Readapt extracts and processes the content, applies an AI accessibility transformation, and presents the result using the user's preferred reading settings.
+
+<table>
+<tr>
+<td align="center"><strong>Paste text</strong></td>
+<td align="center"><strong>Take a photo</strong></td>
+</tr>
+<tr>
+<td><img src="docs/screenshots/paste-text.jpg" alt="Paste text into Readapt" width="300"></td>
+<td><img src="docs/screenshots/take-photo.jpg" alt="Photograph text with Readapt" width="300"></td>
+</tr>
+</table>
+
+## AI-powered adaptation
+
+Readapt uses a Large Language Model to restructure complex written content while preserving its meaning. The transformation strategy favors shorter sentences, clearer structure and controlled vocabulary simplification while preserving names, dates, numbers, quotations and important technical information.
+
+The adapted content can then be displayed with OpenDyslexic typography and optional syllable-based visual support.
+
+<p align="center">
+  <img src="docs/screenshots/adapted-reading.jpg" alt="AI-adapted reading experience in Readapt" width="340">
+</p>
+
+## Read and listen at the same time
+
+Readapt combines text-to-speech with speech transcription and timing information to provide synchronized assisted reading. During playback, the relevant passage can be visually highlighted so users can follow the text while listening.
+
+<p align="center">
+  <img src="docs/screenshots/synchronized-reading.jpg" alt="Synchronized text and audio reading in Readapt" width="340">
+</p>
+
+## Personalized accessibility
+
+Reading preferences are configurable rather than imposed. Users can adjust typography, text size, spacing, syllable coloration and visual palettes to create a reading environment that works for them.
+
+<p align="center">
+  <img src="docs/screenshots/settings.jpg" alt="Readapt accessibility settings" width="340">
+</p>
 
 ## Readapt Ecosystem
 
@@ -15,57 +60,19 @@ Readapt is built as an accessibility ecosystem with two complementary products:
 
 Chrome Extension repository: https://github.com/TonyLawrence85/readapt-chrome-extension
 
-## Why Readapt?
-
-Reading long or complex texts can be difficult for people with dyslexia.
-
-Readapt was designed to reduce cognitive load by combining:
+## Core Features
 
 - AI-powered text adaptation
-- shorter and clearer sentences
-- accessible formatting
-- syllable-based reading support
-- text-to-speech
-- synchronized audio playback
-- multiple content import methods
-
-The goal is not to summarize the source material, but to make it easier to read while preserving its meaning.
-
-## Main Features
-
-### AI-powered text adaptation
-
-Readapt uses a Large Language Model to transform complex content into a more accessible version. The AI is instructed to shorten long sentences, simplify complex vocabulary when appropriate, preserve technical terms, favor active voice, preserve names/dates/numbers/quotations, and keep the original meaning intact.
-
-### Multiple input methods
-
-Users can create readable content from:
-
-- copied text
-- PDF documents
-- images and photos containing text
-
-For image input, Readapt uses a multimodal AI model to extract visible text before processing it.
-
-### PDF text extraction
-
-PDF files can be uploaded directly to the platform. The application extracts the document text and sends it through the accessibility transformation pipeline.
-
-### Image-to-text with AI
-
-Users can upload a photo of printed text. Readapt uses an AI vision model to extract the text from the image and convert it into processable content.
-
-### Text-to-speech and audio synchronization
-
-Adapted content can be converted into audio. Readapt also generates timing information using speech transcription so the displayed text can be synchronized with audio playback for a guided reading experience.
-
-### Personalized reading settings
-
-The application supports personalized accessibility options such as syllable-based reading, adapted text formatting, and individualized display preferences.
-
-### User accounts
-
-Authentication is handled with Devise. Each user can save adapted texts, access previously processed content, mark texts as favourites, and manage personal reading settings.
+- Paste-to-adapt workflow
+- PDF text extraction
+- Multimodal image-to-text processing
+- OpenDyslexic and alternative reading fonts
+- Syllable-based reading support
+- Text-to-speech generation
+- Audio/text synchronization
+- Personalized reading settings
+- Saved content and favourites
+- User authentication and personal library
 
 ## AI Processing Pipeline
 
@@ -100,7 +107,9 @@ User input
      Text / audio synchronization
 ```
 
-## Tech Stack
+## Under the Hood
+
+Readapt combines a conventional full-stack Rails architecture with AI, multimodal input and asynchronous media processing.
 
 ### Backend
 - Ruby
@@ -156,7 +165,7 @@ app/
 └── assets/
 ```
 
-Selected domain logic is separated into service objects, including text formatting, syllabification, and text-to-speech. Long-running audio processing is performed asynchronously using Active Job.
+Selected domain logic is separated into service objects, including text formatting, syllabification and text-to-speech. Long-running audio processing is performed asynchronously using Active Job.
 
 ## Example Workflow
 
@@ -172,7 +181,7 @@ Selected domain logic is separated into service objects, including text formatti
 
 ## AI Prompt Strategy
 
-The AI transformation layer uses strict accessibility-oriented rules rather than unrestricted content generation. Instructions cover maximum sentence length, one idea per sentence, preservation of important factual information, controlled vocabulary simplification, no invented information, and predictable output formatting.
+The AI transformation layer uses strict accessibility-oriented rules rather than unrestricted content generation. Instructions cover maximum sentence length, one idea per sentence, preservation of important factual information, controlled vocabulary simplification, no invented information and predictable output formatting.
 
 This strategy helps reduce hallucination risk and produces a more consistent output structure for downstream processing.
 
@@ -200,7 +209,7 @@ Background jobs prevent longer AI and audio operations from blocking normal page
 
 ## Security
 
-The project uses Brakeman, Bundler Audit, Dependabot, environment variables for external API credentials, and Devise for user authentication. API keys should never be stored directly in the repository.
+The project uses Brakeman, Bundler Audit, Dependabot, environment variables for external API credentials and Devise for user authentication. API keys should never be stored directly in the repository.
 
 ## Local Installation
 
@@ -233,15 +242,15 @@ bin/rubocop
 
 ## Deployment
 
-Readapt supports containerized deployment. The repository includes Docker configuration, Kamal deployment tooling, Puma, and production-oriented Rails infrastructure.
+Readapt supports containerized deployment. The repository includes Docker configuration, Kamal deployment tooling, Puma and production-oriented Rails infrastructure.
 
 ## Product Challenges
 
 ### Preserving meaning while simplifying text
-The AI must improve readability without summarizing, removing essential information, or inventing new content. This required strict prompt engineering and controlled output formatting.
+The AI must improve readability without summarizing, removing essential information or inventing new content. This required strict prompt engineering and controlled output formatting.
 
 ### Combining multiple AI services
-Readapt combines text generation, multimodal image understanding, text-to-speech, and speech transcription through a Rails application.
+Readapt combines text generation, multimodal image understanding, text-to-speech and speech transcription through a Rails application.
 
 ### Audio/text synchronization
 Generated audio is transcribed using Whisper and timing information is mapped back to adapted text to support synchronized reading.
@@ -272,7 +281,7 @@ Readapt is currently under active development. It was created during my transiti
 **Tony Lawrence**  
 Full-Stack & AI Software Developer
 
-Focus areas: Ruby on Rails, AI-powered web applications, OpenAI API integration, workflow automation, and digital marketing.
+Focus areas: Ruby on Rails, AI-powered web applications, OpenAI API integration, workflow automation and digital marketing.
 
 GitHub: https://github.com/TonyLawrence85
 
