@@ -8,12 +8,12 @@ class AudioGenerationJob < ApplicationJob
 
     return if article.formatted_content.blank?
 
-    phrases = article.formatted_content.split(/<br\s*\/?>/i).reject(&:blank?)
-    plain_text = phrases.map { |p|
+    phrases = article.formatted_content.split(%r{<br\s*/?>}i).reject(&:blank?)
+    plain_text = phrases.map do |p|
       s = ActionController::Base.helpers.strip_tags(p).strip
       s = s.gsub(/[,;:\-–—]/, "")
       s.end_with?(".") ? s : "#{s}."
-    }.join(" ")
+    end.join(" ")
     audio_content = TtsService.call(plain_text)
 
     article.audio.attach(
@@ -23,7 +23,7 @@ class AudioGenerationJob < ApplicationJob
     )
     return unless article.audio.attached?
 
-    client = OpenAI::Client.new(access_token: ENV["OPENAI_API_KEY"])
+    client = OpenAI::Client.new(access_token: ENV.fetch("OPENAI_API_KEY", nil))
 
     Tempfile.create(["article_#{article.id}", ".mp3"], binmode: true) do |tmp|
       tmp.write(article.audio.download)
@@ -46,7 +46,7 @@ class AudioGenerationJob < ApplicationJob
       word_pos = 0
       timestamps = phrases.map do |phrase|
         phrase_words = ActionController::Base.helpers.strip_tags(phrase)
-                         .downcase.gsub(/[^a-zàâçéèêëîïôùûüœæ\s]/i, "").split
+                                                      .downcase.gsub(/[^a-zàâçéèêëîïôùûüœæ\s]/i, "").split
 
         start_time = all_words[word_pos]&.[](:start) || 0
         word_pos += phrase_words.length
