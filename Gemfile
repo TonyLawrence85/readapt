@@ -20,7 +20,7 @@ gem "jbuilder"
 # gem "bcrypt", "~> 3.1.7"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: %i[ windows jruby ]
+gem "tzinfo-data", platforms: %i[windows jruby]
 
 # Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
 gem "solid_cache"
@@ -48,13 +48,13 @@ gem "simple_form", github: "heartcombo/simple_form"
 gem "sassc-rails"
 gem "ruby_llm", "~> 1.2.0"
 gem "pdf-reader"
-gem 'text-hyphen'
+gem "text-hyphen"
 gem "cloudinary"
 gem "ruby-openai"
 group :development, :test do
   gem "dotenv-rails"
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+  gem "debug", platforms: %i[mri windows], require: "debug/prelude"
 
   # Audits gems for known security defects (use config/bundler-audit.yml to ignore issues)
   gem "bundler-audit", require: false
@@ -67,7 +67,7 @@ group :development, :test do
 end
 
 group :development do
-  # Use console on exceptions pages [https://github.com/rails/web-console]
+  # Use console on exceptions pages [https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem]
   gem "web-console"
 end
 
@@ -77,4 +77,4 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem 'google-cloud-text_to_speech'
+gem "google-cloud-text_to_speech"
