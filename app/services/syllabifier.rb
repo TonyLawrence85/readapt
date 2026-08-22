@@ -1,4 +1,3 @@
-
 require "text/hyphen"
 
 class Syllabifier
@@ -11,6 +10,5 @@ class Syllabifier
   # Ou directement sur un texte entier :
   def self.syllabify_text(text)
     text.gsub(/\p{L}+/) { |word| HYPHENATOR.visualise(word, "·") }
-    
   end
 end
