@@ -28,55 +28,17 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = Article.new(article_params)
-    @article.user = current_user
+    @article = current_user.articles.new(article_params)
+    return render_source_error if invalid_source?
 
-    if (params[:article][:source] == "copy") && !@article.content.present?
-      render :new_copy, status: :unprocessable_entity and return
-    end
-
-    if params[:article][:source] == "photo"
-      render :new_photo, status: :unprocessable_entity and return if params[:photo].blank?
-
-      extracted = extract_text_from_photo(params[:photo].path)
-      render :new_photo, status: :unprocessable_entity and return if extracted.blank?
-
-      @article.content = extracted
-    end
-
-    pdf_content = nil
-    if params[:article][:document].present?
-      reader = PDF::Reader.new(params[:article][:document].path)
-      pdf_content = reader.pages.map(&:text).join("\n")
-    end
+    pdf_content = extract_pdf_content
 
     if @article.save
-      setting = current_user.setting
-      chat = RubyLLM.chat(model: "gpt-4o-mini")
-
-      response = if pdf_content
-
-                   chat.ask("#{build_prompt}\n\nTexte à reformater :\n#{pdf_content}")
-                 else
-                   chat.ask("#{build_prompt}\n\nTexte à reformater :\n#{@article.content}")
-                 end
-      normalized = response.content.gsub(/\.\s+(?=[A-ZÀÂÉÈÊËÎÏÔÙÛÜŒÆ])/, ".\n")
-      lines = normalized.split("\n").reject(&:blank?)
-      formatted_lines = if setting.syllable_mode
-                          lines.map { |line| TextFormatter.syllabify(line) }
-                        else
-                          lines
-                        end
-      @article.update(formatted_content: formatted_lines.join("<br>"))
-
+      adapt_article(pdf_content)
       AudioGenerationJob.perform_later(@article.id)
       redirect_to article_path(@article), notice: "Texte créé avec succès"
-    elsif params[:article][:source] == "photo"
-      render :new_photo, status: :unprocessable_entity
-    elsif params[:article][:source] == "import"
-      render :new_import, status: :unprocessable_entity
     else
-      render :new, status: :unprocessable_entity
+      render_creation_error
     end
   end
 
@@ -108,6 +70,72 @@ class ArticlesController < ApplicationController
 
   def set_article
     @article = Article.find(params[:id])
+  end
+
+  def invalid_source?
+    return true if copy_without_content?
+    return false unless photo_source?
+    return true if params[:photo].blank?
+
+    extracted = extract_text_from_photo(params[:photo].path)
+    return true if extracted.blank?
+
+    @article.content = extracted
+    false
+  end
+
+  def copy_without_content?
+    source == "copy" && @article.content.blank?
+  end
+
+  def photo_source?
+    source == "photo"
+  end
+
+  def source
+    params[:article][:source]
+  end
+
+  def render_source_error
+    template = photo_source? ? :new_photo : :new_copy
+    render template, status: :unprocessable_entity
+  end
+
+  def extract_pdf_content
+    document = params[:article][:document]
+    return if document.blank?
+
+    PDF::Reader.new(document.path).pages.map(&:text).join("\n")
+  end
+
+  def adapt_article(pdf_content)
+    input = pdf_content.presence || @article.content
+    response = RubyLLM.chat(model: "gpt-4o-mini").ask(
+      "#{build_prompt}\n\nTexte à reformater :\n#{input}"
+    )
+    lines = normalize_response(response.content)
+    formatted_lines = format_lines(lines)
+    @article.update(formatted_content: formatted_lines.join("<br>"))
+  end
+
+  def normalize_response(content)
+    normalized = content.gsub(/\.\s+(?=[A-ZÀÂÉÈÊËÎÏÔÙÛÜŒÆ])/, ".\n")
+    normalized.split("\n").reject(&:blank?)
+  end
+
+  def format_lines(lines)
+    return lines unless current_user.setting&.syllable_mode
+
+    lines.map { |line| TextFormatter.syllabify(line) }
+  end
+
+  def render_creation_error
+    template = case source
+               when "photo" then :new_photo
+               when "import" then :new_import
+               else :new
+               end
+    render template, status: :unprocessable_entity
   end
 
   def extract_text_from_photo(image_path)
