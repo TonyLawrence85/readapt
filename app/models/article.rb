@@ -13,8 +13,8 @@ class Article < ApplicationRecord
   end
 
   def document_must_be_pdf
-    unless document.content_type == "application/pdf"
-      errors.add(:document, "doit être un fichier PDF")
-    end
+    return if document.content_type == "application/pdf"
+
+    errors.add(:document, "doit être un fichier PDF")
   end
 end
