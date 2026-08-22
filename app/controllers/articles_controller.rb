@@ -56,9 +56,9 @@ class ArticlesController < ApplicationController
 
       response = if pdf_content
 
-                   chat.ask("#{build_prompt(setting)}\n\nTexte à reformater :\n#{pdf_content}")
+                   chat.ask("#{build_prompt}\n\nTexte à reformater :\n#{pdf_content}")
                  else
-                   chat.ask("#{build_prompt(setting)}\n\nTexte à reformater :\n#{@article.content}")
+                   chat.ask("#{build_prompt}\n\nTexte à reformater :\n#{@article.content}")
                  end
       normalized = response.content.gsub(/\.\s+(?=[A-ZÀÂÉÈÊËÎÏÔÙÛÜŒÆ])/, ".\n")
       lines = normalized.split("\n").reject(&:blank?)
@@ -118,7 +118,7 @@ class ArticlesController < ApplicationController
     response.content
   end
 
-  def build_prompt(setting)
+  def build_prompt
     <<-PROMPT
     Tu es un assistant spécialisé dans l'adaptation de textes pour les
     personnes dyslexiques. Ta tâche : transformer le texte fourni en une
