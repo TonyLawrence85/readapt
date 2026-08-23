@@ -40,4 +40,34 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
     assert_response :not_found
     assert Article.exists?(@other_article.id)
   end
+
+  test "toggles favourite on the users own article" do
+    sign_in @user
+
+    patch toggle_favourite_article_url(@article)
+
+    assert_redirected_to articles_url
+    assert @article.reload.favourite?
+  end
+
+  test "deletes the users own article" do
+    sign_in @user
+
+    assert_difference("Article.count", -1) do
+      delete article_url(@article)
+    end
+
+    assert_redirected_to articles_url
+    assert_not Article.exists?(@article.id)
+  end
+
+  test "prevents toggling favourite on another users article" do
+    sign_in @user
+    original_value = @other_article.favourite?
+
+    patch toggle_favourite_article_url(@other_article)
+
+    assert_response :not_found
+    assert_equal original_value, @other_article.reload.favourite?
+  end
 end
