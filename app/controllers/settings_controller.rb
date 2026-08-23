@@ -23,31 +23,25 @@ class SettingsController < ApplicationController
   end
 
   def download
-    setting = current_user.setting
     text_record = current_user.texts.first
+    return redirect_without_text unless text_record
 
-    # sécurité si aucun texte
-    if text_record.nil?
-      redirect_to edit_setting_path(setting), alert: "Aucun texte disponible"
-      return
-    end
-
-    text = text_record.content
-
-    # appliquer les settings
-    adapted_text =
-      if setting.syllable_mode
-        TextFormatter.syllabify(text)
-      else
-        text
-      end
-
-    send_data adapted_text,
+    send_data downloadable_text(text_record.content),
               filename: "adapted_text.txt",
               type: "text/plain"
   end
 
   private
+
+  def redirect_without_text
+    redirect_to edit_setting_path(current_user.setting), alert: "Aucun texte disponible"
+  end
+
+  def downloadable_text(text)
+    return text unless current_user.setting.syllable_mode
+
+    TextFormatter.syllabify(text)
+  end
 
   def setting_params
     sp = params.require(:setting).permit(
