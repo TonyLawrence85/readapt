@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.1.3"
+gem "rails", "~> 8.1.3.1"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
@@ -27,6 +27,7 @@ gem "json", ">= 2.19.9"
 gem "jwt", ">= 3.2.0"
 gem "mail", ">= 2.9.1"
 gem "msgpack", ">= 1.8.2"
+gem "concurrent-ruby", ">= 1.3.7"
 
 # Use Active Model has_secure_password
 # https://guides.rubyonrails.org/active_model_basics.html#securepassword
