@@ -16,7 +16,8 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
-# Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
+# Use Active Model has_secure_password
+# https://guides.rubyonrails.org/active_model_basics.html#securepassword
 # gem "bcrypt", "~> 3.1.7"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -33,10 +34,12 @@ gem "bootsnap", require: false
 # Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
 gem "kamal", require: false
 
-# Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
+# Add HTTP asset caching/compression and X-Sendfile acceleration to Puma
+# https://github.com/basecamp/thruster/
 gem "thruster", require: false
 
-# Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
+# Use Active Storage variants
+# https://guides.rubyonrails.org/active_storage_overview.html#transforming-images
 gem "image_processing", "~> 1.2"
 
 gem "sprockets-rails"
@@ -53,7 +56,7 @@ gem "cloudinary"
 gem "ruby-openai"
 group :development, :test do
   gem "dotenv-rails"
-  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  # See the Rails debugging guide for details about the debug gem.
   gem "debug", platforms: %i[mri windows], require: "debug/prelude"
 
   # Audits gems for known security defects (use config/bundler-audit.yml to ignore issues)
@@ -67,7 +70,7 @@ group :development, :test do
 end
 
 group :development do
-  # Use console on exceptions pages [https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem]
+  # Use console on exceptions pages; see the Rails debugging guide.
   gem "web-console"
 end
 
