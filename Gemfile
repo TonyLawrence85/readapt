@@ -16,11 +16,17 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
-# Security floors for transitive dependencies flagged by bundler-audit.
+# Security floors for dependencies flagged by bundler-audit.
 gem "nokogiri", ">= 1.19.4"
 gem "rails-html-sanitizer", ">= 1.7.1"
 gem "websocket-driver", ">= 0.8.2"
 gem "net-imap", ">= 0.6.4.1"
+gem "crass", ">= 1.0.7"
+gem "faraday", ">= 2.14.3"
+gem "json", ">= 2.19.9"
+gem "jwt", ">= 3.2.0"
+gem "mail", ">= 2.9.1"
+gem "msgpack", ">= 1.8.2"
 
 # Use Active Model has_secure_password
 # https://guides.rubyonrails.org/active_model_basics.html#securepassword
@@ -50,7 +56,7 @@ gem "image_processing", "~> 1.2"
 
 gem "sprockets-rails"
 gem "bootstrap", "~> 5.3"
-gem "devise"
+gem "devise", ">= 5.0.4"
 gem "autoprefixer-rails"
 gem "font-awesome-sass", "~> 6.1"
 gem "simple_form", github: "heartcombo/simple_form"
