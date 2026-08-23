@@ -18,14 +18,14 @@ class ArticleTest < ActiveSupport::TestCase
     article = @user.articles.new(content: "Un texte à adapter.")
 
     assert_not article.valid?
-    assert_includes article.errors[:title], "can't be blank"
+    assert article.errors.added?(:title, :blank)
   end
 
   test "requires content when no document is attached" do
     article = @user.articles.new(title: "Lecture")
 
     assert_not article.valid?
-    assert_includes article.errors[:content], "can't be blank"
+    assert article.errors.added?(:content, :blank)
   end
 
   test "accepts a PDF document without text content" do
