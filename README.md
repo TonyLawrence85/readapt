@@ -1,5 +1,7 @@
 # Readapt
 
+[![CI](https://github.com/TonyLawrence85/readapt/actions/workflows/ci.yml/badge.svg)](https://github.com/TonyLawrence85/readapt/actions/workflows/ci.yml)
+
 **AI-powered reading assistant designed to make written content more accessible for people with dyslexia.**
 
 Readapt is a full-stack accessibility application that transforms text, PDFs and photographed content into a personalized reading experience using artificial intelligence, accessible typography, syllable support, text-to-speech and synchronized reading.
@@ -8,9 +10,9 @@ Readapt is a full-stack accessibility application that transforms text, PDFs and
   <img src="docs/screenshots/home.jpg" alt="Readapt home screen" width="340">
 </p>
 
-## From content to accessible reading
+## Why Readapt
 
-Readapt is designed around a simple idea: users should be able to bring content from wherever they encounter it and turn it into something easier to read.
+Written information is not equally accessible to every reader. Readapt explores how AI and conventional accessibility tools can work together without replacing user choice: content can be restructured for readability, while typography, spacing, syllable support and audio remain configurable.
 
 Users can paste text, upload a PDF, or photograph printed content. Readapt extracts and processes the content, applies an AI accessibility transformation, and presents the result using the user's preferred reading settings.
 
@@ -25,11 +27,24 @@ Users can paste text, upload a PDF, or photograph printed content. Readapt extra
 </tr>
 </table>
 
+## Core Features
+
+- AI-powered text adaptation with meaning-preservation constraints
+- Text, PDF and multimodal image input
+- OpenDyslexic and alternative reading fonts
+- Configurable typography, spacing and visual palettes
+- Optional syllable-based reading support
+- Text-to-speech generation
+- Audio/text synchronization using transcription timestamps
+- Saved content, favourites and personal reading library
+- Devise authentication with user-scoped article authorization
+- Background audio processing with Active Job
+
 ## AI-powered adaptation
 
 Readapt uses a Large Language Model to restructure complex written content while preserving its meaning. The transformation strategy favors shorter sentences, clearer structure and controlled vocabulary simplification while preserving names, dates, numbers, quotations and important technical information.
 
-The adapted content can then be displayed with OpenDyslexic typography and optional syllable-based visual support.
+The adapted content can then be displayed with accessible typography and optional syllable-based visual support.
 
 <p align="center">
   <img src="docs/screenshots/adapted-reading.jpg" alt="AI-adapted reading experience in Readapt" width="340">
@@ -53,167 +68,129 @@ Reading preferences are configurable rather than imposed. Users can adjust typog
 
 ## Readapt Ecosystem
 
-Readapt is built as an accessibility ecosystem with two complementary products:
+Readapt consists of two complementary products:
 
 - **Readapt Web** — this Rails application provides AI-powered text adaptation, PDF and image processing, text-to-speech and synchronized assisted reading.
 - **Readapt Chrome Extension** — adapts typography and reading layout directly on websites, with configurable fonts, spacing and a reading ruler.
 
-Chrome Extension repository: https://github.com/TonyLawrence85/readapt-chrome-extension
+[Explore the Readapt Chrome Extension repository](https://github.com/TonyLawrence85/readapt-chrome-extension)
 
-## Core Features
-
-- AI-powered text adaptation
-- Paste-to-adapt workflow
-- PDF text extraction
-- Multimodal image-to-text processing
-- OpenDyslexic and alternative reading fonts
-- Syllable-based reading support
-- Text-to-speech generation
-- Audio/text synchronization
-- Personalized reading settings
-- Saved content and favourites
-- User authentication and personal library
-
-## AI Processing Pipeline
+## Processing Pipeline
 
 ```text
-User input
-   |
-   +--> Copied text
-   |
-   +--> PDF
-   |
-   +--> Image
-           |
-           v
-     AI text extraction
-           |
-           v
-     Text normalization
-           |
-           v
-     AI accessibility transformation
-           |
-           v
-     Reading formatting
-           |
-           v
-     Text-to-Speech generation
-           |
-           v
-     Audio transcription
-           |
-           v
-     Text / audio synchronization
+Text / PDF / Image
+        |
+        v
+Content extraction
+        |
+        v
+AI accessibility transformation
+        |
+        v
+Reading formatting
+        |
+        +------------------+
+        |                  |
+        v                  v
+Accessible text      Text-to-Speech
+                           |
+                           v
+                    Audio transcription
+                           |
+                           v
+                    Timestamp mapping
+                           |
+                           v
+                 Synchronized reading
 ```
 
-## Under the Hood
+## Tech Stack
 
-Readapt combines a conventional full-stack Rails architecture with AI, multimodal input and asynchronous media processing.
-
-### Backend
-- Ruby
-- Ruby on Rails 8
-- PostgreSQL
-- Active Record
-- Active Job
-- Solid Queue
-- Devise
-
-### Frontend
-- JavaScript
-- Hotwire / Turbo / Stimulus
-- Bootstrap 5
-- HTML / SCSS
-
-### Artificial Intelligence
-- OpenAI API
-- RubyLLM
-- GPT multimodal models
-- Whisper speech transcription
-
-### Audio and File Processing
-- Google Cloud Text-to-Speech
-- OpenAI Whisper
-- Active Storage
-- PDF Reader
-- Cloudinary
-- Image Processing
-
-### Infrastructure and Quality
-- Docker
-- Kamal
-- Puma
-- Git / GitHub
-- RuboCop
-- Brakeman
-- Bundler Audit
-- Dependabot
+| Area | Technologies |
+| --- | --- |
+| Backend | Ruby, Ruby on Rails 8, PostgreSQL, Active Record |
+| Frontend | Hotwire, Turbo, Stimulus, JavaScript, Bootstrap 5, SCSS |
+| Authentication | Devise |
+| AI | OpenAI API, RubyLLM, multimodal GPT models, Whisper |
+| Audio | Google Cloud Text-to-Speech, OpenAI Whisper |
+| Files | Active Storage, PDF Reader, Cloudinary, Image Processing |
+| Background jobs | Active Job, Solid Queue |
+| Infrastructure | Docker, Kamal, Puma |
+| Quality & security | GitHub Actions, Minitest, RuboCop, Brakeman, Bundler Audit, Dependabot |
 
 ## Architecture
 
-Readapt follows Rails MVC architecture with additional service objects and background jobs.
+Readapt follows Rails MVC with service objects for domain and external-service logic and background jobs for longer-running media processing.
 
 ```text
 app/
-├── controllers/
-├── models/
-├── services/
-├── jobs/
-├── views/
-├── javascript/
+├── controllers/       # HTTP flows and authorization boundaries
+├── models/            # persistence and domain relationships
+├── services/          # AI adaptation, formatting and TTS
+├── jobs/              # asynchronous audio pipeline
+├── views/             # server-rendered UI
+├── javascript/        # Stimulus controllers
 └── assets/
 ```
 
-Selected domain logic is separated into service objects, including text formatting, syllabification and text-to-speech. Long-running audio processing is performed asynchronously using Active Job.
-
-## Example Workflow
-
-1. The user uploads a PDF, photograph, or text.
-2. The content is extracted.
-3. The AI analyzes and restructures the text.
-4. The adapted version is stored in the database.
-5. Optional syllable formatting is applied.
-6. An asynchronous job generates the audio version.
-7. Whisper analyzes the generated audio.
-8. Readapt generates timestamps.
-9. The adapted text and audio can be consumed together.
-
-## AI Prompt Strategy
-
-The AI transformation layer uses strict accessibility-oriented rules rather than unrestricted content generation. Instructions cover maximum sentence length, one idea per sentence, preservation of important factual information, controlled vocabulary simplification, no invented information and predictable output formatting.
-
-This strategy helps reduce hallucination risk and produces a more consistent output structure for downstream processing.
-
-## Background Processing
+A typical reading workflow is:
 
 ```text
-Article created
+Article creation
+      |
+      v
+ArticleAdaptationService
+      |
+      v
+Adapted content persisted
       |
       v
 AudioGenerationJob
       |
       +--> Text-to-Speech
-      |
-      +--> Audio attachment
-      |
+      +--> Active Storage attachment
       +--> Whisper transcription
-      |
       +--> Timestamp generation
       |
       v
 Synchronized reading experience
 ```
 
-Background jobs prevent longer AI and audio operations from blocking normal page requests.
+## AI Safety and Prompt Strategy
 
-## Security
+The transformation layer uses accessibility-oriented constraints rather than unrestricted generation. The prompt strategy favors short sentences and predictable formatting while instructing the model to preserve factual information and avoid inventing content.
 
-The project uses Brakeman, Bundler Audit, Dependabot, environment variables for external API credentials and Devise for user authentication. API keys should never be stored directly in the repository.
+External AI and audio services are isolated behind application boundaries so core behavior can be tested without making network calls.
+
+## Testing, Security and CI
+
+Readapt has an automated GitHub Actions pipeline on pushes and pull requests to `master`. The pipeline runs the Rails test suite and a separate quality/security job. fileciteturn111file0L2-L2
+
+The current automated suite contains **21 tests** covering key application behavior, including:
+
+- model validations and user defaults
+- AI adaptation behavior with mocked external calls
+- audio generation and timestamp processing with mocked TTS/transcription
+- authentication requirements
+- article ownership and cross-user access protection
+- favourites and deletion
+- authenticated article creation and background-job enqueueing
+
+Security and quality checks include:
+
+```bash
+bin/rails test
+bundle exec rubocop app lib Gemfile Rakefile
+bundle exec brakeman --no-pager
+bundle exec bundler-audit check --update
+```
+
+Article lookup in protected controller actions is scoped through the authenticated user's association, preventing another signed-in user from retrieving an article simply by knowing its ID.
 
 ## Local Installation
 
 ### Requirements
+
 - Ruby
 - Rails
 - PostgreSQL
@@ -231,35 +208,25 @@ bin/dev
 
 Configure the required environment variables, including `OPENAI_API_KEY`. Additional credentials may be required for Google Cloud Text-to-Speech and Cloudinary.
 
-## Testing and Code Quality
-
-```bash
-bin/rails test
-bin/brakeman
-bundle exec bundler-audit
-bin/rubocop
-```
-
 ## Deployment
 
-Readapt supports containerized deployment. The repository includes Docker configuration, Kamal deployment tooling, Puma and production-oriented Rails infrastructure.
+The repository includes Docker configuration, Kamal deployment tooling, Puma and production-oriented Rails infrastructure for containerized deployment.
 
-## Product Challenges
+## Engineering Challenges
 
-### Preserving meaning while simplifying text
-The AI must improve readability without summarizing, removing essential information or inventing new content. This required strict prompt engineering and controlled output formatting.
+**Preserving meaning while improving readability.** The AI must restructure content without summarizing away essential information or inventing new details. This requires constrained prompt engineering and predictable output handling.
 
-### Combining multiple AI services
-Readapt combines text generation, multimodal image understanding, text-to-speech and speech transcription through a Rails application.
+**Coordinating multiple AI and media services.** Readapt combines multimodal content understanding, text generation, text-to-speech and speech transcription within a Rails application while keeping those external dependencies testable.
 
-### Audio/text synchronization
-Generated audio is transcribed using Whisper and timing information is mapped back to adapted text to support synchronized reading.
+**Audio/text synchronization.** Generated audio is transcribed and timing information is mapped back to adapted passages to support synchronized reading.
+
+**Protecting user-owned content.** Authenticated article operations are scoped to the current user, and automated integration tests verify that one account cannot view, delete or modify another account's articles.
 
 ## What This Project Demonstrates
 
-Readapt demonstrates experience with full-stack web application development, Ruby on Rails architecture, relational databases, authentication, background jobs, file uploads, AI API integration, multimodal AI, prompt engineering, speech-to-text, text-to-speech, third-party APIs, asynchronous processing, deployment and accessibility-focused product design.
+Readapt demonstrates full-stack Ruby on Rails development, relational data modeling, authentication and authorization, background jobs, file uploads, service-object design, AI API integration, multimodal AI, prompt engineering, speech-to-text, text-to-speech, external-service mocking, automated testing, CI, security scanning and accessibility-focused product design.
 
-## Future Improvements
+## Roadmap
 
 - improved word-level audio synchronization
 - additional accessibility profiles
@@ -269,12 +236,10 @@ Readapt demonstrates experience with full-stack web application development, Rub
 - reading progress analytics
 - educator and parent dashboards
 - API access
-- stronger automated test coverage
-- CI/CD with GitHub Actions
 
 ## Project Status
 
-Readapt is currently under active development. It was created during my transition into full-stack and AI software development and continues to evolve as a real-world AI product.
+Readapt is under active development. It began as a full-stack development project and is evolving into a broader accessibility product spanning a Rails web application and a Chrome extension.
 
 ## Author
 
@@ -283,7 +248,7 @@ Full-Stack & AI Software Developer
 
 Focus areas: Ruby on Rails, AI-powered web applications, OpenAI API integration, workflow automation and digital marketing.
 
-GitHub: https://github.com/TonyLawrence85
+[GitHub profile](https://github.com/TonyLawrence85)
 
 ## License
 
