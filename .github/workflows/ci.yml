@@ -39,7 +39,9 @@ jobs:
           bundler-cache: false
 
       - name: Update secured dependencies
-        run: bundle update puma nokogiri rails-html-sanitizer websocket-driver net-imap brakeman --conservative
+        run: >-
+          bundle update puma nokogiri rails-html-sanitizer websocket-driver
+          net-imap crass devise faraday json jwt mail msgpack brakeman --conservative
 
       - name: Prepare database
         run: bin/rails db:prepare
@@ -62,7 +64,9 @@ jobs:
           bundler-cache: false
 
       - name: Update secured dependencies
-        run: bundle update puma nokogiri rails-html-sanitizer websocket-driver net-imap brakeman --conservative
+        run: >-
+          bundle update puma nokogiri rails-html-sanitizer websocket-driver
+          net-imap crass devise faraday json jwt mail msgpack brakeman --conservative
 
       - name: Run RuboCop
         run: bundle exec rubocop app lib Gemfile Rakefile
