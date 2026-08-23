@@ -46,7 +46,8 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
 
     patch toggle_favourite_article_url(@article)
 
-    assert_redirected_to articles_url
+    assert_response :redirect
+    assert_equal articles_path, URI.parse(response.location).path
     assert @article.reload.favourite?
   end
 
@@ -57,7 +58,8 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
       delete article_url(@article)
     end
 
-    assert_redirected_to articles_url
+    assert_response :redirect
+    assert_equal articles_path, URI.parse(response.location).path
     assert_not Article.exists?(@article.id)
   end
 
