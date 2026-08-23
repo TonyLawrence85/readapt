@@ -63,7 +63,7 @@ class ArticlesController < ApplicationController
   end
 
   def set_article
-    @article = Article.find(params[:id])
+    @article = current_user.articles.find(params[:id])
   end
 
   def invalid_source?
