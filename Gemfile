@@ -6,7 +6,7 @@ gem "rails", "~> 8.1.3"
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", ">= 5.0"
+gem "puma", ">= 8.0.2"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
@@ -15,6 +15,11 @@ gem "turbo-rails"
 gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
+
+# Security floors for transitive Rails dependencies flagged by bundler-audit.
+gem "nokogiri", ">= 1.19.4"
+gem "rails-html-sanitizer", ">= 1.7.1"
+gem "websocket-driver", ">= 0.8.2"
 
 # Use Active Model has_secure_password
 # https://guides.rubyonrails.org/active_model_basics.html#securepassword
@@ -63,7 +68,7 @@ group :development, :test do
   gem "bundler-audit", require: false
 
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
-  gem "brakeman", require: false
+  gem "brakeman", ">= 8.0.6", require: false
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
