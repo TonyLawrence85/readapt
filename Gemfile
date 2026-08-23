@@ -16,10 +16,11 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
-# Security floors for transitive Rails dependencies flagged by bundler-audit.
+# Security floors for transitive dependencies flagged by bundler-audit.
 gem "nokogiri", ">= 1.19.4"
 gem "rails-html-sanitizer", ">= 1.7.1"
 gem "websocket-driver", ">= 0.8.2"
+gem "net-imap", ">= 0.6.4.1"
 
 # Use Active Model has_secure_password
 # https://guides.rubyonrails.org/active_model_basics.html#securepassword
