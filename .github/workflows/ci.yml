@@ -59,7 +59,10 @@ jobs:
         run: bundle exec rubocop app lib Gemfile Rakefile
 
       - name: Run Brakeman
-        run: bin/brakeman --no-pager
+        run: bundle exec brakeman --no-pager
+
+      - name: Verify latest Brakeman
+        run: gem install brakeman --no-document && brakeman --ensure-latest --no-pager
 
       - name: Run Bundler Audit
         run: bundle exec bundler-audit check --update
