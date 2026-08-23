@@ -19,7 +19,7 @@ class ArticleAdaptationServiceTest < ActiveSupport::TestCase
 
   test "applies syllabification when syllable mode is enabled" do
     with_fake_chat("Bonjour monde.") do
-      TextFormatter.stub(:syllabify, ->(line) { "adapté: #{line}" }) do
+      with_fake_syllabify(->(line) { "adapté: #{line}" }) do
         result = ArticleAdaptationService.call("Texte original", syllable_mode: true)
         assert_equal ["adapté: Bonjour monde."], result
       end
@@ -28,7 +28,7 @@ class ArticleAdaptationServiceTest < ActiveSupport::TestCase
 
   test "does not syllabify by default" do
     with_fake_chat("Bonjour monde.") do
-      TextFormatter.stub(:syllabify, ->(_line) { flunk "unexpected syllabification" }) do
+      with_fake_syllabify(->(_line) { flunk "unexpected syllabification" }) do
         assert_equal ["Bonjour monde."], ArticleAdaptationService.call("Texte original")
       end
     end
@@ -45,5 +45,13 @@ class ArticleAdaptationServiceTest < ActiveSupport::TestCase
     yield
   ensure
     RubyLLM.define_singleton_method(:chat, original_chat)
+  end
+
+  def with_fake_syllabify(replacement)
+    original_syllabify = TextFormatter.method(:syllabify)
+    TextFormatter.define_singleton_method(:syllabify, replacement)
+    yield
+  ensure
+    TextFormatter.define_singleton_method(:syllabify, original_syllabify)
   end
 end
