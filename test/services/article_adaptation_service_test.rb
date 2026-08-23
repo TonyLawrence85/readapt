@@ -40,6 +40,10 @@ class ArticleAdaptationServiceTest < ActiveSupport::TestCase
     response_class = Response
     chat = Object.new
     chat.define_singleton_method(:ask) { |_message| response_class.new(content) }
-    RubyLLM.stub(:chat, chat) { yield }
+    original_chat = RubyLLM.method(:chat)
+    RubyLLM.define_singleton_method(:chat) { |**_options| chat }
+    yield
+  ensure
+    RubyLLM.define_singleton_method(:chat, original_chat)
   end
 end
